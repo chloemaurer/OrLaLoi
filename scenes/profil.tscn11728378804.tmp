@@ -1,0 +1,294 @@
+[gd_scene load_steps=12 format=3 uid="uid://b0faj1t3lwxrx"]
+
+[ext_resource type="Texture2D" uid="uid://7nrwkrwc1tok" path="res://assets/profil/coeur.webp" id="1_60ec7"]
+[ext_resource type="Script" uid="uid://2e700233qs4k" path="res://scripts/profil.gd" id="1_u0f51"]
+[ext_resource type="Texture2D" uid="uid://btlu4r2ley4ww" path="res://assets/profil/alcool.webp" id="2_p3bhk"]
+[ext_resource type="Texture2D" uid="uid://jpvdd31q8et" path="res://assets/profil/nourriture.webp" id="3_ktdlf"]
+[ext_resource type="Texture2D" uid="uid://rpldswevjr74" path="res://assets/profil/revolver.png" id="4_6oprs"]
+[ext_resource type="Texture2D" uid="uid://b0hrtmg55c17b" path="res://assets/profil/joueur.png" id="4_ktdlf"]
+[ext_resource type="Texture2D" uid="uid://jhtn7blget3s" path="res://assets/profil/pavePrototype_v2.webp" id="5_u0f51"]
+[ext_resource type="Texture2D" uid="uid://vcohqkjwjaaf" path="res://assets/profil/or.webp" id="6_edwgy"]
+[ext_resource type="Script" uid="uid://1khv76j3dg8v" path="res://addons/godot-firebase/database/database.gd" id="9_edwgy"]
+[ext_resource type="Script" uid="uid://d1vcmlorww60g" path="res://addons/godot-firebase/database/reference.gd" id="10_oyrg5"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aqgur"]
+corner_radius_top_left = 514
+corner_radius_top_right = 562
+
+[node name="Profil" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_u0f51")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.99868387, 1)
+theme_override_styles/panel = SubResource("StyleBoxFlat_aqgur")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -65.0
+offset_top = -378.0
+offset_right = 485.0
+offset_bottom = -308.0
+grow_vertical = 0
+
+[node name="Coeur" type="TextureRect" parent="HBoxContainer"]
+modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("1_60ec7")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Coeur2" type="TextureRect" parent="HBoxContainer"]
+modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("1_60ec7")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Coeur3" type="TextureRect" parent="HBoxContainer"]
+modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("1_60ec7")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Coeur4" type="TextureRect" parent="HBoxContainer"]
+modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("1_60ec7")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Coeur5" type="TextureRect" parent="HBoxContainer"]
+modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("1_60ec7")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -68.0
+offset_top = -300.0
+offset_right = 491.0
+offset_bottom = -199.0
+grow_vertical = 2
+size_flags_horizontal = 0
+
+[node name="Alcohol" type="TextureRect" parent="HBoxContainer2"]
+modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("2_p3bhk")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Alcohol2" type="TextureRect" parent="HBoxContainer2"]
+modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("2_p3bhk")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Alcohol3" type="TextureRect" parent="HBoxContainer2"]
+modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("2_p3bhk")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Alcohol4" type="TextureRect" parent="HBoxContainer2"]
+modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("2_p3bhk")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Alcohol5" type="TextureRect" parent="HBoxContainer2"]
+modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("2_p3bhk")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -67.0
+offset_top = -183.0
+offset_right = 509.0
+offset_bottom = -124.0
+size_flags_horizontal = 0
+
+[node name="Food" type="TextureRect" parent="HBoxContainer3"]
+modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("3_ktdlf")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Food2" type="TextureRect" parent="HBoxContainer3"]
+modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("3_ktdlf")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Food3" type="TextureRect" parent="HBoxContainer3"]
+modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("3_ktdlf")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Food4" type="TextureRect" parent="HBoxContainer3"]
+modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("3_ktdlf")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Food5" type="TextureRect" parent="HBoxContainer3"]
+modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("3_ktdlf")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -279.0
+offset_top = -546.0
+offset_right = 264.0
+offset_bottom = -447.0
+scale = Vector2(1.0007063, 1.0133923)
+size_flags_horizontal = 0
+
+[node name="Gun" type="TextureRect" parent="HBoxContainer4"]
+modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("4_6oprs")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Label" type="Label" parent="HBoxContainer4/Gun"]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -23.0
+grow_horizontal = 0
+grow_vertical = 0
+scale = Vector2(0.998024, 1)
+text = "0"
+
+[node name="KeypadIcon" type="TextureRect" parent="HBoxContainer4"]
+modulate = Color(0.56599003, 0.24204558, 0, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("5_u0f51")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="HBoxContainer4"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "10"
+max_lines_visible = 1
+
+[node name="Gold" type="TextureRect" parent="HBoxContainer4/Label"]
+modulate = Color(1, 0.6460767, 0, 1)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -133.0
+offset_top = -49.5
+offset_bottom = 49.5
+grow_horizontal = 0
+grow_vertical = 2
+scale = Vector2(0.98542464, 0.9910177)
+size_flags_horizontal = 3
+texture = ExtResource("6_edwgy")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="JoueurIcone" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 165.0
+offset_top = 250.0
+offset_right = 677.0
+offset_bottom = 762.0
+scale = Vector2(0.52529705, 0.52529705)
+texture = ExtResource("4_ktdlf")
+
+[node name="Label" type="Label" parent="."]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 0
+offset_left = 397.00003
+offset_top = 542.99994
+offset_right = 490.00003
+offset_bottom = 565.99994
+scale = Vector2(3.9890828, 4.015014)
+text = "Nom Joueur"
+
+[node name="Firebase" type="Node2D" parent="."]
+
+[node name="FirebaseDatabase" type="Node" parent="Firebase"]
+script = ExtResource("9_edwgy")
+metadata/_custom_type_script = "uid://1khv76j3dg8v"
+
+[node name="ProfilRef" type="Node" parent="Firebase/FirebaseDatabase"]
+script = ExtResource("10_oyrg5")
+metadata/_custom_type_script = "uid://d1vcmlorww60g"

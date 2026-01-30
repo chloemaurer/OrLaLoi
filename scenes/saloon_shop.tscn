@@ -1,0 +1,46 @@
+[gd_scene load_steps=2 format=3 uid="uid://camp0foh2lq17"]
+
+[ext_resource type="Script" uid="uid://ct54k77ngvy4p" path="res://scripts/saloon_shop.gd" id="1_ie1bb"]
+
+[node name="SaloonShop" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_ie1bb")
+
+[node name="Panel" type="Panel" parent="."]
+modulate = Color(0.8291994, 0.22925165, 0.4097061, 1)
+layout_mode = 0
+offset_left = 249.0
+offset_top = 69.0
+offset_right = 851.0
+offset_bottom = 567.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 249.0
+offset_top = 141.0
+offset_right = 852.0
+offset_bottom = 476.0
+theme_override_constants/separation = 40
+
+[node name="Saloon" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 75
+text = "Saloon"
+
+[node name="DrinkRoller" type="TextureRect" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+expand_mode = 1
+stretch_mode = 3
+
+[node name="DrinkName" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 30
+
+[node name="DrinkDescription" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 20

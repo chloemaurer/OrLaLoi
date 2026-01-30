@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://cse5t0hgk5hjb"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_cd8se"]
+
+[sub_resource type="Gradient" id="Gradient_vxsli"]
+offsets = PackedFloat32Array(0.6481481)
+colors = PackedColorArray(0.77748555, 0.36489284, 0.14326882, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_y6llf"]
+gradient = SubResource("Gradient_vxsli")
+
+[node name="Node2D" type="Node2D"]
+
+[node name="InteractiveCircle" type="MeshInstance2D" parent="."]
+position = Vector2(2.3841858e-07, 2.2737368e-13)
+scale = Vector2(40, 40)
+mesh = SubResource("SphereMesh_cd8se")
+texture = SubResource("GradientTexture1D_y6llf")

@@ -11,5 +11,16 @@ config_version=5
 [application]
 
 config/name="Or la loi"
+run/main_scene="uid://c63j8pcxbtd7f"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
+
+[autoload]
+
+Firebase="*res://addons/godot-firebase/firebase/firebase.tscn"
+DatabaseConfig="*res://scripts/database_config.gd"
+ProfilTurn="*res://scripts/profil_turn.gd"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/godot-firebase/plugin.cfg", "res://addons/http-sse-client/plugin.cfg")

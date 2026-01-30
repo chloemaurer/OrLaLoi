@@ -1,0 +1,524 @@
+[gd_scene load_steps=19 format=3 uid="uid://c63j8pcxbtd7f"]
+
+[ext_resource type="Texture2D" uid="uid://b16n0ewt4o7d6" path="res://assets/fond.png" id="1_tr6oq"]
+[ext_resource type="PackedScene" uid="uid://cse5t0hgk5hjb" path="res://scenes/interactive_circle.tscn" id="2_iylmw"]
+[ext_resource type="Script" uid="uid://dpasr7vmxwkll" path="res://scripts/places.gd" id="2_l2a8t"]
+[ext_resource type="PackedScene" uid="uid://co2fegnxpibon" path="res://scenes/dice.tscn" id="3_g3ehx"]
+[ext_resource type="Script" uid="uid://dsec2qiqxhgmk" path="res://scripts/dice.gd" id="4_6ndk6"]
+[ext_resource type="Script" uid="uid://ct54k77ngvy4p" path="res://scripts/saloon_shop.gd" id="7_l2a8t"]
+[ext_resource type="Script" uid="uid://boka4heiwao03" path="res://scripts/restaurant_shop.gd" id="8_0at3r"]
+[ext_resource type="PackedScene" uid="uid://b0faj1t3lwxrx" path="res://scenes/profil.tscn" id="8_ckosc"]
+[ext_resource type="PackedScene" uid="uid://dxvc5gry51wxq" path="res://scenes/bank.tscn" id="9_ckosc"]
+
+[sub_resource type="Animation" id="Animation_l1yxy"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_6ndk6"]
+resource_name = "dice"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(3.1415927, 0, 6.2831855)]
+}
+
+[sub_resource type="Animation" id="Animation_7w63j"]
+resource_name = "dice_2"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(-3.1415927, 0, -6.2831855)]
+}
+
+[sub_resource type="Animation" id="Animation_lop0i"]
+resource_name = "dice_6"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(3.1415927, 0, 6.2831855)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7w63j"]
+_data = {
+&"RESET": SubResource("Animation_l1yxy"),
+&"dice": SubResource("Animation_6ndk6"),
+&"dice_2": SubResource("Animation_7w63j"),
+&"dice_6": SubResource("Animation_lop0i")
+}
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_g3ehx"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_6ndk6"]
+sky_material = SubResource("ProceduralSkyMaterial_g3ehx")
+
+[sub_resource type="Environment" id="Environment_l1yxy"]
+background_mode = 2
+sky = SubResource("Sky_6ndk6")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_g3ehx"]
+
+[node name="Principal" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 22.0
+offset_top = 155.0
+offset_right = 22.0
+offset_bottom = 155.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(0, -66)
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = -575.0
+offset_top = -387.0
+offset_right = 1017.775
+offset_bottom = 637.0
+scale = Vector2(0.7224918, 0.62656164)
+texture = ExtResource("1_tr6oq")
+
+[node name="Places" type="Node2D" parent="."]
+position = Vector2(-3, -26)
+scale = Vector2(0.76, 0.76)
+script = ExtResource("2_l2a8t")
+
+[node name="Saloon" type="Button" parent="Places"]
+self_modulate = Color(1, 1, 1, 0)
+offset_left = -361.8421
+offset_top = 71.05262
+offset_right = -322.3684
+offset_bottom = 111.842094
+
+[node name="Saloon" parent="Places/Saloon" instance=ExtResource("2_iylmw")]
+position = Vector2(19.736847, 21.052628)
+
+[node name="Mine" type="Button" parent="Places"]
+self_modulate = Color(1, 1, 1, 0)
+offset_left = -464.47372
+offset_top = -164.47368
+offset_right = -425.00003
+offset_bottom = -123.68422
+
+[node name="Mine" parent="Places/Mine" instance=ExtResource("2_iylmw")]
+position = Vector2(19.473755, 20.473671)
+
+[node name="Restaurant" type="Button" parent="Places"]
+self_modulate = Color(1, 1, 1, 0)
+offset_top = -111.8421
+offset_right = 40.789482
+offset_bottom = -71.05262
+
+[node name="Restaurant" parent="Places/Restaurant" instance=ExtResource("2_iylmw")]
+position = Vector2(20.526314, 19.894753)
+
+[node name="Armory" type="Button" parent="Places"]
+self_modulate = Color(1, 1, 1, 0)
+offset_left = 223.68422
+offset_top = 38.15789
+offset_right = 264.4737
+offset_bottom = 78.947365
+
+[node name="Armurerie" parent="Places/Armory" instance=ExtResource("2_iylmw")]
+position = Vector2(19.894745, 20.526321)
+
+[node name="Bank" type="Button" parent="Places"]
+self_modulate = Color(1, 1, 1, 0)
+z_index = 10
+offset_left = 400.0
+offset_top = -48.68421
+offset_right = 440.78946
+offset_bottom = -7.8947372
+
+[node name="Banque" parent="Places/Bank" instance=ExtResource("2_iylmw")]
+position = Vector2(21.052582, 21.052628)
+
+[node name="Duel" type="Button" parent="Places"]
+self_modulate = Color(1, 1, 1, 0)
+offset_left = -21.052631
+offset_top = 206.57892
+offset_right = 19.736843
+offset_bottom = 247.36841
+
+[node name="Duel" parent="Places/Duel" instance=ExtResource("2_iylmw")]
+position = Vector2(20.052631, 19.947388)
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_left = -125.0
+offset_top = -64.0
+offset_right = 121.0
+offset_bottom = 119.0
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+layout_mode = 0
+offset_left = -133.0
+offset_top = -8.0
+offset_right = 719.61414
+offset_bottom = 545.00073
+scale = Vector2(0.30399907, 0.30399907)
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+transparent_bg = true
+handle_input_locally = false
+physics_object_picking = true
+physics_object_picking_sort = true
+physics_object_picking_first_only = true
+size = Vector2i(852, 553)
+render_target_update_mode = 4
+
+[node name="Node3D" type="Node3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4, 0, 0)
+
+[node name="D6" parent="SubViewportContainer/SubViewport/Node3D" instance=ExtResource("3_g3ehx")]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
+rotation_order = 0
+
+[node name="RollDiceAnimation" type="AnimationPlayer" parent="SubViewportContainer/SubViewport/Node3D"]
+libraries = {
+&"": SubResource("AnimationLibrary_7w63j")
+}
+
+[node name="Node3D2" type="Node3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4, 0, 0)
+
+[node name="D2" parent="SubViewportContainer/SubViewport/Node3D2" instance=ExtResource("3_g3ehx")]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
+
+[node name="RollDiceAnimation2" type="AnimationPlayer" parent="SubViewportContainer/SubViewport/Node3D2"]
+libraries = {
+&"": SubResource("AnimationLibrary_7w63j")
+}
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="SubViewportContainer/SubViewport"]
+environment = SubResource("Environment_l1yxy")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(0.83997047, -0.39022505, -0.3770598, 0, -0.6948718, 0.7191337, -0.54263216, -0.60405105, -0.58367175, 0, 0, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewportContainer/SubViewport"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewportContainer/SubViewport/StaticBody3D"]
+shape = SubResource("WorldBoundaryShape3D_g3ehx")
+
+[node name="CameraDice" type="Camera3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 0.022006782, 0.9997578, 0, -0.9997578, 0.022006782, 0, 4.867, 0)
+current = true
+
+[node name="RollDiceButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = -90.0
+offset_top = -52.0
+offset_right = 156.0
+offset_bottom = 5.0
+scale = Vector2(0.7203803, 0.7653786)
+theme_override_font_sizes/font_size = 35
+text = "Lancer les dés"
+script = ExtResource("4_6ndk6")
+
+[node name="DiceResultLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = -26.0
+offset_top = -12.0
+offset_right = 31.0
+offset_bottom = 57.0
+scale = Vector2(0.8377734, 0.8554982)
+theme_override_font_sizes/font_size = 50
+text = "10"
+
+[node name="Restaurant" type="Control" parent="."]
+anchors_preset = 0
+offset_left = -138.99997
+offset_top = -319.0
+offset_right = -138.99997
+offset_bottom = -319.0
+scale = Vector2(0.29962876, 0.29962876)
+
+[node name="Panel" type="Panel" parent="Restaurant"]
+modulate = Color(0.827451, 0.22745098, 0.40784314, 1)
+layout_mode = 0
+offset_left = 249.0
+offset_top = 69.0
+offset_right = 851.0
+offset_bottom = 567.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Restaurant"]
+layout_mode = 0
+offset_left = 249.0
+offset_top = 141.0
+offset_right = 852.0
+offset_bottom = 476.0
+theme_override_constants/separation = 40
+
+[node name="Label" type="Label" parent="Restaurant/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 75
+text = "Taverne"
+
+[node name="FoodUseCard" type="Button" parent="Restaurant/VBoxContainer"]
+modulate = Color(3.1229057, 3.1229057, 3.1229057, 1)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 30
+text = "Utiliser une carte"
+
+[node name="FoodBuyCard" type="Button" parent="Restaurant/VBoxContainer"]
+modulate = Color(3.1229057, 3.1229057, 3.1229057, 1)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 30
+text = "Acheter une carte"
+
+[node name="Label2" type="Label" parent="Restaurant/VBoxContainer/FoodBuyCard"]
+modulate = Color(0.7581918, 0.7581918, 0.7581917, 1)
+layout_mode = 0
+offset_left = 33.0
+offset_top = 51.0
+offset_right = 234.0
+offset_bottom = 86.0
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 20
+text = "À vos risque et périls"
+
+[node name="RestaurantShop" type="Control" parent="."]
+anchors_preset = 0
+offset_left = -130.0
+offset_top = -302.0
+offset_right = -130.0
+offset_bottom = -302.0
+scale = Vector2(0.29056025, 0.29056025)
+script = ExtResource("8_0at3r")
+
+[node name="Panel" type="Panel" parent="RestaurantShop"]
+modulate = Color(0.8291994, 0.22925165, 0.4097061, 1)
+layout_mode = 0
+offset_left = 249.0
+offset_top = 69.0
+offset_right = 851.0
+offset_bottom = 567.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="RestaurantShop"]
+layout_mode = 0
+offset_left = 249.0
+offset_top = 116.0
+offset_right = 852.0
+offset_bottom = 525.0
+theme_override_constants/separation = 40
+
+[node name="Saloon" type="Label" parent="RestaurantShop/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 75
+text = "Taverne"
+
+[node name="FoodRoller" type="TextureRect" parent="RestaurantShop/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+expand_mode = 1
+stretch_mode = 3
+
+[node name="FoodName" type="Label" parent="RestaurantShop/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 30
+
+[node name="FoodDescription" type="Label" parent="RestaurantShop/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 20
+
+[node name="Saloon" type="Control" parent="."]
+anchors_preset = 0
+offset_left = -513.0
+offset_top = -226.00002
+offset_right = -513.0
+offset_bottom = -226.00002
+scale = Vector2(0.39708856, 0.39708856)
+
+[node name="Panel" type="Panel" parent="Saloon"]
+modulate = Color(0.7529412, 0.20392157, 0.36862746, 1)
+layout_mode = 0
+offset_left = 249.0
+offset_top = 69.0
+offset_right = 851.0
+offset_bottom = 567.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Saloon"]
+layout_mode = 0
+offset_left = 249.0
+offset_top = 141.0
+offset_right = 852.0
+offset_bottom = 476.0
+theme_override_constants/separation = 40
+
+[node name="Label" type="Label" parent="Saloon/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 75
+text = "Saloon"
+
+[node name="UseCard" type="Button" parent="Saloon/VBoxContainer"]
+modulate = Color(3.1229057, 3.1229057, 3.1229057, 1)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 30
+text = "Utiliser une carte"
+
+[node name="BuyCard" type="Button" parent="Saloon/VBoxContainer"]
+modulate = Color(3.1229057, 3.1229057, 3.1229057, 1)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 30
+text = "Acheter une carte"
+
+[node name="Label2" type="Label" parent="Saloon/VBoxContainer/BuyCard"]
+modulate = Color(0.7581918, 0.7581918, 0.7581917, 1)
+layout_mode = 0
+offset_left = 33.0
+offset_top = 51.0
+offset_right = 234.0
+offset_bottom = 86.0
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 20
+text = "À vos risque et périls"
+
+[node name="SaloonShop" type="Control" parent="."]
+anchors_preset = 0
+offset_left = -524.0
+offset_top = -231.0
+offset_right = -524.0
+offset_bottom = -231.0
+scale = Vector2(0.41020092, 0.41020092)
+script = ExtResource("7_l2a8t")
+
+[node name="Panel" type="Panel" parent="SaloonShop"]
+modulate = Color(0.8291994, 0.22925165, 0.4097061, 1)
+layout_mode = 0
+offset_left = 249.0
+offset_top = 69.0
+offset_right = 851.0
+offset_bottom = 567.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SaloonShop"]
+layout_mode = 0
+offset_left = 249.0
+offset_top = 141.0
+offset_right = 852.0
+offset_bottom = 476.0
+theme_override_constants/separation = 40
+
+[node name="Saloon" type="Label" parent="SaloonShop/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 75
+text = "Saloon"
+
+[node name="DrinkRoller" type="TextureRect" parent="SaloonShop/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+expand_mode = 1
+stretch_mode = 3
+
+[node name="DrinkName" type="Label" parent="SaloonShop/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 30
+
+[node name="DrinkDescription" type="Label" parent="SaloonShop/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 20
+
+[node name="Profils" type="Node" parent="."]
+
+[node name="Profil" parent="Profils" instance=ExtResource("8_ckosc")]
+offset_left = -557.0
+offset_top = 227.0
+offset_right = -118.4227
+offset_bottom = 516.0
+scale = Vector2(0.6399994, 0.6399994)
+
+[node name="Profil2" parent="Profils" instance=ExtResource("8_ckosc")]
+offset_left = 315.0
+offset_top = 227.0
+offset_right = 753.5773
+offset_bottom = 516.0
+scale = Vector2(0.6399994, 0.6399994)
+actual_profil = "1"
+
+[node name="Profil3" parent="Profils" instance=ExtResource("8_ckosc")]
+offset_left = 599.0
+offset_top = -53.0
+offset_right = 1037.5773
+offset_bottom = 235.99997
+rotation = 3.1415927
+scale = Vector2(0.6399994, 0.6399994)
+actual_profil = "2"
+
+[node name="Profil4" parent="Profils" instance=ExtResource("8_ckosc")]
+offset_left = -272.0
+offset_top = -48.999985
+offset_right = 166.5773
+offset_bottom = 239.99998
+rotation = 3.1415927
+scale = Vector2(0.6399994, 0.6399994)
+actual_profil = "3"
+
+[node name="Bank" parent="." instance=ExtResource("9_ckosc")]
+layout_mode = 0
+offset_left = 137.0
+offset_top = -259.0
+offset_right = 137.0
+offset_bottom = -259.0
+scale = Vector2(0.3309081, 0.3309081)
+
+[connection signal="pressed" from="Places/Saloon" to="Places" method="_on_saloon_pressed"]
+[connection signal="pressed" from="Places/Restaurant" to="Places" method="_on_restaurant_pressed"]
+[connection signal="pressed" from="Places/Bank" to="Places" method="_on_bank_pressed"]
+[connection signal="animation_finished" from="SubViewportContainer/SubViewport/Node3D/RollDiceAnimation" to="RollDiceButton" method="_on_roll_dice_animation_animation_finished"]
+[connection signal="pressed" from="RollDiceButton" to="RollDiceButton" method="roll_dice"]
+[connection signal="pressed" from="Restaurant/VBoxContainer/FoodBuyCard" to="Places" method="_on_food_buy_card_pressed"]
+[connection signal="pressed" from="Restaurant/VBoxContainer/FoodBuyCard" to="RestaurantShop" method="_on_food_buy_card_pressed"]
+[connection signal="pressed" from="Saloon/VBoxContainer/BuyCard" to="Places" method="_on_buy_card_pressed"]
+[connection signal="pressed" from="Saloon/VBoxContainer/BuyCard" to="SaloonShop" method="_on_buy_card_pressed"]

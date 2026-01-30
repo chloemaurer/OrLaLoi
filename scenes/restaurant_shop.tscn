@@ -1,0 +1,46 @@
+[gd_scene load_steps=2 format=3 uid="uid://m1vsi3h6p5qc"]
+
+[ext_resource type="Script" uid="uid://boka4heiwao03" path="res://scripts/restaurant_shop.gd" id="1_i78rg"]
+
+[node name="RestaurantShop" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_i78rg")
+
+[node name="Panel" type="Panel" parent="."]
+modulate = Color(0.8291994, 0.22925165, 0.4097061, 1)
+layout_mode = 0
+offset_left = 249.0
+offset_top = 69.0
+offset_right = 851.0
+offset_bottom = 567.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 249.0
+offset_top = 116.0
+offset_right = 852.0
+offset_bottom = 525.0
+theme_override_constants/separation = 40
+
+[node name="Saloon" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 75
+text = "Taverne"
+
+[node name="FoodRoller" type="TextureRect" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+expand_mode = 1
+stretch_mode = 3
+
+[node name="FoodName" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 30
+
+[node name="FoodDescription" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 20
