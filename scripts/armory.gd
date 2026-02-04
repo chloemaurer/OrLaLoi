@@ -8,8 +8,7 @@ extends Control
 var num := 1
 var nb_prix := 2
 var prix_pioche := 3
-var life_multiply
-var pioche
+var munition
 
 func _ready() -> void:
 	count.text = str(num)
@@ -36,20 +35,12 @@ func _actualiser_labels() -> void:
 	count.text = str(num)
 	prix.text = str(nb_prix)
 
-func _on_bank_buy_card_pressed() -> void:
-	var id_joueur = DatabaseConfig.current_profil_id
-	print("Banque : Essai d'achat de ", num, " jetons pour ", nb_prix, " gold par Profil ", id_joueur)
-	var succes = DatabaseConfig.spend_money(nb_prix, id_joueur)
 
+func _on_armory_buy_card_pressed() -> void:
+	var id_actuel = DatabaseConfig.current_profil_id
+	print("Armurerie : Essai d'achat pour Profil ", id_actuel)
+	var succes = DatabaseConfig.spend_money(nb_prix, id_actuel)
+	
 	if succes:
-		print("Banque : Achat validé pour le profil ", id_joueur)
-		life_multiply = DatabaseConfig.get_life(num,id_joueur)
-
-	else:
-		print("Banque : Échec de l'achat (fonds insuffisants)")
-		prix.modulate = Color.RED
-
- 
-func _on_get_card_pressed() -> void:
-	var id_joueur = DatabaseConfig.current_profil_id
-	pioche = DatabaseConfig.spend_money(prix_pioche,id_joueur)
+		print("Armurerie : Achat validé pour le profil ", id_actuel)
+		DatabaseConfig.get_munition(num, id_actuel)

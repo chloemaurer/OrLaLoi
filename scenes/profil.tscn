@@ -234,7 +234,7 @@ texture = ExtResource("5_a5gfj")
 expand_mode = 1
 stretch_mode = 6
 
-[node name="Label" type="Label" parent="Items/Items/Gun"]
+[node name="Munition" type="Label" parent="Items/Items/Gun"]
 modulate = Color(0, 0, 0, 1)
 layout_mode = 1
 anchors_preset = 3
@@ -260,9 +260,10 @@ stretch_mode = 5
 [node name="KeypadOpen" type="Button" parent="Items/Items/KeypadIcon"]
 modulate = Color(0.02745098, 0.02745098, 0.02745098, 0)
 layout_mode = 0
-offset_left = 12.8074665
-offset_right = 20.807467
-offset_bottom = 8.0
+offset_left = 28.238892
+offset_top = -4.863562
+offset_right = 36.23889
+offset_bottom = 3.136438
 scale = Vector2(8.067134, 7.890571)
 
 [node name="Money" type="Label" parent="Items/Items"]
@@ -327,6 +328,7 @@ theme_override_font_sizes/font_size = 35
 horizontal_alignment = 1
 
 [node name="Keypad" parent="." instance=ExtResource("9_awxfq")]
-visible = false
-position = Vector2(216.00002, -141.00002)
-scale = Vector2(0.5200006, 0.5200006)
+position = Vector2(205, -123)
+scale = Vector2(0.39007133, 0.39007133)
+
+[connection signal="pressed" from="Items/Items/KeypadIcon/KeypadOpen" to="." method="_on_keypad_open_pressed"]

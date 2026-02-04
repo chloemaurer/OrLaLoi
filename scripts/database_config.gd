@@ -1,106 +1,151 @@
 extends Node
-# Variables
+
 signal db_ready
 var db_ref : FirebaseDatabaseReference = null
 var is_ready : bool = false
+
+# Variables locales de calcul (synchronisées avec le profil actif)
 var money_local : int = 0
+var munition_local : int = 0
 var life_local : int = 0
 var drink_local : int = 0
 var food_local : int = 0
+var current_profil_id : String = "0"
+
+# --- RÉFÉRENCES DES SCRIPTS (Assignées par le Main/Général) ---
+var script_general = null 
+var script_saloon = null 
+var script_restaurant = null 
+var script_bank = null
+var script_armory = null
+var script_duel = null
+var cache_cartes = null
 
 func _ready() -> void:
 	Firebase.Auth.login_succeeded.connect(_on_FirebaseAuth_login_succeeded)
-	Firebase.Auth.login_failed.connect(failed_login)
 	Firebase.Auth.login_with_email_and_password("chloe29.maurer@gmail.com", "Yeraci_8")
 	
 func _on_FirebaseAuth_login_succeeded(_auth):
-	print("Firebase est prêt et connecté.")
+	print("Firebase Connecté. Initialisation du Dispatcher Global...")
 	db_ref = Firebase.Database.get_database_reference("", {})
 	db_ref.new_data_update.connect(_on_db_data_update)
 	db_ref.patch_data_update.connect(_on_db_data_update)
-	db_ref.delete_data_update.connect(_on_db_data_update)
-	db_ready.emit()
 	is_ready = true
+	db_ready.emit()
 
+# --- LE DISPATCHER CENTRAL -------------------------------------------
 
-func failed_login():
-	print("Connection failed")
+func _on_db_data_update(resource: FirebaseResource):
+	var chemin = resource.key
+	var data = resource.data
 	
+	if chemin == null: return
 
-func spend_money(montant: int, profil_id: String):
+#---- 1. PROFILS--------------------------------
+	if chemin.begins_with("profils") or chemin == "profils":
+		if script_general:
+			# On envoie TOUT le dictionnaire au script général
+			script_general.distribuer_donnees(chemin, data)
+			
+		_trier_donnees_locales(chemin, data)
+		
+		if script_bank and script_bank.has_method("mettre_a_jour_interface"):
+			script_bank.mettre_a_jour_interface()
+			
+		if script_armory and script_armory.has_method("mettre_a_jour_interface"):
+			script_armory.mettre_a_jour_interface()
+#---- 2. SALOON-------------------------------
+	if chemin.begins_with("saloon"):
+		if script_saloon and typeof(script_saloon) == TYPE_OBJECT:
+			var sub_key = chemin.replace("saloon/", "")
+			script_saloon.mettre_a_jour_catalogue(sub_key, data)
+		else:
+			print("Erreur : script_saloon n'est pas un nœud valide !")
+
+#----- 3. RESTAURANT (Indépendant)-----------
+	if chemin.begins_with("restaurant"):
+		if script_restaurant and typeof(script_restaurant) == TYPE_OBJECT:
+			var sub_key = chemin.replace("restaurant/", "")
+			script_restaurant.mettre_a_jour_catalogue(sub_key, data)
+		else:
+			print("Erreur : script_restaurant n'est pas un nœud valide !")
+#----- 4. CARTES -----------
+	if chemin.begins_with("cartes"):
+		cache_cartes = data # On garde une copie pour le Main
+		print("[DB] Données Cartes reçues !")
+	
+		if script_general and script_general.keypad.size() > 0:
+			# On prépare la clé pour les scripts
+			var sub_key = chemin.replace("cartes/", "")
+			
+			for kp in script_general.keypad:
+				if is_instance_valid(kp):
+					# LA SÉCURITÉ : On vérifie si le script est bien là
+					if kp.has_method("mettre_a_jour_catalogue"):
+						kp.mettre_a_jour_catalogue(sub_key, data)
+					else:
+						# Si ce print apparaît, le script Keypad.gd n'est pas sur le nœud !
+						print("[DB] ERREUR : Le nœud ", kp.name, " n'a pas le script Keypad.gd")
+		else:
+			print("[DB] En attente du script_general pour envoyer les cartes.")
+# --- LOGIQUE DE TRIAGE DES VARIABLES ----------------------------------
+
+func _trier_donnees_locales(chemin: String, data):
+	var tag_actif = "ID" + current_profil_id
+	
+	# Cas A : C'est une valeur unique pour le profil actif (ex: profils/ID0/Vie)
+	if chemin.contains(tag_actif):
+		_update_local_vars(chemin, data)
+	
+	# Cas B : C'est le dictionnaire complet "profils" qui arrive
+	elif chemin == "profils" and typeof(data) == TYPE_DICTIONARY:
+		if data.has(tag_actif):
+			_update_local_vars("", data[tag_actif])
+
+func _update_local_vars(chemin: String, data):
+	# Si data est une valeur seule
+	if typeof(data) != TYPE_DICTIONARY:
+		if "Argent" in chemin: money_local = int(data)
+		elif "Vie" in chemin: life_local = int(data)
+		elif "Nourriture" in chemin: food_local = int(data)
+		elif "Boisson" in chemin: drink_local = int(data)
+		elif "Munition" in chemin: munition_local = int(data)
+	# Si data est le dictionnaire du profil
+	else:
+		if data.has("Argent"): money_local = int(data["Argent"])
+		if data.has("Vie"): life_local = int(data["Vie"])
+		if data.has("Nourriture"): food_local = int(data["Nourriture"])
+		if data.has("Boisson"): drink_local = int(data["Boisson"])
+		if data.has("Munition"): munition_local = int(data["Munition"])
+
+# --- FONCTIONS D'ÉCRITURE --------------------------------------------
+
+func spend_money(montant: int, profil_id: String) -> bool:
 	if money_local >= montant:
 		var nouveau_solde = money_local - montant
-		var link = "profils/ID" + profil_id
-		var db_link = Firebase.Database.get_database_reference(link)
-		db_link.update("", {"Argent": nouveau_solde})
-		print("Paiement accepté. Nouveau solde : ", nouveau_solde)
+		Firebase.Database.get_database_reference("profils/ID" + profil_id).update("", {"Argent": nouveau_solde})
 		return true
-		
-	else:
-		print("Paiement refusé : fonds insuffisants (actuel:", money_local, ")")
-		return false
-
-func lose_life(life: int, profil_id: String):
-	if life_local >= life:
-		var nouveau_solde = life_local + life
-		var link = "profils/ID" + profil_id
-		var db_link = Firebase.Database.get_database_reference(link)
-		db_link.update("", {"Vie": nouveau_solde})
-		print("Vie accepté. Nouveau solde : ", nouveau_solde)
-		return true
-		
-	else:
-		print("Vie refusé : fonds insuffisants (actuel:", life_local, ")")
-		return false
-
-
-func get_food(food_a_ajouter: int, profil_id: String):
-
-	var nouveau_total = food_local + food_a_ajouter
-	if nouveau_total > 5:
-		nouveau_total = 5
-
-	var link = "profils/ID" + profil_id
-	var db_link = Firebase.Database.get_database_reference(link)
-
-	db_link.update("", {"Nourriture": nouveau_total})
+	return false
 	
-	print("Nourriture acceptée. Ancien: ", food_local, " | Nouveau total: ", nouveau_total, "/5")
-	return true
+func get_munition(montant_a_ajouter: int, profil_id: String):
+	munition_local += montant_a_ajouter
+	Firebase.Database.get_database_reference("profils/ID" + profil_id).update("", {"Munition": munition_local})
 
-
-func get_drink(drink_a_ajouter: int, profil_id: String):
-	var nouveau_total = drink_local + (drink_a_ajouter)
+func get_money(montant: int, profil_id: String):
+	var nouveau_total = money_local + montant
+	Firebase.Database.get_database_reference("profils/ID" + profil_id).update("", {"Argent": nouveau_total})
 	
-	if nouveau_total > 5:
-		nouveau_total = 5
-		
-	var link = "profils/ID" + profil_id
-	
-	var db_link = Firebase.Database.get_database_reference(link)
-	
-	# Mise à jour Firebase
-	db_link.update("", {"Boisson": nouveau_total})
-	
-	print("Ancien stock: ", drink_local, " | Ajout: ", drink_a_ajouter, " | Nouveau: ", nouveau_total)
-	return true
+func get_life(montant: int, profil_id: String):
+	var nouveau_total = clampi(life_local + montant, 0, 5)
+	Firebase.Database.get_database_reference("profils/ID" + profil_id).update("", {"Vie": nouveau_total})
 
+func get_drink(val: int, profil_id: String):
+	# On met à jour la variable LOCALE tout de suite
+	drink_local = clampi(drink_local + val, 0, 5)
+	var db_link = Firebase.Database.get_database_reference("profils/ID" + profil_id)
+	db_link.update("", {"Boisson": drink_local})
+	print("Local sync: Drink vaut maintenant ", drink_local)
 
-func _on_db_data_update(resource):
-	var data = resource.data if resource is FirebaseResource else resource
-
-	if typeof(data) == TYPE_DICTIONARY:
-		if data.has("profils") and data["profils"].has("ID0"):
-			var profil = data["profils"]["ID0"]
-			if profil.has("Argent"):
-				money_local = int(profil["Argent"])
-				print("Argent local mis à jour : ", money_local)
-			if profil.has("Vie"):
-				life_local = int(profil["Vie"])
-				print("Vie local mis à jour : ", life_local)
-			if profil.has("Nourriture"):
-				food_local = int(profil["Nourriture"])
-				print("Nourriture local mis à jour : ", food_local)
-			if profil.has("Boisson"):
-				drink_local = int(profil["Boisson"])
-				print("Boisson local mis à jour : ", drink_local)
+func get_food(val: int, profil_id: String):
+	food_local = clampi(food_local + val, 0, 5)
+	Firebase.Database.get_database_reference("profils/ID" + profil_id).update("", {"Nourriture": food_local})

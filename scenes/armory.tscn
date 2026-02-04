@@ -1,12 +1,12 @@
-[gd_scene load_steps=3 format=3 uid="uid://dxvc5gry51wxq"]
+[gd_scene load_steps=3 format=3 uid="uid://del8a3r8ivufw"]
 
-[ext_resource type="Script" uid="uid://dvvlcehf8ykx7" path="res://scripts/bank.gd" id="1_070a6"]
-[ext_resource type="Texture2D" uid="uid://vcohqkjwjaaf" path="res://assets/profil/or.webp" id="2_v0kt3"]
+[ext_resource type="Texture2D" uid="uid://vcohqkjwjaaf" path="res://assets/profil/or.webp" id="1_8g1bi"]
+[ext_resource type="Script" uid="uid://bwib1drxiulqp" path="res://scripts/armory.gd" id="1_48su1"]
 
-[node name="Bank" type="Control"]
+[node name="Armory" type="Control"]
 layout_mode = 3
 anchors_preset = 0
-script = ExtResource("1_070a6")
+script = ExtResource("1_48su1")
 
 [node name="Panel" type="Panel" parent="."]
 modulate = Color(0.8291994, 0.22925165, 0.4097061, 1)
@@ -19,16 +19,16 @@ offset_bottom = 599.0
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 0
 offset_left = 308.0
-offset_top = 51.0
+offset_top = 77.0
 offset_right = 830.0
-offset_bottom = 518.0
+offset_bottom = 544.0
 theme_override_constants/separation = 40
 
 [node name="Titre" type="Label" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 75
-text = "Banque"
+text = "Armurerie"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
@@ -40,7 +40,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/outline_size = 1
 theme_override_font_sizes/font_size = 50
-text = "Vie"
+text = "Munitions"
 
 [node name="moins" type="Button" parent="VBoxContainer/HBoxContainer"]
 modulate = Color(3.1229057, 3.1229057, 3.1229057, 1)
@@ -80,68 +80,22 @@ offset_right = 44.0
 offset_bottom = 42.0
 grow_horizontal = 0
 scale = Vector2(1.6861517, 1.5967395)
-texture = ExtResource("2_v0kt3")
+texture = ExtResource("1_8g1bi")
 expand_mode = 1
 
-[node name="BankBuyCard" type="Button" parent="VBoxContainer"]
+[node name="ArmoryBuyCard" type="Button" parent="VBoxContainer"]
 modulate = Color(3.1229057, 3.1229057, 3.1229057, 1)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_colors/font_color = Color(0.875, 0.875, 0.875, 1)
 theme_override_font_sizes/font_size = 38
-text = "Acheter une ration"
+text = "Acheter une munition"
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 45
-
-[node name="GetCard" type="Button" parent="VBoxContainer/HBoxContainer2"]
+[node name="GetCard" type="Button" parent="VBoxContainer"]
 modulate = Color(3.1229057, 3.1229057, 3.1229057, 1)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 38
-text = "Acheter deux cartes 
-de la pioche"
+text = "Utiliser une carte armurerie"
 
-[node name="aide" type="Label" parent="VBoxContainer/HBoxContainer2/GetCard"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.791
-anchor_top = 1.7450001
-anchor_right = 0.791
-anchor_bottom = 1.7450001
-offset_left = -230.83401
-offset_top = -70.93001
-offset_right = 231.16599
-offset_bottom = -36.930008
-grow_horizontal = 2
-grow_vertical = 0
-size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 20
-text = "vous pouvez utiliser la carte piocher diretement"
-
-[node name="Prix" type="Label" parent="VBoxContainer/HBoxContainer2"]
-modulate = Color(1, 0.64705884, 0, 1)
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 50
-text = "3"
-
-[node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer2/Prix"]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = 3.9999962
-offset_top = 1.9999999
-offset_right = 44.0
-offset_bottom = 42.0
-grow_horizontal = 0
-scale = Vector2(1.6861517, 1.5967395)
-texture = ExtResource("2_v0kt3")
-expand_mode = 1
-
-[connection signal="pressed" from="VBoxContainer/HBoxContainer/moins" to="." method="_on_moins_pressed"]
-[connection signal="pressed" from="VBoxContainer/HBoxContainer/plus" to="." method="_on_plus_pressed"]
-[connection signal="pressed" from="VBoxContainer/BankBuyCard" to="." method="_on_bank_buy_card_pressed"]
-[connection signal="pressed" from="VBoxContainer/HBoxContainer2/GetCard" to="." method="_on_get_card_pressed"]
+[connection signal="pressed" from="VBoxContainer/ArmoryBuyCard" to="." method="_on_armory_buy_card_pressed"]

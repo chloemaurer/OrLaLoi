@@ -1,6 +1,5 @@
-[gd_scene load_steps=11 format=3 uid="uid://b0faj1t3lwxrx"]
+[gd_scene load_steps=10 format=3 uid="uid://b0faj1t3lwxrx"]
 
-[ext_resource type="Script" uid="uid://2e700233qs4k" path="res://scripts/profil.gd" id="1_hnva4"]
 [ext_resource type="Texture2D" uid="uid://7nrwkrwc1tok" path="res://assets/profil/coeur.webp" id="2_r5umi"]
 [ext_resource type="Texture2D" uid="uid://btlu4r2ley4ww" path="res://assets/profil/alcool.webp" id="3_wxely"]
 [ext_resource type="Texture2D" uid="uid://jpvdd31q8et" path="res://assets/profil/nourriture.webp" id="4_h15kk"]
@@ -22,7 +21,6 @@ offset_right = 333.824
 offset_bottom = -0.16000366
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_hnva4")
 
 [node name="Panel" type="Panel" parent="."]
 self_modulate = Color(1.3745605, 0.84866303, 0.5609869, 1)

@@ -4,21 +4,22 @@
 [ext_resource type="Script" uid="uid://ypntmx4yrga8" path="res://scripts/keypad.gd" id="2_gjsb8"]
 
 [node name="Keypad" type="Node2D"]
+script = ExtResource("2_gjsb8")
 
 [node name="PaveComplet" type="Sprite2D" parent="."]
 scale = Vector2(0.7006198, 0.7202563)
 texture = ExtResource("1_vxa2g")
-script = ExtResource("2_gjsb8")
 
 [node name="Actions" type="Node2D" parent="."]
 scale = Vector2(0.7006198, 0.7202563)
 
-[node name="Ok" type="Button" parent="Actions"]
+[node name="Check" type="Button" parent="Actions"]
 modulate = Color(1, 1, 1, 0)
 offset_left = 218.0
 offset_top = 9.0
 offset_right = 405.0
 offset_bottom = 397.0
+metadata/_edit_use_anchors_ = true
 
 [node name="Back" type="Button" parent="Actions"]
 modulate = Color(1, 1, 1, 0)
@@ -26,6 +27,7 @@ offset_left = 225.0
 offset_top = -191.0
 offset_right = 412.0
 offset_bottom = -6.0
+metadata/_edit_use_anchors_ = true
 
 [node name="Code" type="Node2D" parent="."]
 scale = Vector2(0.7006198, 0.7202563)
@@ -110,3 +112,5 @@ scale = Vector2(0.8, 0.8)
 [node name="Key4" type="Sprite2D" parent="Screen"]
 position = Vector2(210, -220)
 scale = Vector2(0.8, 0.8)
+
+[connection signal="pressed" from="Actions/Check" to="." method="_on_check_pressed"]

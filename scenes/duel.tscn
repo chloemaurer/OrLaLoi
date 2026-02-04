@@ -1,0 +1,86 @@
+[gd_scene load_steps=3 format=3 uid="uid://ckv603t1ewodj"]
+
+[ext_resource type="Script" uid="uid://y7eqjvvm50d" path="res://scripts/duel.gd" id="1_rsfa2"]
+[ext_resource type="Texture2D" uid="uid://b0hrtmg55c17b" path="res://assets/profil/joueur.png" id="2_j65gr"]
+
+[node name="Duel" type="Control"]
+layout_mode = 3
+anchor_right = 0.661
+anchor_bottom = 0.72200006
+offset_right = -761.47205
+offset_bottom = -467.85605
+script = ExtResource("1_rsfa2")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(19.383072, 12.068146)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+offset_left = 67.0
+offset_top = 21.0
+offset_right = 661.0
+offset_bottom = 74.0
+theme_override_constants/separation = 40
+
+[node name="question" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 35
+text = "Quel joueur voulez vous affronter ?"
+
+[node name="Joueurs" type="Control" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="Joueurs" type="HBoxContainer" parent="VBoxContainer/Joueurs"]
+layout_mode = 1
+offset_left = -23.0
+offset_right = 1683.0
+offset_bottom = 512.0
+scale = Vector2(0.39999944, 0.39999944)
+theme_override_constants/separation = 85
+
+[node name="Joueur1" type="TextureRect" parent="VBoxContainer/Joueurs/Joueurs"]
+layout_mode = 2
+texture = ExtResource("2_j65gr")
+
+[node name="Nomjoueur1" type="Label" parent="VBoxContainer/Joueurs/Joueurs/Joueur1"]
+layout_mode = 0
+offset_left = 45.00007
+offset_top = 535.0008
+offset_right = 639.00006
+offset_bottom = 598.0008
+scale = Vector2(0.6999996, 1)
+theme_override_font_sizes/font_size = 45
+text = "1"
+
+[node name="Joueur2" type="TextureRect" parent="VBoxContainer/Joueurs/Joueurs"]
+layout_mode = 2
+texture = ExtResource("2_j65gr")
+
+[node name="Nomjoueur2" type="Label" parent="VBoxContainer/Joueurs/Joueurs/Joueur2"]
+layout_mode = 0
+offset_left = 55.500885
+offset_top = 540.0008
+offset_right = 649.50085
+offset_bottom = 603.0008
+scale = Vector2(0.6999996, 1)
+theme_override_font_sizes/font_size = 45
+text = "2"
+
+[node name="Joueur3" type="TextureRect" parent="VBoxContainer/Joueurs/Joueurs"]
+layout_mode = 2
+texture = ExtResource("2_j65gr")
+
+[node name="Nomjoueur3" type="Label" parent="VBoxContainer/Joueurs/Joueurs/Joueur3"]
+layout_mode = 0
+offset_left = 56.00167
+offset_top = 535.0008
+offset_right = 650.00165
+offset_bottom = 598.0008
+scale = Vector2(0.6999996, 1)
+theme_override_font_sizes/font_size = 45
+text = "3"

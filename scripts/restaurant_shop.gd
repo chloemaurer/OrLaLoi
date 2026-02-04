@@ -10,38 +10,21 @@ var foods = [
 @onready var food_name: Label = $VBoxContainer/FoodName
 @onready var food_description: Label = $VBoxContainer/FoodDescription
 
-
 var catalogue = {}  
 var current_id = 0  
 
 func _ready() -> void:
 	random_food()
-	
-	if DatabaseConfig.is_ready:
-		ecouter_le_restaurant()
+	# Note: On ne se connecte plus ici, c'est le Dispatcher qui enverra les infos.
+
+# Cette fonction est appelée par le Dispatcher dans DatabaseConfig
+func mettre_a_jour_catalogue(cle: String, valeur):
+	if cle == "restaurant" and typeof(valeur) == TYPE_DICTIONARY:
+		catalogue = valeur
 	else:
-		DatabaseConfig.db_ready.connect(ecouter_le_restaurant)
-
-func ecouter_le_restaurant() -> void:
-	print("Connexion au dossier restaurant...")
-
-	var db_restaurant = Firebase.Database.get_database_reference("restaurant")
+		catalogue[cle] = valeur
 	
-	db_restaurant.new_data_update.connect(_on_restaurant_data)
-	db_restaurant.patch_data_update.connect(_on_restaurant_data)
-	
-	# Au lieu de get_data() qui crash, on attend un tout petit peu
-	await get_tree().create_timer(1.0).timeout
-	db_restaurant.get_data() 
-
-func _on_restaurant_data(resource: FirebaseResource) -> void:
-	# Si c'est le dictionnaire complet
-	if resource.key == "restaurant":
-		catalogue = resource.data
-	else:
-		catalogue[resource.key] = resource.data
-	
-	print("Données restaurant reçues !")
+	print("Restaurant mis à jour pour : ", cle)
 	actualiser_interface()
 
 func random_food() -> void:
@@ -55,7 +38,7 @@ func actualiser_interface() -> void:
 	if catalogue.has(key):
 		var data = catalogue[key]
 		food_name.text = str(data.get("nom", "Inconnu"))
-		food_description.text = "Effet : " + str(data.get("effet", 0)) + " PV"
+		food_description.text = "Effet : " + str(data.get("effet", 0)) + " Nourriture"
 	else:
 		food_name.text = "Chargement..."
 		food_description.text = "Synchronisation..."
@@ -65,10 +48,16 @@ func update_food():
 	if catalogue.has(key):
 		var data = catalogue[key] 
 		var food_effect = data.get("effet", 0)
-		var succes = DatabaseConfig.get_food(food_effect, "0") 
+		
+		# On récupère l'ID du joueur actif depuis le Global
+		var id_joueur = DatabaseConfig.current_profil_id
+		
+		print("Achat nourriture pour Profil ", id_joueur, " | Effet : ", food_effect)
+		
+		# On utilise la fonction centralisée de DatabaseConfig
+		var succes = DatabaseConfig.get_food(food_effect, id_joueur) 
 		if succes:
-			print("Achat réussi : +", food_effect, " boisson(s)")
-
+			print("Achat nourriture validé.")
 
 func _on_food_buy_card_pressed() -> void:
 	update_food()

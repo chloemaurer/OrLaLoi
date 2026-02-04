@@ -1,3 +1,4 @@
+class_name Profil
 extends Control
 
 @onready var liste_des_coeurs: HBoxContainer = $Resources/Life
@@ -5,100 +6,68 @@ extends Control
 @onready var liste_food: HBoxContainer = $Resources/Food
 @onready var money: Label = $Items/Items/Money
 @onready var nom_joueur: Label = $NomJoueur
+@onready var munition: Label = $Items/Items/Gun/Munition
 @onready var keypad: Node2D = $Keypad
 
-@export var actual_profil ="0"
-@onready var profils: Node = $".."
 
-func _ready():
-	DatabaseConfig.db_ready.connect(preparer_la_synchronisation)
+# Variables internes pour mémoriser les stats (très important pour le Dispatcher)
+var _vie: int = 0
+var _food: int = 0
+var _drink: int = 0
+var _money: int = 0
+var _munition: int = 0
 
 
-func preparer_la_synchronisation():
-	var link = "profils/ID" + actual_profil
-	print(link)
-	var db_profil = Firebase.Database.get_database_reference(link)
+func update_visuel(cle: String, valeur):
+	match cle:
+		"Vie":
+			_vie = int(valeur)
+			_update_hbox_icons(liste_des_coeurs, _vie)
+		"Nourriture":
+			_food = int(valeur)
+			_update_hbox_icons(liste_food, _food)
+		"Boisson":
+			_drink = int(valeur)
+			_update_hbox_icons(liste_drink, _drink)
+		"Argent":
+			_money = int(valeur)
+			# SÉCURITÉ ICI : On vérifie si le Label est prêt
+			if money: 
+				money.text = str(_money)
+		"Nom":
+			nom_joueur.text = str(valeur)
+		"Munition":
+			_munition = int(valeur)
+			# SÉCURITÉ ICI : On vérifie si le Label est prêt
+			if munition: 
+				munition.text = str(_munition)
+
+# Fonction utilitaire pour éviter de répéter les boucles
+func _update_hbox_icons(container: HBoxContainer, n: int):
+	if not container: return
+	var enfants = container.get_children()
+	for i in range(enfants.size()):
+		# Rose/Rouge si actif, noir si vide
+		enfants[i].modulate = Color(1, 0, 0.3) if i < n else Color(0, 0, 0)
+
+# --- FONCTIONS DE LECTURE (Appelées par le script Principal) ---
+# Note : Les noms correspondent maintenant exactement à ton script Principal
+
+func get_life(): 
+	return _vie
+
+func get_food(): 
+	return _food
+
+func get_drink(): 
+	return _drink
+
+func get_money(): 
+	return _money
 	
-	db_profil.new_data_update.connect(_on_donnees_recues)
-	db_profil.patch_data_update.connect(_on_donnees_modifier)
-
-	
-func _on_donnees_recues(donnees):
-	_traiter_donnees(donnees)
-
-func _on_donnees_modifier(donnees):
-	_traiter_donnees(donnees)
-
-# Une seule fonction pour tout gérer proprement
-func _traiter_donnees(donnees):
-	var resultat = donnees.data if donnees is FirebaseResource else donnees
-	var cle_recue = donnees.key if donnees is FirebaseResource else ""
-
-	# CAS 1 : On reçoit tout le profil d'un coup (Dictionnaire)
-	if typeof(resultat) == TYPE_DICTIONARY:
-		if resultat.has("Vie"): update_coeurs(resultat["Vie"])
-		if resultat.has("Nourriture"): update_food(resultat["Nourriture"])
-		if resultat.has("Boisson"): update_drink(resultat["Boisson"])
-		if resultat.has("Argent"): update_money(resultat["Argent"])
-		if resultat.has("Nom"): nom_joueur.text = str(resultat["Nom"])
-	
-	# CAS 2 : On reçoit juste une seule variable modifiée
-	else:
-		match cle_recue:
-			"Vie": update_coeurs(resultat)
-			"Nourriture": update_food(resultat)
-			"Boisson": update_drink(resultat)
-			"Argent": update_money(resultat)
-			"Nom": nom_joueur.text = str(resultat)
-	
-	
-func update_coeurs(nombre_de_vie):
-	var tous_les_coeurs = liste_des_coeurs.get_children()
-	var numero_du_coeur = 0
-	
-	for coeur in tous_les_coeurs:
-		if numero_du_coeur < nombre_de_vie:
-			coeur.modulate = Color(1, 0, 0.3) # Rose actif
-		else:
-			coeur.modulate = Color(0, 0, 0) # Noir vide
-		
-		numero_du_coeur += 1
-
-	print("Affichage mis à jour : ", nombre_de_vie, " coeurs restants.")
-
-func update_food(nombrefood):
-	var quantite = int(nombrefood)
-	
-	var all_food = liste_food.get_children()
-
-	for i in range(all_food.size()):
-		var icone = all_food[i] # On récupère l'objet à l'index i
-		if i < quantite:
-			icone.modulate = Color(1, 0, 0.3) # Rose
-		else:
-			icone.modulate = Color(0, 0, 0) # Noir
-			
-	print("Affichage mis à jour : ", quantite, " Nourriture restants.")
-
-func update_drink(nomberdrink):
-	DatabaseConfig.drink_local = int(nomberdrink)
-	var all_drink = liste_drink.get_children()
-	
-	for i in range(all_drink.size()):
-		var icone = all_drink[i]
-		
-		# i est un int, quantite est un int. La comparaison fonctionne !
-		if i < nomberdrink:
-			icone.modulate = Color(1, 0, 0.3)
-		else:
-			icone.modulate = Color(0, 0, 0)
-
-	print("Affichage mis à jour : ", nomberdrink, " Boisson restants.")
+func get_munition(): 
+	return _munition
 
 
-func update_money(gold):
-	money.text = str(gold)
-	DatabaseConfig.money_local = int(gold)
-	
 func _on_keypad_open_pressed() -> void:
 	keypad.show()

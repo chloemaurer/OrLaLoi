@@ -15,27 +15,14 @@ var current_id = 0
 
 func _ready() -> void:
 	random_drink()
-	DatabaseConfig.db_ready.connect(ecouter_le_saloon)
 
-func ecouter_le_saloon() -> void:
-	print("Connexion au dossier Saloon...")
-	var db_saloon = Firebase.Database.get_database_reference("saloon")
-	
-	db_saloon.new_data_update.connect(_on_saloon_data)
-	db_saloon.patch_data_update.connect(_on_saloon_data)
-	
-	# Au lieu de get_data() qui crash, on attend un tout petit peu
-	await get_tree().create_timer(1.0).timeout
-	db_saloon.get_data() 
-
-func _on_saloon_data(resource: FirebaseResource) -> void:
-	# Si c'est le dictionnaire complet
-	if resource.key == "saloon":
-		catalogue = resource.data
+func mettre_a_jour_catalogue(cle: String, valeur):
+	if cle == "saloon" and typeof(valeur) == TYPE_DICTIONARY:
+		catalogue = valeur
 	else:
-		catalogue[resource.key] = resource.data
+		catalogue[cle] = valeur
 	
-	print("Données Saloon reçues !")
+	print("Saloon mis à jour pour : ", cle)
 	actualiser_interface()
 
 func random_drink() -> void:
@@ -48,18 +35,24 @@ func actualiser_interface() -> void:
 	if catalogue.has(key):
 		var data = catalogue[key]
 		drink_name.text = str(data.get("nom", "Inconnu"))
-		drink_description.text = "Effet : " + str(data.get("effet", 0)) + " PV"
+		drink_description.text = "Effet : " + str(data.get("effet", 0)) + " Boisson"
 
 func update_drink():
 	var key = "ID" + str(current_id)
 	if catalogue.has(key):
 		var data = catalogue[key] 
 		var drink_effect = data.get("effet", 0)
-		print("Boisson effet: ", drink_effect)
-		var succes = DatabaseConfig.get_drink(drink_effect, "0") 
+		
+		# Récupération du profil actif au lieu de "0"
+		var id_joueur = DatabaseConfig.current_profil_id
+		
+		print("Achat boisson pour Profil ", id_joueur, " | Effet : ", drink_effect)
+		
+		# On envoie l'effet au DatabaseConfig
+		var succes = DatabaseConfig.get_drink(drink_effect, id_joueur) 
+		
 		if succes:
-			print("Achat réussi : +", drink_effect, " boisson(s)")
-
+			print("Achat validé en base de données.")
 
 func _on_buy_card_pressed() -> void:
 	update_drink()
