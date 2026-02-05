@@ -1,7 +1,44 @@
-[gd_scene load_steps=3 format=3 uid="uid://ckv603t1ewodj"]
+[gd_scene load_steps=7 format=3 uid="uid://ckv603t1ewodj"]
 
 [ext_resource type="Script" uid="uid://y7eqjvvm50d" path="res://scripts/duel.gd" id="1_rsfa2"]
 [ext_resource type="Texture2D" uid="uid://b0hrtmg55c17b" path="res://assets/profil/joueur.png" id="2_j65gr"]
+[ext_resource type="Shader" uid="uid://6bmmgs1kn515" path="res://scenes/ennemyselect.gdshader" id="3_b72to"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_b72to"]
+shader = ExtResource("3_b72to")
+shader_parameter/thickness = 0.0
+shader_parameter/ring_count = 60
+shader_parameter/ring_offset = 0.0
+shader_parameter/outline_color = Color(0.7567149, 0.45344824, 5.7756904e-07, 1)
+shader_parameter/border_clipping_fix = true
+shader_parameter/aspect_ratio = 1.0
+shader_parameter/square_border = false
+shader_parameter/offset = Vector2(0, 0)
+shader_parameter/max_or_add = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mgajk"]
+shader = ExtResource("3_b72to")
+shader_parameter/thickness = 0.0
+shader_parameter/ring_count = 60
+shader_parameter/ring_offset = 0.0
+shader_parameter/outline_color = Color(0.7567149, 0.45344824, 5.7756904e-07, 1)
+shader_parameter/border_clipping_fix = true
+shader_parameter/aspect_ratio = 1.0
+shader_parameter/square_border = false
+shader_parameter/offset = Vector2(0, 0)
+shader_parameter/max_or_add = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7teeq"]
+shader = ExtResource("3_b72to")
+shader_parameter/thickness = 0.0
+shader_parameter/ring_count = 60
+shader_parameter/ring_offset = 0.0
+shader_parameter/outline_color = Color(0.7567149, 0.45344824, 5.7756904e-07, 1)
+shader_parameter/border_clipping_fix = true
+shader_parameter/aspect_ratio = 1.0
+shader_parameter/square_border = false
+shader_parameter/offset = Vector2(0, 0)
+shader_parameter/max_or_add = true
 
 [node name="Duel" type="Control"]
 layout_mode = 3
@@ -44,43 +81,49 @@ scale = Vector2(0.39999944, 0.39999944)
 theme_override_constants/separation = 85
 
 [node name="Joueur1" type="TextureRect" parent="VBoxContainer/Joueurs/Joueurs"]
+material = SubResource("ShaderMaterial_b72to")
 layout_mode = 2
 texture = ExtResource("2_j65gr")
 
 [node name="Nomjoueur1" type="Label" parent="VBoxContainer/Joueurs/Joueurs/Joueur1"]
 layout_mode = 0
-offset_left = 45.00007
-offset_top = 535.0008
-offset_right = 639.00006
-offset_bottom = 598.0008
-scale = Vector2(0.6999996, 1)
-theme_override_font_sizes/font_size = 45
-text = "1"
+offset_left = -45.00006
+offset_top = 535.0
+offset_right = 548.99994
+offset_bottom = 598.0
+scale = Vector2(1.0000007, 1)
+theme_override_font_sizes/font_size = 55
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Joueur2" type="TextureRect" parent="VBoxContainer/Joueurs/Joueurs"]
+material = SubResource("ShaderMaterial_mgajk")
 layout_mode = 2
 texture = ExtResource("2_j65gr")
 
 [node name="Nomjoueur2" type="Label" parent="VBoxContainer/Joueurs/Joueurs/Joueur2"]
 layout_mode = 0
-offset_left = 55.500885
-offset_top = 540.0008
-offset_right = 649.50085
-offset_bottom = 603.0008
-scale = Vector2(0.6999996, 1)
-theme_override_font_sizes/font_size = 45
-text = "2"
+offset_left = -34.499237
+offset_top = 535.0
+offset_right = 559.50073
+offset_bottom = 598.0
+scale = Vector2(1.0000015, 1)
+theme_override_font_sizes/font_size = 55
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Joueur3" type="TextureRect" parent="VBoxContainer/Joueurs/Joueurs"]
+material = SubResource("ShaderMaterial_7teeq")
 layout_mode = 2
 texture = ExtResource("2_j65gr")
 
 [node name="Nomjoueur3" type="Label" parent="VBoxContainer/Joueurs/Joueurs/Joueur3"]
 layout_mode = 0
-offset_left = 56.00167
-offset_top = 535.0008
-offset_right = 650.00165
-offset_bottom = 598.0008
-scale = Vector2(0.6999996, 1)
-theme_override_font_sizes/font_size = 45
-text = "3"
+offset_left = -33.998444
+offset_top = 535.0
+offset_right = 560.0016
+offset_bottom = 598.0
+scale = Vector2(1.0000031, 1)
+theme_override_font_sizes/font_size = 55
+horizontal_alignment = 1
+vertical_alignment = 1

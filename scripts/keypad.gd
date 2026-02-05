@@ -12,6 +12,7 @@ var current_index := 0
 var input_code := "" 
 var tous_les_codes := {} 
 
+
 func _ready():
 	for node in code.get_children():
 		if node is Button:
@@ -20,9 +21,7 @@ func _ready():
 
 
 func mettre_a_jour_catalogue(cle: String, valeur):
-	var id_extrait = cle.split("/")[0]
-	
-	# Utilitaire pour nettoyer les nombres (float -> int -> string)
+	var _id_extrait = cle.split("/")[0]
 	var clean_val = func(v): return str(int(float(v))) if typeof(v) in [TYPE_FLOAT, TYPE_INT] else str(v)
 
 	if typeof(valeur) == TYPE_DICTIONARY:
@@ -33,7 +32,8 @@ func mettre_a_jour_catalogue(cle: String, valeur):
 				tous_les_codes[id_key] = {
 					"code": clean_val.call(data.get("code", "0")),
 					"effet": data.get("effet", "Inconnu"),
-					"categorie": data.get("categorie", "Inconnue")
+					"categorie": data.get("categorie", "Inconnue"),
+					"disponible": data.get("valeur", true) # On récupère le booléen
 				}
 	
 	print("[Keypad] Catalogue mis à jour. Nombre de cartes : ", tous_les_codes.size())
@@ -54,41 +54,69 @@ func _on_back_pressed():
 	input_code = input_code.substr(0, input_code.length() - 1)
 	screen.get_child(current_index).texture = null
 
-func check_code():
-	print("[Keypad] --- Vérification en cours ---")
-	print("[Keypad] Tape: '", input_code, "'")
-	
-	var carte_trouvee = null
-	
-	# On parcourt chaque ID pour vérifier le code à l'intérieur
-	for id_name in tous_les_codes:
-		if tous_les_codes[id_name]["code"] == input_code:
-			carte_trouvee = tous_les_codes[id_name]
-			break
-
-	if carte_trouvee:
-		print("✅ SUCCÈS : Code valide !")
-		var cat = carte_trouvee["categorie"]
-		var eff = carte_trouvee["effet"]
-		
-		print("Détails -> Catégorie: ", cat, " | Effet: ", eff)
-		
-		# On appelle l'application de l'effet
-		apply_card(cat, eff)
-	else:
-		print("❌ ÉCHEC : '", input_code, "' n'existe pas dans la base.")
-	
-	# On réinitialise l'affichage après la vérification
-	reset_keypad()
 
 func reset_keypad():
 	while current_index > 0:
 		_on_back_pressed()
 	input_code = ""
 
+# Le bouton "Check" lance maintenant le processus complet
 func _on_check_pressed() -> void:
 	check_code()
-	reset_keypad()
+
+func check_code():
+	print("[Keypad] --- Vérification ---")
+	
+	var carte_trouvee = null
+	for id_name in tous_les_codes:
+		if tous_les_codes[id_name]["code"] == input_code:
+			carte_trouvee = tous_les_codes[id_name]
+			break
+
+	if not carte_trouvee:
+		print("❌ ÉCHEC : Code inconnu.")
+		reset_keypad()
+		return
+		
+	if carte_trouvee["disponible"] == false:
+		print("🚫 ÉCHEC : Cette carte a déjà été utilisée !")
+		_finaliser_utilisation_keypad()
+		return
+		
+	# On a trouvé une carte, maintenant on vérifie la Zone
+	var category = carte_trouvee["categorie"]
+	
+	if is_zone_valid(category):
+		print("✅ SUCCÈS : Carte valide et zone correcte.")
+		
+		apply_card(category, carte_trouvee["effet"])
+		DatabaseConfig.disable_card(carte_trouvee["id"])
+		carte_trouvee["disponible"] = false 
+	else:
+		print("🚫 MAUVAISE ZONE.")
+	_finaliser_utilisation_keypad()
+
+func _finaliser_utilisation_keypad():
+	DatabaseConfig.zone = "" # On reset la zone globale
+	reset_keypad()          # On vide l'affichage et l'input_code
+	self.hide()             # On ferme le keypad
+	print("[Keypad] Zone reset et clavier fermé.")
+
+func is_zone_valid(category: String) -> bool:
+	# "vie", "argent" et "MiniJeux" sont utilisables partout
+	if category in ["vie", "argent", "MiniJeux"]:
+		return true
+		
+	# Pour les autres, on compare avec la zone actuelle dans DatabaseConfig
+	var player_zone = DatabaseConfig.zone # Assure-toi que cette variable existe
+	
+	match category:
+		"Mine": return player_zone == "mine"
+		"saloon": return player_zone == "saloon"
+		"restaurant": return player_zone == "restaurant"
+		"arme": return player_zone == "armurerie"
+	
+	return false
 
 func apply_card(category: String, effet_valeur):
 	var id_joueur = DatabaseConfig.current_profil_id
@@ -107,5 +135,5 @@ func apply_card(category: String, effet_valeur):
 			DatabaseConfig.get_life(effet, id_joueur)
 		"argent":
 			DatabaseConfig.get_money(effet, id_joueur)
-		#"arme":
-			
+		"arme":
+			DatabaseConfig.update_gun(effet, id_joueur)

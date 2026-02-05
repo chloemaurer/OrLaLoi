@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://c63j8pcxbtd7f"]
+[gd_scene load_steps=31 format=3 uid="uid://c63j8pcxbtd7f"]
 
 [ext_resource type="Script" uid="uid://cssb83qdnrq6u" path="res://scripts/principal.gd" id="1_awm7n"]
 [ext_resource type="Texture2D" uid="uid://b16n0ewt4o7d6" path="res://assets/fond.png" id="1_tr6oq"]
@@ -8,14 +8,15 @@
 [ext_resource type="Script" uid="uid://dsec2qiqxhgmk" path="res://scripts/dice.gd" id="4_6ndk6"]
 [ext_resource type="Script" uid="uid://ct54k77ngvy4p" path="res://scripts/saloon_shop.gd" id="7_l2a8t"]
 [ext_resource type="Script" uid="uid://boka4heiwao03" path="res://scripts/restaurant_shop.gd" id="8_0at3r"]
-[ext_resource type="PackedScene" uid="uid://del8a3r8ivufw" path="res://scenes/armory.tscn" id="8_ucw2e"]
+[ext_resource type="Script" uid="uid://bwib1drxiulqp" path="res://scripts/armory.gd" id="8_v2y4t"]
 [ext_resource type="PackedScene" uid="uid://dxvc5gry51wxq" path="res://scenes/bank.tscn" id="9_ckosc"]
+[ext_resource type="PackedScene" uid="uid://ckv603t1ewodj" path="res://scenes/duel.tscn" id="9_v2y4t"]
 [ext_resource type="Texture2D" uid="uid://b0hrtmg55c17b" path="res://assets/profil/joueur.png" id="10_t8783"]
 [ext_resource type="Script" uid="uid://2e700233qs4k" path="res://scripts/profil.gd" id="11_t8783"]
 [ext_resource type="Texture2D" uid="uid://7nrwkrwc1tok" path="res://assets/profil/coeur.webp" id="12_x2ui6"]
 [ext_resource type="Texture2D" uid="uid://btlu4r2ley4ww" path="res://assets/profil/alcool.webp" id="13_v2y4t"]
 [ext_resource type="Texture2D" uid="uid://jpvdd31q8et" path="res://assets/profil/nourriture.webp" id="14_aojn8"]
-[ext_resource type="Texture2D" uid="uid://rpldswevjr74" path="res://assets/profil/revolver.png" id="15_srya7"]
+[ext_resource type="Texture2D" uid="uid://dcsgy653c2i6b" path="res://assets/profil/niv1Icon.webp" id="15_x2ui6"]
 [ext_resource type="Texture2D" uid="uid://jhtn7blget3s" path="res://assets/profil/pavePrototype_v2.webp" id="16_dynj2"]
 [ext_resource type="Texture2D" uid="uid://vcohqkjwjaaf" path="res://assets/profil/or.webp" id="17_1xbp8"]
 [ext_resource type="PackedScene" uid="uid://btox5acdq18om" path="res://scenes/keypad.tscn" id="18_2jxo5"]
@@ -191,9 +192,9 @@ position = Vector2(21.052582, 21.052628)
 [node name="Duel" type="Button" parent="Places"]
 self_modulate = Color(1, 1, 1, 0)
 offset_left = -21.052631
-offset_top = 206.57892
+offset_top = 222.36844
 offset_right = 19.736843
-offset_bottom = 247.36841
+offset_bottom = 263.15793
 
 [node name="Duel" parent="Places/Duel" instance=ExtResource("2_iylmw")]
 position = Vector2(20.052631, 19.947388)
@@ -284,11 +285,11 @@ text = "10"
 
 [node name="Restaurant" type="Control" parent="."]
 anchors_preset = 0
-offset_left = -138.99997
-offset_top = -319.0
-offset_right = -138.99997
-offset_bottom = -319.0
-scale = Vector2(0.29962876, 0.29962876)
+offset_left = -124.0
+offset_top = -299.0
+offset_right = -124.0
+offset_bottom = -299.0
+scale = Vector2(0.26850265, 0.26850265)
 
 [node name="Panel" type="Panel" parent="Restaurant"]
 modulate = Color(0.827451, 0.22745098, 0.40784314, 1)
@@ -301,10 +302,10 @@ offset_bottom = 567.0
 [node name="VBoxContainer" type="VBoxContainer" parent="Restaurant"]
 layout_mode = 0
 offset_left = 249.0
-offset_top = 141.0
+offset_top = 109.0
 offset_right = 852.0
-offset_bottom = 476.0
-theme_override_constants/separation = 40
+offset_bottom = 482.0
+theme_override_constants/separation = 29
 
 [node name="Label" type="Label" parent="Restaurant/VBoxContainer"]
 layout_mode = 2
@@ -312,12 +313,19 @@ size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 75
 text = "Taverne"
 
-[node name="FoodUseCard" type="Button" parent="Restaurant/VBoxContainer"]
+[node name="RestaurantUseCard" type="Button" parent="Restaurant/VBoxContainer"]
 modulate = Color(3.1229057, 3.1229057, 3.1229057, 1)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 30
 text = "Utiliser une carte"
+
+[node name="GiveCard" type="Button" parent="Restaurant/VBoxContainer"]
+modulate = Color(3.1229057, 3.1229057, 3.1229057, 1)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 30
+text = "Donner une carte"
 
 [node name="FoodBuyCard" type="Button" parent="Restaurant/VBoxContainer"]
 modulate = Color(3.1229057, 3.1229057, 3.1229057, 1)
@@ -384,16 +392,132 @@ layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 20
 
+[node name="Armory" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 142.0
+offset_top = -44.0
+offset_right = 142.0
+offset_bottom = -44.0
+scale = Vector2(0.29044107, 0.29044107)
+script = ExtResource("8_v2y4t")
+
+[node name="Panel" type="Panel" parent="Armory"]
+modulate = Color(0.8291994, 0.22925165, 0.4097061, 1)
+layout_mode = 0
+offset_left = 214.0
+offset_top = 31.0
+offset_right = 930.0
+offset_bottom = 633.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Armory"]
+layout_mode = 0
+offset_left = 308.0
+offset_top = 63.0
+offset_right = 830.0
+offset_bottom = 578.0
+theme_override_constants/separation = 40
+
+[node name="Titre" type="Label" parent="Armory/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 75
+text = "Armurerie"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Armory/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="Armory/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/outline_size = 1
+theme_override_font_sizes/font_size = 50
+text = "Munitions"
+
+[node name="moins" type="Button" parent="Armory/VBoxContainer/HBoxContainer"]
+modulate = Color(3.1229057, 3.1229057, 3.1229057, 1)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 30
+text = "  -  "
+
+[node name="Count" type="Label" parent="Armory/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 50
+text = "1"
+
+[node name="plus" type="Button" parent="Armory/VBoxContainer/HBoxContainer"]
+modulate = Color(3.1229057, 3.1229057, 3.1229057, 1)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 30
+text = "  +  "
+
+[node name="Prix" type="Label" parent="Armory/VBoxContainer/HBoxContainer"]
+modulate = Color(1, 0.64705884, 0, 1)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 50
+text = "2"
+
+[node name="TextureRect" type="TextureRect" parent="Armory/VBoxContainer/HBoxContainer/Prix"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = 3.9999962
+offset_top = 1.9999999
+offset_right = 44.0
+offset_bottom = 42.0
+grow_horizontal = 0
+scale = Vector2(1.6861517, 1.5967395)
+texture = ExtResource("17_1xbp8")
+expand_mode = 1
+
+[node name="ArmoryBuyCard" type="Button" parent="Armory/VBoxContainer"]
+modulate = Color(3.1229057, 3.1229057, 3.1229057, 1)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.875, 0.875, 0.875, 1)
+theme_override_font_sizes/font_size = 38
+text = "Acheter une munition"
+
+[node name="GiveCard" type="Button" parent="Armory/VBoxContainer"]
+modulate = Color(3.1229057, 3.1229057, 3.1229057, 1)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.875, 0.875, 0.875, 1)
+theme_override_font_sizes/font_size = 38
+text = "Donner une carte"
+
+[node name="ArmoryUseCard" type="Button" parent="Armory/VBoxContainer"]
+modulate = Color(3.1229057, 3.1229057, 3.1229057, 1)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 38
+text = "Utiliser une carte armurerie"
+
+[node name="Duel" parent="." instance=ExtResource("9_v2y4t")]
+layout_mode = 1
+offset_left = -170.99998
+offset_top = -285.0
+offset_right = -932.47205
+offset_bottom = -752.8561
+scale = Vector2(0.4399994, 0.4399994)
+
 [node name="Saloon" type="Control" parent="."]
 anchors_preset = 0
-offset_left = -513.0
-offset_top = -226.00002
-offset_right = -513.0
-offset_bottom = -226.00002
-scale = Vector2(0.39708856, 0.39708856)
+offset_left = -536.0
+offset_top = -234.00002
+offset_right = -536.0
+offset_bottom = -234.00002
+scale = Vector2(0.42721987, 0.42721987)
 
 [node name="Panel" type="Panel" parent="Saloon"]
-modulate = Color(0.7529412, 0.20392157, 0.36862746, 1)
+modulate = Color(1, 0.27999997, 0.4960001, 1)
+show_behind_parent = true
 layout_mode = 0
 offset_left = 249.0
 offset_top = 69.0
@@ -403,10 +527,10 @@ offset_bottom = 567.0
 [node name="VBoxContainer" type="VBoxContainer" parent="Saloon"]
 layout_mode = 0
 offset_left = 249.0
-offset_top = 141.0
+offset_top = 112.0
 offset_right = 852.0
-offset_bottom = 476.0
-theme_override_constants/separation = 40
+offset_bottom = 452.0
+theme_override_constants/separation = 29
 
 [node name="Label" type="Label" parent="Saloon/VBoxContainer"]
 layout_mode = 2
@@ -414,21 +538,28 @@ size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 75
 text = "Saloon"
 
-[node name="UseCard" type="Button" parent="Saloon/VBoxContainer"]
+[node name="SaloonUseCard" type="Button" parent="Saloon/VBoxContainer"]
 modulate = Color(3.1229057, 3.1229057, 3.1229057, 1)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 30
 text = "Utiliser une carte"
 
-[node name="BuyCard" type="Button" parent="Saloon/VBoxContainer"]
+[node name="GiveCard" type="Button" parent="Saloon/VBoxContainer"]
+modulate = Color(3.1229057, 3.1229057, 3.1229057, 1)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 30
+text = "Donner une carte"
+
+[node name="DrinkBuyCard" type="Button" parent="Saloon/VBoxContainer"]
 modulate = Color(3.1229057, 3.1229057, 3.1229057, 1)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 30
 text = "Acheter une carte"
 
-[node name="Label2" type="Label" parent="Saloon/VBoxContainer/BuyCard"]
+[node name="Label2" type="Label" parent="Saloon/VBoxContainer/DrinkBuyCard"]
 modulate = Color(0.7581918, 0.7581918, 0.7581917, 1)
 layout_mode = 0
 offset_left = 33.0
@@ -438,14 +569,6 @@ offset_bottom = 86.0
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 20
 text = "À vos risque et périls"
-
-[node name="Armory" parent="." instance=ExtResource("8_ucw2e")]
-layout_mode = 0
-offset_left = 142.0
-offset_top = -44.0
-offset_right = 142.0
-offset_bottom = -44.0
-scale = Vector2(0.29044107, 0.29044107)
 
 [node name="SaloonShop" type="Control" parent="."]
 anchors_preset = 0
@@ -494,90 +617,6 @@ layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 20
 
-[node name="Duel" type="Control" parent="."]
-layout_mode = 1
-anchor_right = 0.661
-anchor_bottom = 0.72200006
-offset_left = -162.0
-offset_top = -322.0
-offset_right = -451.8996
-offset_bottom = -530.65796
-scale = Vector2(0.46666875, 0.46666875)
-
-[node name="Panel" type="Panel" parent="Duel"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-scale = Vector2(19.383072, 12.068146)
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Duel"]
-layout_mode = 1
-offset_left = 67.0
-offset_top = 21.0
-offset_right = 661.0
-offset_bottom = 74.0
-theme_override_constants/separation = 40
-
-[node name="question" type="Label" parent="Duel/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 35
-text = "Quel joueur voulez vous affronter ?"
-
-[node name="Joueurs" type="Control" parent="Duel/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 4
-
-[node name="Joueurs" type="HBoxContainer" parent="Duel/VBoxContainer/Joueurs"]
-layout_mode = 1
-offset_left = -23.0
-offset_right = 1683.0
-offset_bottom = 512.0
-scale = Vector2(0.39999944, 0.39999944)
-theme_override_constants/separation = 85
-
-[node name="Joueur1" type="TextureRect" parent="Duel/VBoxContainer/Joueurs/Joueurs"]
-layout_mode = 2
-texture = ExtResource("10_t8783")
-
-[node name="Nomjoueur1" type="Label" parent="Duel/VBoxContainer/Joueurs/Joueurs/Joueur1"]
-layout_mode = 0
-offset_left = 45.00007
-offset_top = 535.0008
-offset_right = 639.00006
-offset_bottom = 598.0008
-scale = Vector2(0.6999996, 1)
-theme_override_font_sizes/font_size = 45
-text = "1"
-
-[node name="Joueur2" type="TextureRect" parent="Duel/VBoxContainer/Joueurs/Joueurs"]
-layout_mode = 2
-texture = ExtResource("10_t8783")
-
-[node name="Nomjoueur2" type="Label" parent="Duel/VBoxContainer/Joueurs/Joueurs/Joueur2"]
-layout_mode = 0
-offset_left = 55.500885
-offset_top = 540.0008
-offset_right = 649.50085
-offset_bottom = 603.0008
-scale = Vector2(0.6999996, 1)
-theme_override_font_sizes/font_size = 45
-text = "2"
-
-[node name="Joueur3" type="TextureRect" parent="Duel/VBoxContainer/Joueurs/Joueurs"]
-layout_mode = 2
-texture = ExtResource("10_t8783")
-
-[node name="Nomjoueur3" type="Label" parent="Duel/VBoxContainer/Joueurs/Joueurs/Joueur3"]
-layout_mode = 0
-offset_left = 56.00167
-offset_top = 535.0008
-offset_right = 650.00165
-offset_bottom = 598.0008
-scale = Vector2(0.6999996, 1)
-theme_override_font_sizes/font_size = 45
-text = "3"
-
 [node name="Profils" type="Node" parent="."]
 
 [node name="Profil" type="Control" parent="Profils"]
@@ -595,6 +634,10 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 1.6666642
+offset_top = 1.6666642
+offset_right = 1.6666565
+offset_bottom = 1.6666565
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_vthg8")
@@ -794,15 +837,25 @@ scale = Vector2(0.7654053, 0.8551072)
 pivot_offset = Vector2(125.64456, 94.26876)
 size_flags_horizontal = 0
 
-[node name="Gun" type="TextureRect" parent="Profils/Profil/Items/Items"]
-modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+[node name="Control" type="Control" parent="Profils/Profil/Items/Items"]
 layout_mode = 2
 size_flags_horizontal = 3
-texture = ExtResource("15_srya7")
-expand_mode = 1
-stretch_mode = 6
 
-[node name="Munition" type="Label" parent="Profils/Profil/Items/Items/Gun"]
+[node name="Gun" type="TextureRect" parent="Profils/Profil/Items/Items/Control"]
+modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+layout_mode = 0
+offset_left = -9.766952
+offset_top = 12.67806
+offset_right = 103.23305
+offset_bottom = 67.67806
+rotation = -0.13264503
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.89
+texture = ExtResource("15_x2ui6")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Munition" type="Label" parent="Profils/Profil/Items/Items/Control"]
 modulate = Color(0, 0, 0, 1)
 layout_mode = 1
 anchors_preset = 3
@@ -810,8 +863,10 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -40.0
-offset_top = -23.0
+offset_left = -51.377228
+offset_top = -26.729395
+offset_right = -11.377228
+offset_bottom = -3.729393
 grow_horizontal = 0
 grow_vertical = 0
 scale = Vector2(0.998024, 1)
@@ -896,6 +951,7 @@ theme_override_font_sizes/font_size = 35
 horizontal_alignment = 1
 
 [node name="Keypad" parent="Profils/Profil" instance=ExtResource("18_2jxo5")]
+visible = false
 position = Vector2(205, -123)
 scale = Vector2(0.39007133, 0.39007133)
 
@@ -910,10 +966,10 @@ text = "Terminer le tour"
 [node name="Profil2" type="Control" parent="Profils"]
 layout_mode = 3
 anchors_preset = 0
-offset_left = 335.0
-offset_top = 236.0
-offset_right = 773.5773
-offset_bottom = 525.0
+offset_left = 336.0
+offset_top = 239.0
+offset_right = 774.5773
+offset_bottom = 528.0
 scale = Vector2(0.60000086, 0.60000086)
 script = ExtResource("11_t8783")
 
@@ -1121,15 +1177,25 @@ scale = Vector2(0.7654053, 0.8551072)
 pivot_offset = Vector2(125.64456, 94.26876)
 size_flags_horizontal = 0
 
-[node name="Gun" type="TextureRect" parent="Profils/Profil2/Items/Items"]
-modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+[node name="Control" type="Control" parent="Profils/Profil2/Items/Items"]
 layout_mode = 2
 size_flags_horizontal = 3
-texture = ExtResource("15_srya7")
-expand_mode = 1
-stretch_mode = 6
 
-[node name="Munition" type="Label" parent="Profils/Profil2/Items/Items/Gun"]
+[node name="Gun" type="TextureRect" parent="Profils/Profil2/Items/Items/Control"]
+modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+layout_mode = 0
+offset_left = -9.766952
+offset_top = 12.67806
+offset_right = 103.23305
+offset_bottom = 67.67806
+rotation = -0.13264503
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.89
+texture = ExtResource("15_x2ui6")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Munition" type="Label" parent="Profils/Profil2/Items/Items/Control"]
 modulate = Color(0, 0, 0, 1)
 layout_mode = 1
 anchors_preset = 3
@@ -1137,8 +1203,10 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -40.0
-offset_top = -23.0
+offset_left = -51.377228
+offset_top = -26.729395
+offset_right = -11.377228
+offset_bottom = -3.729393
 grow_horizontal = 0
 grow_vertical = 0
 scale = Vector2(0.998024, 1)
@@ -1223,6 +1291,7 @@ theme_override_font_sizes/font_size = 35
 horizontal_alignment = 1
 
 [node name="Keypad" parent="Profils/Profil2" instance=ExtResource("18_2jxo5")]
+visible = false
 position = Vector2(205, -123)
 scale = Vector2(0.39007133, 0.39007133)
 
@@ -1236,10 +1305,11 @@ text = "Terminer le tour"
 [node name="Profil3" type="Control" parent="Profils"]
 layout_mode = 3
 anchors_preset = 0
-offset_left = 337.0
-offset_top = -239.0
-offset_right = 775.5773
-offset_bottom = 49.99997
+offset_left = 596.1467
+offset_top = -60.59973
+offset_right = 1034.724
+offset_bottom = 228.40024
+rotation = 3.1415927
 scale = Vector2(0.60000086, 0.60000086)
 script = ExtResource("11_t8783")
 
@@ -1447,15 +1517,25 @@ scale = Vector2(0.7654053, 0.8551072)
 pivot_offset = Vector2(125.64456, 94.26876)
 size_flags_horizontal = 0
 
-[node name="Gun" type="TextureRect" parent="Profils/Profil3/Items/Items"]
-modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+[node name="Control" type="Control" parent="Profils/Profil3/Items/Items"]
 layout_mode = 2
 size_flags_horizontal = 3
-texture = ExtResource("15_srya7")
-expand_mode = 1
-stretch_mode = 6
 
-[node name="Munition" type="Label" parent="Profils/Profil3/Items/Items/Gun"]
+[node name="Gun" type="TextureRect" parent="Profils/Profil3/Items/Items/Control"]
+modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+layout_mode = 0
+offset_left = -9.766952
+offset_top = 12.67806
+offset_right = 103.23305
+offset_bottom = 67.67806
+rotation = -0.13264503
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.89
+texture = ExtResource("15_x2ui6")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Munition" type="Label" parent="Profils/Profil3/Items/Items/Control"]
 modulate = Color(0, 0, 0, 1)
 layout_mode = 1
 anchors_preset = 3
@@ -1463,8 +1543,10 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -40.0
-offset_top = -23.0
+offset_left = -51.377228
+offset_top = -26.729395
+offset_right = -11.377228
+offset_bottom = -3.729393
 grow_horizontal = 0
 grow_vertical = 0
 scale = Vector2(0.998024, 1)
@@ -1549,6 +1631,7 @@ theme_override_font_sizes/font_size = 35
 horizontal_alignment = 1
 
 [node name="Keypad" parent="Profils/Profil3" instance=ExtResource("18_2jxo5")]
+visible = false
 position = Vector2(205, -123)
 scale = Vector2(0.39007133, 0.39007133)
 
@@ -1563,10 +1646,11 @@ text = "Terminer le tour"
 [node name="Profil4" type="Control" parent="Profils"]
 layout_mode = 3
 anchors_preset = 0
-offset_left = -553.0
-offset_top = -237.0
-offset_right = -114.4227
-offset_bottom = 51.99997
+offset_left = -290.0
+offset_top = -58.999996
+offset_right = 148.5773
+offset_bottom = 229.99997
+rotation = 3.1415927
 scale = Vector2(0.60000086, 0.60000086)
 script = ExtResource("11_t8783")
 
@@ -1774,15 +1858,25 @@ scale = Vector2(0.7654053, 0.8551072)
 pivot_offset = Vector2(125.64456, 94.26876)
 size_flags_horizontal = 0
 
-[node name="Gun" type="TextureRect" parent="Profils/Profil4/Items/Items"]
-modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+[node name="Control" type="Control" parent="Profils/Profil4/Items/Items"]
 layout_mode = 2
 size_flags_horizontal = 3
-texture = ExtResource("15_srya7")
-expand_mode = 1
-stretch_mode = 6
 
-[node name="Munition" type="Label" parent="Profils/Profil4/Items/Items/Gun"]
+[node name="Gun" type="TextureRect" parent="Profils/Profil4/Items/Items/Control"]
+modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+layout_mode = 0
+offset_left = -9.766952
+offset_top = 12.67806
+offset_right = 103.23305
+offset_bottom = 67.67806
+rotation = -0.13264503
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.89
+texture = ExtResource("15_x2ui6")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Munition" type="Label" parent="Profils/Profil4/Items/Items/Control"]
 modulate = Color(0, 0, 0, 1)
 layout_mode = 1
 anchors_preset = 3
@@ -1790,8 +1884,10 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -40.0
-offset_top = -23.0
+offset_left = -51.377228
+offset_top = -26.729395
+offset_right = -11.377228
+offset_bottom = -3.729393
 grow_horizontal = 0
 grow_vertical = 0
 scale = Vector2(0.998024, 1)
@@ -1876,6 +1972,7 @@ theme_override_font_sizes/font_size = 35
 horizontal_alignment = 1
 
 [node name="Keypad" parent="Profils/Profil4" instance=ExtResource("18_2jxo5")]
+visible = false
 position = Vector2(205, -123)
 scale = Vector2(0.39007133, 0.39007133)
 
@@ -1899,12 +1996,18 @@ scale = Vector2(0.3309081, 0.3309081)
 [connection signal="pressed" from="Places/Restaurant" to="Places" method="_on_restaurant_pressed"]
 [connection signal="pressed" from="Places/Armory" to="Places" method="_on_armory_pressed"]
 [connection signal="pressed" from="Places/Bank" to="Places" method="_on_bank_pressed"]
+[connection signal="pressed" from="Places/Duel" to="." method="_on_duel_pressed"]
+[connection signal="pressed" from="Places/Duel" to="Places" method="_on_duel_pressed"]
 [connection signal="animation_finished" from="SubViewportContainer/SubViewport/Node3D/RollDiceAnimation" to="RollDiceButton" method="_on_roll_dice_animation_animation_finished"]
 [connection signal="pressed" from="RollDiceButton" to="RollDiceButton" method="roll_dice"]
+[connection signal="pressed" from="Restaurant/VBoxContainer/RestaurantUseCard" to="." method="_on_restaurant_use_card_pressed"]
 [connection signal="pressed" from="Restaurant/VBoxContainer/FoodBuyCard" to="Places" method="_on_food_buy_card_pressed"]
 [connection signal="pressed" from="Restaurant/VBoxContainer/FoodBuyCard" to="RestaurantShop" method="_on_food_buy_card_pressed"]
-[connection signal="pressed" from="Saloon/VBoxContainer/BuyCard" to="Places" method="_on_buy_card_pressed"]
-[connection signal="pressed" from="Saloon/VBoxContainer/BuyCard" to="SaloonShop" method="_on_buy_card_pressed"]
+[connection signal="pressed" from="Armory/VBoxContainer/ArmoryBuyCard" to="Armory" method="_on_armory_buy_card_pressed"]
+[connection signal="pressed" from="Armory/VBoxContainer/ArmoryUseCard" to="." method="_on_armory_use_card_pressed"]
+[connection signal="pressed" from="Saloon/VBoxContainer/SaloonUseCard" to="." method="_on_saloon_use_card_pressed"]
+[connection signal="pressed" from="Saloon/VBoxContainer/DrinkBuyCard" to="Places" method="_on_drink_buy_card_pressed"]
+[connection signal="pressed" from="Saloon/VBoxContainer/DrinkBuyCard" to="SaloonShop" method="_on_drink_buy_card_pressed"]
 [connection signal="pressed" from="Profils/Profil/Items/Items/KeypadIcon/KeypadOpen" to="Profils/Profil" method="_on_keypad_open_pressed"]
 [connection signal="pressed" from="Profils/Profil2/Items/Items/KeypadIcon/KeypadOpen" to="Profils/Profil2" method="_on_keypad_open_pressed"]
 [connection signal="pressed" from="Profils/Profil3/Items/Items/KeypadIcon/KeypadOpen" to="Profils/Profil3" method="_on_keypad_open_pressed"]

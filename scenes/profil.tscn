@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://7nrwkrwc1tok" path="res://assets/profil/coeur.webp" id="2_j1w42"]
 [ext_resource type="Texture2D" uid="uid://btlu4r2ley4ww" path="res://assets/profil/alcool.webp" id="3_ehcmw"]
 [ext_resource type="Texture2D" uid="uid://jpvdd31q8et" path="res://assets/profil/nourriture.webp" id="4_84ug0"]
-[ext_resource type="Texture2D" uid="uid://rpldswevjr74" path="res://assets/profil/revolver.png" id="5_a5gfj"]
+[ext_resource type="Texture2D" uid="uid://dcsgy653c2i6b" path="res://assets/profil/niv1Icon.webp" id="5_edwgy"]
 [ext_resource type="Texture2D" uid="uid://jhtn7blget3s" path="res://assets/profil/pavePrototype_v2.webp" id="6_cl1r5"]
 [ext_resource type="Texture2D" uid="uid://vcohqkjwjaaf" path="res://assets/profil/or.webp" id="7_cubo0"]
 [ext_resource type="Texture2D" uid="uid://b0hrtmg55c17b" path="res://assets/profil/joueur.png" id="8_bjxe8"]
@@ -226,15 +226,25 @@ scale = Vector2(0.7654053, 0.8551072)
 pivot_offset = Vector2(125.64456, 94.26876)
 size_flags_horizontal = 0
 
-[node name="Gun" type="TextureRect" parent="Items/Items"]
-modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+[node name="Control" type="Control" parent="Items/Items"]
 layout_mode = 2
 size_flags_horizontal = 3
-texture = ExtResource("5_a5gfj")
-expand_mode = 1
-stretch_mode = 6
 
-[node name="Munition" type="Label" parent="Items/Items/Gun"]
+[node name="Gun" type="TextureRect" parent="Items/Items/Control"]
+modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+layout_mode = 0
+offset_left = -9.766952
+offset_top = 12.67806
+offset_right = 103.23305
+offset_bottom = 67.67806
+rotation = -0.13264503
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.89
+texture = ExtResource("5_edwgy")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Munition" type="Label" parent="Items/Items/Control"]
 modulate = Color(0, 0, 0, 1)
 layout_mode = 1
 anchors_preset = 3
@@ -242,8 +252,10 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -40.0
-offset_top = -23.0
+offset_left = -51.377228
+offset_top = -26.729395
+offset_right = -11.377228
+offset_bottom = -3.729393
 grow_horizontal = 0
 grow_vertical = 0
 scale = Vector2(0.998024, 1)

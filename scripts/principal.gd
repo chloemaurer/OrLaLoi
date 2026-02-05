@@ -7,12 +7,20 @@ extends Control
 	$Profils/Profil4
 ]
 
+#@onready var gun = [
+	#$Profils/Profil/Items/Items/Gun,
+	#$Profils/Profil2/Items/Items/Gun, 
+	#$Profils/Profil3/Items/Items/Gun, 
+	#$Profils/Profil4/Items/Items/Gun
+#]
+
 @onready var boutons_fin_tour = [
 	$Profils/Profil/EndTurn1, 
 	$Profils/Profil2/EndTurn2, 
 	$Profils/Profil3/EndTurn3, 
 	$Profils/Profil4/EndTurn4
 ]
+
 @onready var keypad = [
 	$Profils/Profil/Keypad, 
 	$Profils/Profil2/Keypad, 
@@ -20,7 +28,6 @@ extends Control
 	$Profils/Profil4/Keypad
 ]
 
-# Références pour le menu de duel (à ajuster selon tes chemins)
 @onready var duel_ui = $Duel
 @onready var duel_slots = [
 	{"rect": $Duel/VBoxContainer/Joueurs/Joueurs/Joueur1, "label": $Duel/VBoxContainer/Joueurs/Joueurs/Joueur1/Nomjoueur1},
@@ -136,66 +143,52 @@ func _synchroniser_stats_vers_global(index: int):
 	DatabaseConfig.drink_local = cible.get_drink()
 	DatabaseConfig.money_local = cible.get_money()
 	DatabaseConfig.munition_local = cible.get_munition()
+	DatabaseConfig.actual_Gun = cible.get_gun()
+	
 
 func _on_profil_clique(event: InputEvent, index: int):
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		selectionner_profil(index)
 
 func ouvrir_menu_duel():
-	print("[Principal] Ouverture Duel. ID Actuel: ", DatabaseConfig.current_profil_id)
-	var index_affichage = 0
-	cible_duel_id = ""
+	# 1. On identifie qui est le joueur actif (ex: "0")
+	var mon_id = DatabaseConfig.current_profil_id
+	print("[Principal] Tentative d'ouverture du Duel pour l'ID : ", mon_id)
 	
-	# 1. On nettoie l'interface de duel
-	for slot in duel_slots:
-		slot.rect.hide()
-		if slot.rect.has_meta("id_cible"): slot.rect.remove_meta("id_cible")
-		# On connecte le clic une seule fois (sécurité)
-		if not slot.rect.gui_input.is_connected(_on_duel_slot_clicked):
-			slot.rect.gui_input.connect(_on_duel_slot_clicked.bind(index_affichage))
-		index_affichage += 1
+	# 2. Sécurité : on vérifie que le nœud Duel et sa méthode existent
+	if is_instance_valid(duel) and duel.has_method("remplir_selection"):
+		duel.remplir_selection(profils_noeuds, mon_id)
+		duel.show()
+		print("[Principal] Menu Duel affiché avec succès.")
+	else:
+		print("[Principal] ERREUR : Le menu Duel n'est pas prêt ou la méthode est absente.")
 
-	# 2. On remplit avec les autres joueurs
-	var slot_idx = 0
-	for i in range(profils_noeuds.size()):
-		var id_str = str(i)
-		
-		# Si c'est un adversaire
-		if id_str != DatabaseConfig.current_profil_id:
-			if slot_idx < duel_slots.size():
-				var slot = duel_slots[slot_idx]
-				var source = profils_noeuds[i]
-				
-				var nom_source = source.nom_joueur.text
-				slot.label.text = nom_source if nom_source != "" else "Joueur " + id_str
-				#slot.label.text = source.nom_joueur.text
-				
-				var img = source.get_node_or_null("TextureRect") # ou "Icone"
-				if img: slot.rect.texture = img.texture
-				
-				# On stocke l'ID
-				slot.rect.set_meta("id_cible", id_str)
-				slot.rect.show()
-				slot.rect.self_modulate = Color.WHITE
-				slot_idx += 1
+# La fonction liée au signal "pressed" de ton bouton Duel sur l'interface
+func _on_duel_pressed() -> void:
+	ouvrir_menu_duel()
 	
-	duel_ui.show()
-	
-func _on_duel_slot_clicked(event: InputEvent, slot_index: int):
-	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
-		# Empêche le clic de traverser vers les cowboys en arrière-plan
-		get_viewport().set_input_as_handled()
-		
-		var slot = duel_slots[slot_index]
-		
-		if slot.rect.has_meta("id_cible"):
-			cible_duel_id = slot.rect.get_meta("id_cible")
-			
-			# Visuel : Tout le monde en blanc, le sélectionné en Orange
-			for s in duel_slots:
-				s.rect.self_modulate = Color.WHITE
-			
-			slot.rect.self_modulate = Color(1, 0.65, 0) # Orange
-			print("[Duel] Cible sélectionnée : ID ", cible_duel_id)
-		else:
-			print("[Duel] Slot vide cliqué")
+func open_current_keypad():
+	var mon_id = int(DatabaseConfig.current_profil_id)
+	if mon_id < keypad.size():
+		var keypad_actuel = keypad[mon_id]
+		if is_instance_valid(keypad_actuel):
+			keypad_actuel.show()
+			print("[Principal] Ouverture du Keypad pour le joueur : ", mon_id)
+	else:
+		print("[Principal] ERREUR : ID de profil hors limites pour le Keypad")
+
+func _on_saloon_use_card_pressed() -> void:
+	DatabaseConfig.zone = "saloon"
+	open_current_keypad()
+
+func _on_restaurant_use_card_pressed() -> void:
+	DatabaseConfig.zone = "restaurant"
+	open_current_keypad()
+
+func _on_armory_use_card_pressed() -> void:
+	DatabaseConfig.zone = "armurerie"
+	open_current_keypad()
+
+func _on_mine_use_card_pressed() -> void:
+	DatabaseConfig.zone = "mine"
+	open_current_keypad()

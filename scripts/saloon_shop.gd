@@ -54,5 +54,5 @@ func update_drink():
 		if succes:
 			print("Achat validé en base de données.")
 
-func _on_buy_card_pressed() -> void:
+func _on_drink_buy_card_pressed() -> void:
 	update_drink()

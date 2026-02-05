@@ -1,9 +1,10 @@
 extends Control
 
-@onready var moins: Button = $VBoxContainer/HBoxContainer/moins
-@onready var count: Label = $VBoxContainer/HBoxContainer/Count
-@onready var plus: Button = $VBoxContainer/HBoxContainer/plus
-@onready var prix: Label = $VBoxContainer/HBoxContainer/Prix
+@onready var moins: Button = $VBoxContainer/Control/HBoxContainer/moins
+@onready var count: Label = $VBoxContainer/Control/HBoxContainer/Count
+@onready var plus: Button = $VBoxContainer/Control/HBoxContainer/plus
+@onready var prix: Label = $VBoxContainer/Control/HBoxContainer/Prix
+
 
 var num := 1
 var nb_prix := 2

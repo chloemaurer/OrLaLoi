@@ -5,6 +5,7 @@ extends Node2D
 @onready var restaurant: Control = $"../Restaurant"
 @onready var bank: Control = $"../Bank"
 @onready var armory: Control = $"../Armory"
+@onready var duel: Control = $"../Duel"
 
 
 func _ready():
@@ -18,12 +19,13 @@ func close_all():
 	restaurant_shop.hide()
 	bank.hide()
 	armory.hide()
+	duel.hide()
 
 func _on_saloon_pressed() -> void:
 	saloon.show()
 
 
-func _on_buy_card_pressed() -> void:
+func _on_drink_buy_card_pressed() -> void:
 	saloon_shop.show()
 
 func _on_restaurant_pressed() -> void:
@@ -39,3 +41,7 @@ func _on_bank_pressed() -> void:
 
 func _on_armory_pressed() -> void:
 	armory.show()
+
+
+func _on_duel_pressed() -> void:
+	duel.show()

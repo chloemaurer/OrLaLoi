@@ -12,16 +12,16 @@ script = ExtResource("1_070a6")
 modulate = Color(0.8291994, 0.22925165, 0.4097061, 1)
 layout_mode = 0
 offset_left = 214.0
-offset_top = 31.0
+offset_top = -1.0
 offset_right = 930.0
-offset_bottom = 599.0
+offset_bottom = 646.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 0
 offset_left = 308.0
-offset_top = 51.0
+offset_top = 11.0
 offset_right = 830.0
-offset_bottom = 518.0
+offset_bottom = 579.0
 theme_override_constants/separation = 40
 
 [node name="Titre" type="Label" parent="VBoxContainer"]
@@ -30,46 +30,62 @@ size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 75
 text = "Banque"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+[node name="GiveCard" type="Button" parent="VBoxContainer"]
+modulate = Color(3.1229057, 3.1229057, 3.1229057, 1)
 layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.875, 0.875, 0.875, 1)
+theme_override_font_sizes/font_size = 38
+text = "Donner une carte"
+
+[node name="Control" type="Control" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Control"]
+layout_mode = 0
+offset_left = 90.0
+offset_top = 12.0
+offset_right = 408.0
+offset_bottom = 81.0
 size_flags_horizontal = 4
 theme_override_constants/separation = 20
 
-[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="VBoxContainer/Control/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/outline_size = 1
 theme_override_font_sizes/font_size = 50
 text = "Vie"
 
-[node name="moins" type="Button" parent="VBoxContainer/HBoxContainer"]
+[node name="moins" type="Button" parent="VBoxContainer/Control/HBoxContainer"]
 modulate = Color(3.1229057, 3.1229057, 3.1229057, 1)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 30
 text = "  -  "
 
-[node name="Count" type="Label" parent="VBoxContainer/HBoxContainer"]
+[node name="Count" type="Label" parent="VBoxContainer/Control/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 50
 text = "1"
 
-[node name="plus" type="Button" parent="VBoxContainer/HBoxContainer"]
+[node name="plus" type="Button" parent="VBoxContainer/Control/HBoxContainer"]
 modulate = Color(3.1229057, 3.1229057, 3.1229057, 1)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 30
 text = "  +  "
 
-[node name="Prix" type="Label" parent="VBoxContainer/HBoxContainer"]
+[node name="Prix" type="Label" parent="VBoxContainer/Control/HBoxContainer"]
 modulate = Color(1, 0.64705884, 0, 1)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 50
 text = "2"
 
-[node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer/Prix"]
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/Control/HBoxContainer/Prix"]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -83,9 +99,13 @@ scale = Vector2(1.6861517, 1.5967395)
 texture = ExtResource("2_v0kt3")
 expand_mode = 1
 
-[node name="BankBuyCard" type="Button" parent="VBoxContainer"]
+[node name="BankBuyCard" type="Button" parent="VBoxContainer/Control"]
 modulate = Color(3.1229057, 3.1229057, 3.1229057, 1)
-layout_mode = 2
+layout_mode = 0
+offset_left = 85.0
+offset_top = 102.0
+offset_right = 437.0
+offset_bottom = 163.0
 size_flags_horizontal = 4
 theme_override_colors/font_color = Color(0.875, 0.875, 0.875, 1)
 theme_override_font_sizes/font_size = 38
@@ -141,7 +161,7 @@ scale = Vector2(1.6861517, 1.5967395)
 texture = ExtResource("2_v0kt3")
 expand_mode = 1
 
-[connection signal="pressed" from="VBoxContainer/HBoxContainer/moins" to="." method="_on_moins_pressed"]
-[connection signal="pressed" from="VBoxContainer/HBoxContainer/plus" to="." method="_on_plus_pressed"]
-[connection signal="pressed" from="VBoxContainer/BankBuyCard" to="." method="_on_bank_buy_card_pressed"]
+[connection signal="pressed" from="VBoxContainer/Control/HBoxContainer/moins" to="." method="_on_moins_pressed"]
+[connection signal="pressed" from="VBoxContainer/Control/HBoxContainer/plus" to="." method="_on_plus_pressed"]
+[connection signal="pressed" from="VBoxContainer/Control/BankBuyCard" to="." method="_on_bank_buy_card_pressed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer2/GetCard" to="." method="_on_get_card_pressed"]

@@ -10,8 +10,9 @@ var munition_local : int = 0
 var life_local : int = 0
 var drink_local : int = 0
 var food_local : int = 0
+var actual_Gun : int = 0
 var current_profil_id : String = "0"
-
+var zone = ""
 # --- RÉFÉRENCES DES SCRIPTS (Assignées par le Main/Général) ---
 var script_general = null 
 var script_saloon = null 
@@ -110,6 +111,7 @@ func _update_local_vars(chemin: String, data):
 		elif "Nourriture" in chemin: food_local = int(data)
 		elif "Boisson" in chemin: drink_local = int(data)
 		elif "Munition" in chemin: munition_local = int(data)
+		elif "Arme" in chemin: actual_Gun = int(data)
 	# Si data est le dictionnaire du profil
 	else:
 		if data.has("Argent"): money_local = int(data["Argent"])
@@ -117,6 +119,7 @@ func _update_local_vars(chemin: String, data):
 		if data.has("Nourriture"): food_local = int(data["Nourriture"])
 		if data.has("Boisson"): drink_local = int(data["Boisson"])
 		if data.has("Munition"): munition_local = int(data["Munition"])
+		if data.has("Arme"): actual_Gun = int(data["Arme"])
 
 # --- FONCTIONS D'ÉCRITURE --------------------------------------------
 
@@ -149,3 +152,23 @@ func get_drink(val: int, profil_id: String):
 func get_food(val: int, profil_id: String):
 	food_local = clampi(food_local + val, 0, 5)
 	Firebase.Database.get_database_reference("profils/ID" + profil_id).update("", {"Nourriture": food_local})
+
+func update_gun(val: int, profil_id: String):
+	if val == 2 && actual_Gun == 1 :
+		actual_Gun = val
+	elif val == 3 && actual_Gun == 2 :
+		actual_Gun = val
+	elif val == 3 && actual_Gun == 3 :
+		print("Arme déjà au max")
+	elif val == 3 && actual_Gun == 1 :
+		print("Veuillez d'abord augmenter au niveau 2")
+	else :
+		print("arme impossible a upgrader")
+	Firebase.Database.get_database_reference("profils/ID" + profil_id).update("", {"Arme": actual_Gun})
+	print (actual_Gun)
+
+func disable_card(id_carte: String) -> void:
+	var chemin = "cartes/" + id_carte
+	Firebase.Database.get_database_reference(chemin).update("", {"disponible": false})
+	
+	print("[Database] Carte ", id_carte, " désactivée sur Firebase.")

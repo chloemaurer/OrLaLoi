@@ -15,10 +15,10 @@ offset_bottom = 567.0
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 0
 offset_left = 249.0
-offset_top = 141.0
+offset_top = 109.0
 offset_right = 852.0
-offset_bottom = 476.0
-theme_override_constants/separation = 40
+offset_bottom = 482.0
+theme_override_constants/separation = 29
 
 [node name="Label" type="Label" parent="VBoxContainer"]
 layout_mode = 2
@@ -32,6 +32,13 @@ layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 30
 text = "Utiliser une carte"
+
+[node name="GiveCard" type="Button" parent="VBoxContainer"]
+modulate = Color(3.1229057, 3.1229057, 3.1229057, 1)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 30
+text = "Donner une carte"
 
 [node name="BuyCard" type="Button" parent="VBoxContainer"]
 modulate = Color(3.1229057, 3.1229057, 3.1229057, 1)
