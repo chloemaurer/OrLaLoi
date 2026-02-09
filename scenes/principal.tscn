@@ -649,7 +649,7 @@ scale = Vector2(1.003269, 0.9768656)
 pivot_offset = Vector2(0.022644043, 34.029373)
 
 [node name="Coeur" type="TextureRect" parent="Profils/Profil/Resources/Life"]
-modulate = Color(0.3372549, 0.3372549, 0.3372549, 1)
+modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
 material = SubResource("CanvasItemMaterial_srya7")
 layout_mode = 2
 size_flags_horizontal = 3
