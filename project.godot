@@ -25,6 +25,12 @@ Firebase="*res://addons/godot-firebase/firebase/firebase.tscn"
 DatabaseConfig="*res://scripts/database_config.gd"
 ProfilTurn="*res://scripts/profil_turn.gd"
 
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/size/mode=3
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/godot-firebase/plugin.cfg", "res://addons/http-sse-client/plugin.cfg")
