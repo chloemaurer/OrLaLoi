@@ -1,7 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://b0faj1t3lwxrx"]
+[gd_scene load_steps=13 format=3 uid="uid://b0faj1t3lwxrx"]
 
 [ext_resource type="Script" uid="uid://2e700233qs4k" path="res://scripts/profil.gd" id="1_wfgmg"]
 [ext_resource type="Texture2D" uid="uid://7nrwkrwc1tok" path="res://assets/profil/coeur.webp" id="2_j1w42"]
+[ext_resource type="Texture2D" uid="uid://b7mfhv7byc41k" path="res://pastille (2).webp" id="2_oyrg5"]
 [ext_resource type="Texture2D" uid="uid://btlu4r2ley4ww" path="res://assets/profil/alcool.webp" id="3_ehcmw"]
 [ext_resource type="Texture2D" uid="uid://jpvdd31q8et" path="res://assets/profil/nourriture.webp" id="4_84ug0"]
 [ext_resource type="Texture2D" uid="uid://dcsgy653c2i6b" path="res://assets/profil/niv1Icon.webp" id="5_edwgy"]
@@ -10,10 +11,11 @@
 [ext_resource type="Texture2D" uid="uid://b0hrtmg55c17b" path="res://assets/profil/joueur.png" id="8_bjxe8"]
 [ext_resource type="PackedScene" uid="uid://btox5acdq18om" path="res://scenes/keypad.tscn" id="9_awxfq"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vthg8"]
-bg_color = Color(0.72197306, 0.53042865, 0.4140661, 1)
-corner_radius_top_left = 200
-corner_radius_top_right = 200
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_edwgy"]
+blend_mode = 2
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_oyrg5"]
+blend_mode = 2
 
 [node name="Profil" type="Control"]
 layout_mode = 3
@@ -22,14 +24,11 @@ offset_right = 438.5773
 offset_bottom = 288.99997
 script = ExtResource("1_wfgmg")
 
-[node name="Panel" type="Panel" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_vthg8")
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("2_oyrg5")
 
 [node name="Resources" type="Control" parent="."]
 layout_mode = 1
@@ -38,12 +37,13 @@ anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -244.5773
-offset_top = -36.499985
-offset_right = -38.5773
-offset_bottom = 105.500015
+offset_left = -261.5773
+offset_top = 11.500015
+offset_right = -37.966583
+offset_bottom = 153.50002
 grow_horizontal = 0
 grow_vertical = 2
+scale = Vector2(0.7200012, 0.7200012)
 
 [node name="Life" type="HBoxContainer" parent="Resources"]
 layout_mode = 1
@@ -57,7 +57,8 @@ scale = Vector2(1.003269, 0.9768656)
 pivot_offset = Vector2(0.022644043, 34.029373)
 
 [node name="Coeur" type="TextureRect" parent="Resources/Life"]
-modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+modulate = Color(0.34548014, 0.34548014, 0.34548014, 1)
+material = SubResource("CanvasItemMaterial_edwgy")
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("2_j1w42")
@@ -65,7 +66,8 @@ expand_mode = 1
 stretch_mode = 5
 
 [node name="Coeur2" type="TextureRect" parent="Resources/Life"]
-modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+modulate = Color(0.34548014, 0.34548014, 0.34548014, 1)
+material = SubResource("CanvasItemMaterial_edwgy")
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("2_j1w42")
@@ -73,7 +75,8 @@ expand_mode = 1
 stretch_mode = 5
 
 [node name="Coeur3" type="TextureRect" parent="Resources/Life"]
-modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+modulate = Color(0.34548014, 0.34548014, 0.34548014, 1)
+material = SubResource("CanvasItemMaterial_edwgy")
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("2_j1w42")
@@ -81,7 +84,8 @@ expand_mode = 1
 stretch_mode = 5
 
 [node name="Coeur4" type="TextureRect" parent="Resources/Life"]
-modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+modulate = Color(0.14901961, 0.14901961, 0.14901961, 1)
+material = SubResource("CanvasItemMaterial_oyrg5")
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("2_j1w42")
@@ -89,7 +93,8 @@ expand_mode = 1
 stretch_mode = 5
 
 [node name="Coeur5" type="TextureRect" parent="Resources/Life"]
-modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+modulate = Color(0.14733289, 0.14733289, 0.14733289, 1)
+material = SubResource("CanvasItemMaterial_oyrg5")
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("2_j1w42")
@@ -110,7 +115,8 @@ pivot_offset = Vector2(3.5526276, -3.3023376)
 size_flags_horizontal = 0
 
 [node name="Alcohol" type="TextureRect" parent="Resources/Drink"]
-modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+modulate = Color(0.14901961, 0.14901961, 0.14901961, 1)
+material = SubResource("CanvasItemMaterial_oyrg5")
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("3_ehcmw")
@@ -118,7 +124,8 @@ expand_mode = 1
 stretch_mode = 5
 
 [node name="Alcohol2" type="TextureRect" parent="Resources/Drink"]
-modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+modulate = Color(0.14901961, 0.14901961, 0.14901961, 1)
+material = SubResource("CanvasItemMaterial_oyrg5")
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("3_ehcmw")
@@ -126,7 +133,8 @@ expand_mode = 1
 stretch_mode = 5
 
 [node name="Alcohol3" type="TextureRect" parent="Resources/Drink"]
-modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+modulate = Color(0.14901961, 0.14901961, 0.14901961, 1)
+material = SubResource("CanvasItemMaterial_oyrg5")
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("3_ehcmw")
@@ -134,7 +142,8 @@ expand_mode = 1
 stretch_mode = 5
 
 [node name="Alcohol4" type="TextureRect" parent="Resources/Drink"]
-modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+modulate = Color(0.14901961, 0.14901961, 0.14901961, 1)
+material = SubResource("CanvasItemMaterial_oyrg5")
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("3_ehcmw")
@@ -142,7 +151,8 @@ expand_mode = 1
 stretch_mode = 5
 
 [node name="Alcohol5" type="TextureRect" parent="Resources/Drink"]
-modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+modulate = Color(0.14901961, 0.14901961, 0.14901961, 1)
+material = SubResource("CanvasItemMaterial_oyrg5")
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("3_ehcmw")
@@ -165,7 +175,8 @@ pivot_offset = Vector2(4.0225983, -45.925705)
 size_flags_horizontal = 0
 
 [node name="Food" type="TextureRect" parent="Resources/Food"]
-modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+modulate = Color(0.14901961, 0.14901961, 0.14901961, 1)
+material = SubResource("CanvasItemMaterial_oyrg5")
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("4_84ug0")
@@ -173,7 +184,8 @@ expand_mode = 1
 stretch_mode = 5
 
 [node name="Food2" type="TextureRect" parent="Resources/Food"]
-modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+modulate = Color(0.14901961, 0.14901961, 0.14901961, 1)
+material = SubResource("CanvasItemMaterial_oyrg5")
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("4_84ug0")
@@ -181,7 +193,8 @@ expand_mode = 1
 stretch_mode = 5
 
 [node name="Food3" type="TextureRect" parent="Resources/Food"]
-modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+modulate = Color(0.14901961, 0.14901961, 0.14901961, 1)
+material = SubResource("CanvasItemMaterial_oyrg5")
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("4_84ug0")
@@ -189,7 +202,8 @@ expand_mode = 1
 stretch_mode = 5
 
 [node name="Food4" type="TextureRect" parent="Resources/Food"]
-modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+modulate = Color(0.14901961, 0.14901961, 0.14901961, 1)
+material = SubResource("CanvasItemMaterial_oyrg5")
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("4_84ug0")
@@ -197,7 +211,8 @@ expand_mode = 1
 stretch_mode = 5
 
 [node name="Food5" type="TextureRect" parent="Resources/Food"]
-modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+modulate = Color(0.14901961, 0.14901961, 0.14901961, 1)
+material = SubResource("CanvasItemMaterial_oyrg5")
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("4_84ug0")
@@ -209,10 +224,10 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -176.28865
-offset_top = 33.0
-offset_right = 118.71135
-offset_bottom = 73.0
+offset_left = -181.28865
+offset_top = 64.0
+offset_right = 77.71135
+offset_bottom = 104.0
 grow_horizontal = 2
 
 [node name="Items" type="HBoxContainer" parent="Items"]
@@ -301,8 +316,10 @@ layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -217.99997
-offset_right = 193.0
+offset_left = 18.0
+offset_top = -170.99997
+offset_right = 165.0
+offset_bottom = -1.0
 grow_vertical = 0
 
 [node name="Personnage" type="TextureRect" parent="PlayerIcon"]
@@ -312,10 +329,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -57.5
-offset_top = -79.999985
-offset_right = 77.5
-offset_bottom = 55.000015
+offset_left = -55.5
+offset_top = -73.999985
+offset_right = 79.5
+offset_bottom = 61.000015
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("8_bjxe8")
