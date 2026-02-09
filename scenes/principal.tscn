@@ -1,9 +1,9 @@
 [gd_scene load_steps=31 format=3 uid="uid://c63j8pcxbtd7f"]
 
 [ext_resource type="Script" uid="uid://cssb83qdnrq6u" path="res://scripts/principal.gd" id="1_awm7n"]
-[ext_resource type="Texture2D" uid="uid://b16n0ewt4o7d6" path="res://assets/fond.png" id="1_tr6oq"]
 [ext_resource type="PackedScene" uid="uid://cse5t0hgk5hjb" path="res://scenes/interactive_circle.tscn" id="2_iylmw"]
 [ext_resource type="Script" uid="uid://dpasr7vmxwkll" path="res://scripts/places.gd" id="2_l2a8t"]
+[ext_resource type="Texture2D" uid="uid://375a5j6h2crd" path="res://assets/plateau.webp" id="2_srya7"]
 [ext_resource type="PackedScene" uid="uid://co2fegnxpibon" path="res://scenes/dice.tscn" id="3_g3ehx"]
 [ext_resource type="Script" uid="uid://dsec2qiqxhgmk" path="res://scripts/dice.gd" id="4_6ndk6"]
 [ext_resource type="Script" uid="uid://ct54k77ngvy4p" path="res://scripts/saloon_shop.gd" id="7_l2a8t"]
@@ -95,14 +95,31 @@ script = ExtResource("1_awm7n")
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(0, -66)
 
-[node name="TextureRect" type="TextureRect" parent="."]
-layout_mode = 0
-offset_left = -575.0
-offset_top = -387.0
-offset_right = 1017.775
-offset_bottom = 637.0
+[node name="Panel2" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -578.0
+offset_top = -390.0
+offset_right = -578.0
+offset_bottom = -390.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="Panel2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 443.86584
+offset_bottom = 383.02393
+grow_horizontal = 2
+grow_vertical = 2
 scale = Vector2(0.7224918, 0.62656164)
-texture = ExtResource("1_tr6oq")
+texture = ExtResource("2_srya7")
+expand_mode = 1
+stretch_mode = 6
 
 [node name="Places" type="Node2D" parent="."]
 position = Vector2(-3, -26)
@@ -111,39 +128,40 @@ script = ExtResource("2_l2a8t")
 
 [node name="Saloon" type="Button" parent="Places"]
 self_modulate = Color(1, 1, 1, 0)
-offset_left = -361.8421
-offset_top = 71.05262
-offset_right = -322.3684
-offset_bottom = 111.842094
+offset_left = -81.57895
+offset_top = -210.52634
+offset_right = -42.105255
+offset_bottom = -169.73686
 
 [node name="Saloon" parent="Places/Saloon" instance=ExtResource("2_iylmw")]
 position = Vector2(19.736847, 21.052628)
 
 [node name="Mine" type="Button" parent="Places"]
 self_modulate = Color(1, 1, 1, 0)
-offset_left = -464.47372
-offset_top = -164.47368
-offset_right = -425.00003
-offset_bottom = -123.68422
+offset_left = 663.15784
+offset_top = 9.2105255
+offset_right = 702.63153
+offset_bottom = 49.999985
 
 [node name="Mine" parent="Places/Mine" instance=ExtResource("2_iylmw")]
 position = Vector2(19.473755, 20.473671)
 
 [node name="Restaurant" type="Button" parent="Places"]
 self_modulate = Color(1, 1, 1, 0)
-offset_top = -111.8421
-offset_right = 40.789482
-offset_bottom = -71.05262
+offset_left = -455.26315
+offset_top = -122.368416
+offset_right = -414.47366
+offset_bottom = -81.57893
 
 [node name="Restaurant" parent="Places/Restaurant" instance=ExtResource("2_iylmw")]
 position = Vector2(20.526314, 19.894753)
 
 [node name="Armory" type="Button" parent="Places"]
 self_modulate = Color(1, 1, 1, 0)
-offset_left = 223.68422
-offset_top = 38.15789
-offset_right = 264.4737
-offset_bottom = 78.947365
+offset_left = 232.89474
+offset_top = 184.21051
+offset_right = 273.6842
+offset_bottom = 224.99998
 
 [node name="Armurerie" parent="Places/Armory" instance=ExtResource("2_iylmw")]
 position = Vector2(19.894745, 20.526321)
@@ -151,20 +169,21 @@ position = Vector2(19.894745, 20.526321)
 [node name="Bank" type="Button" parent="Places"]
 self_modulate = Color(1, 1, 1, 0)
 z_index = 10
-offset_left = 400.0
-offset_top = -48.68421
-offset_right = 440.78946
-offset_bottom = -7.8947372
+offset_left = 361.8421
+offset_top = -125.0
+offset_right = 402.63156
+offset_bottom = -84.210526
 
 [node name="Banque" parent="Places/Bank" instance=ExtResource("2_iylmw")]
 position = Vector2(21.052582, 21.052628)
 
 [node name="Duel" type="Button" parent="Places"]
 self_modulate = Color(1, 1, 1, 0)
-offset_left = -21.052631
-offset_top = 222.36844
-offset_right = 19.736843
-offset_bottom = 263.15793
+offset_left = -276.3158
+offset_top = 250.00002
+offset_right = -235.52632
+offset_bottom = 290.7895
+scale = Vector2(0.97888863, 0.92170674)
 
 [node name="Duel" parent="Places/Duel" instance=ExtResource("2_iylmw")]
 position = Vector2(20.052631, 19.947388)
@@ -249,10 +268,10 @@ text = "10"
 
 [node name="Restaurant" type="Control" parent="."]
 anchors_preset = 0
-offset_left = -124.0
-offset_top = -299.0
-offset_right = -124.0
-offset_bottom = -299.0
+offset_left = -81.0
+offset_top = -287.0
+offset_right = -81.0
+offset_bottom = -287.0
 scale = Vector2(0.26850265, 0.26850265)
 
 [node name="Panel" type="Panel" parent="Restaurant"]
@@ -311,10 +330,10 @@ text = "À vos risque et périls"
 
 [node name="RestaurantShop" type="Control" parent="."]
 anchors_preset = 0
-offset_left = -130.0
-offset_top = -302.0
-offset_right = -130.0
-offset_bottom = -302.0
+offset_left = -86.999985
+offset_top = -290.0
+offset_right = -86.999985
+offset_bottom = -290.0
 scale = Vector2(0.29056025, 0.29056025)
 script = ExtResource("8_0at3r")
 
@@ -358,10 +377,10 @@ theme_override_font_sizes/font_size = 20
 
 [node name="Armory" type="Control" parent="."]
 anchors_preset = 0
-offset_left = 142.0
-offset_top = -44.0
-offset_right = 142.0
-offset_bottom = -44.0
+offset_left = 201.0
+offset_top = 21.0
+offset_right = 201.0
+offset_bottom = 21.0
 scale = Vector2(0.29044107, 0.29044107)
 script = ExtResource("8_v2y4t")
 
@@ -457,18 +476,18 @@ text = "Utiliser une carte armurerie"
 
 [node name="Duel" parent="." instance=ExtResource("9_v2y4t")]
 layout_mode = 1
-offset_left = -170.99998
-offset_top = -285.0
-offset_right = -932.47205
-offset_bottom = -752.8561
+offset_left = -396.0
+offset_top = -60.0
+offset_right = -1157.472
+offset_bottom = -527.8561
 scale = Vector2(0.4399994, 0.4399994)
 
 [node name="Saloon" type="Control" parent="."]
 anchors_preset = 0
-offset_left = -536.0
-offset_top = -234.00002
-offset_right = -536.0
-offset_bottom = -234.00002
+offset_left = -491.00003
+offset_top = -379.0
+offset_right = -491.00003
+offset_bottom = -379.0
 scale = Vector2(0.42721987, 0.42721987)
 
 [node name="Panel" type="Panel" parent="Saloon"]
@@ -528,10 +547,10 @@ text = "À vos risque et périls"
 
 [node name="SaloonShop" type="Control" parent="."]
 anchors_preset = 0
-offset_left = -524.0
-offset_top = -231.0
-offset_right = -524.0
-offset_bottom = -231.0
+offset_left = -480.0
+offset_top = -379.0
+offset_right = -480.0
+offset_bottom = -379.0
 scale = Vector2(0.41020092, 0.41020092)
 script = ExtResource("7_l2a8t")
 
@@ -1942,9 +1961,9 @@ text = "Terminer le tour"
 
 [node name="Bank" parent="." instance=ExtResource("9_ckosc")]
 layout_mode = 0
-offset_left = 137.0
+offset_left = 259.0
 offset_top = -259.0
-offset_right = 137.0
+offset_right = 259.0
 offset_bottom = -259.0
 scale = Vector2(0.3309081, 0.3309081)
 
@@ -1952,10 +1971,10 @@ scale = Vector2(0.3309081, 0.3309081)
 layout_mode = 1
 anchor_right = 0.661
 anchor_bottom = 0.72200006
-offset_left = -166.0
-offset_top = -290.0
-offset_right = -927.47205
-offset_bottom = -757.8561
+offset_left = -179.0
+offset_top = -117.99999
+offset_right = -940.47205
+offset_bottom = -585.856
 scale = Vector2(0.43999904, 0.43999904)
 script = ExtResource("21_srya7")
 
