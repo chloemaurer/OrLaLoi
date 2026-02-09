@@ -20,74 +20,8 @@
 [ext_resource type="Texture2D" uid="uid://jhtn7blget3s" path="res://assets/profil/pavePrototype_v2.webp" id="16_dynj2"]
 [ext_resource type="Texture2D" uid="uid://vcohqkjwjaaf" path="res://assets/profil/or.webp" id="17_1xbp8"]
 [ext_resource type="PackedScene" uid="uid://btox5acdq18om" path="res://scenes/keypad.tscn" id="18_2jxo5"]
-
-[sub_resource type="Animation" id="Animation_l1yxy"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_6ndk6"]
-resource_name = "dice"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(3.1415927, 0, 6.2831855)]
-}
-
-[sub_resource type="Animation" id="Animation_7w63j"]
-resource_name = "dice_2"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(-3.1415927, 0, -6.2831855)]
-}
-
-[sub_resource type="Animation" id="Animation_lop0i"]
-resource_name = "dice_6"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(3.1415927, 0, 6.2831855)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_7w63j"]
-_data = {
-&"RESET": SubResource("Animation_l1yxy"),
-&"dice": SubResource("Animation_6ndk6"),
-&"dice_2": SubResource("Animation_7w63j"),
-&"dice_6": SubResource("Animation_lop0i")
-}
+[ext_resource type="Script" uid="uid://dic10dttg35st" path="res://scripts/giveCard.gd" id="21_srya7"]
+[ext_resource type="Shader" uid="uid://6bmmgs1kn515" path="res://scenes/ennemyselect.gdshader" id="22_dynj2"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_g3ehx"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -108,6 +42,42 @@ glow_enabled = true
 bg_color = Color(0.72197306, 0.53042865, 0.4140661, 1)
 corner_radius_top_left = 200
 corner_radius_top_right = 200
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_b72to"]
+shader = ExtResource("22_dynj2")
+shader_parameter/thickness = 0.0
+shader_parameter/ring_count = 60
+shader_parameter/ring_offset = 0.0
+shader_parameter/outline_color = Color(0.7567149, 0.45344824, 5.7756904e-07, 1)
+shader_parameter/border_clipping_fix = true
+shader_parameter/aspect_ratio = 1.0
+shader_parameter/square_border = false
+shader_parameter/offset = Vector2(0, 0)
+shader_parameter/max_or_add = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mgajk"]
+shader = ExtResource("22_dynj2")
+shader_parameter/thickness = 0.0
+shader_parameter/ring_count = 60
+shader_parameter/ring_offset = 0.0
+shader_parameter/outline_color = Color(0.7567149, 0.45344824, 5.7756904e-07, 1)
+shader_parameter/border_clipping_fix = true
+shader_parameter/aspect_ratio = 1.0
+shader_parameter/square_border = false
+shader_parameter/offset = Vector2(0, 0)
+shader_parameter/max_or_add = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7teeq"]
+shader = ExtResource("22_dynj2")
+shader_parameter/thickness = 0.0
+shader_parameter/ring_count = 60
+shader_parameter/ring_offset = 0.0
+shader_parameter/outline_color = Color(0.7567149, 0.45344824, 5.7756904e-07, 1)
+shader_parameter/border_clipping_fix = true
+shader_parameter/aspect_ratio = 1.0
+shader_parameter/square_border = false
+shader_parameter/offset = Vector2(0, 0)
+shader_parameter/max_or_add = true
 
 [node name="Principal" type="Control"]
 layout_mode = 3
@@ -232,9 +202,6 @@ transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0
 rotation_order = 0
 
 [node name="RollDiceAnimation" type="AnimationPlayer" parent="SubViewportContainer/SubViewport/Node3D"]
-libraries = {
-&"": SubResource("AnimationLibrary_7w63j")
-}
 
 [node name="Node3D2" type="Node3D" parent="SubViewportContainer/SubViewport"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4, 0, 0)
@@ -243,9 +210,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4, 0, 0)
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
 
 [node name="RollDiceAnimation2" type="AnimationPlayer" parent="SubViewportContainer/SubViewport/Node3D2"]
-libraries = {
-&"": SubResource("AnimationLibrary_7w63j")
-}
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="SubViewportContainer/SubViewport"]
 environment = SubResource("Environment_l1yxy")
@@ -320,7 +284,7 @@ size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 30
 text = "Utiliser une carte"
 
-[node name="GiveCard" type="Button" parent="Restaurant/VBoxContainer"]
+[node name="RestaurantGiveCard" type="Button" parent="Restaurant/VBoxContainer"]
 modulate = Color(3.1229057, 3.1229057, 3.1229057, 1)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -484,14 +448,6 @@ theme_override_colors/font_color = Color(0.875, 0.875, 0.875, 1)
 theme_override_font_sizes/font_size = 38
 text = "Acheter une munition"
 
-[node name="GiveCard" type="Button" parent="Armory/VBoxContainer"]
-modulate = Color(3.1229057, 3.1229057, 3.1229057, 1)
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_colors/font_color = Color(0.875, 0.875, 0.875, 1)
-theme_override_font_sizes/font_size = 38
-text = "Donner une carte"
-
 [node name="ArmoryUseCard" type="Button" parent="Armory/VBoxContainer"]
 modulate = Color(3.1229057, 3.1229057, 3.1229057, 1)
 layout_mode = 2
@@ -545,7 +501,7 @@ size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 30
 text = "Utiliser une carte"
 
-[node name="GiveCard" type="Button" parent="Saloon/VBoxContainer"]
+[node name="SaloonGiveCard" type="Button" parent="Saloon/VBoxContainer"]
 modulate = Color(3.1229057, 3.1229057, 3.1229057, 1)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -1992,6 +1948,107 @@ offset_right = 137.0
 offset_bottom = -259.0
 scale = Vector2(0.3309081, 0.3309081)
 
+[node name="GiveCard" type="Control" parent="."]
+layout_mode = 1
+anchor_right = 0.661
+anchor_bottom = 0.72200006
+offset_left = -166.0
+offset_top = -290.0
+offset_right = -927.47205
+offset_bottom = -757.8561
+scale = Vector2(0.43999904, 0.43999904)
+script = ExtResource("21_srya7")
+
+[node name="Panel" type="Panel" parent="GiveCard"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(19.383072, 12.068146)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GiveCard"]
+layout_mode = 1
+offset_left = 2.0
+offset_top = 21.0
+offset_right = 768.0
+offset_bottom = 462.0
+theme_override_constants/separation = 40
+
+[node name="question" type="Label" parent="GiveCard/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 35
+text = "A quel joueur voulez-vous donner 
+une carte ?"
+horizontal_alignment = 1
+
+[node name="Joueurs" type="Control" parent="GiveCard/VBoxContainer"]
+layout_mode = 2
+
+[node name="Joueurs" type="HBoxContainer" parent="GiveCard/VBoxContainer/Joueurs"]
+layout_mode = 1
+offset_left = 33.0
+offset_top = -20.0
+offset_right = 1798.0027
+offset_bottom = 492.0
+scale = Vector2(0.39999944, 0.39999944)
+theme_override_constants/separation = 85
+
+[node name="Joueur1" type="TextureRect" parent="GiveCard/VBoxContainer/Joueurs/Joueurs"]
+material = SubResource("ShaderMaterial_b72to")
+layout_mode = 2
+texture = ExtResource("10_t8783")
+
+[node name="Nomjoueur1" type="Label" parent="GiveCard/VBoxContainer/Joueurs/Joueurs/Joueur1"]
+layout_mode = 0
+offset_left = -45.00006
+offset_top = 535.0
+offset_right = 548.99994
+offset_bottom = 598.0
+scale = Vector2(1.0000007, 1)
+theme_override_font_sizes/font_size = 55
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Joueur2" type="TextureRect" parent="GiveCard/VBoxContainer/Joueurs/Joueurs"]
+material = SubResource("ShaderMaterial_mgajk")
+layout_mode = 2
+texture = ExtResource("10_t8783")
+
+[node name="Nomjoueur2" type="Label" parent="GiveCard/VBoxContainer/Joueurs/Joueurs/Joueur2"]
+layout_mode = 0
+offset_left = -34.499237
+offset_top = 535.0
+offset_right = 559.50073
+offset_bottom = 598.0
+scale = Vector2(1.0000015, 1)
+theme_override_font_sizes/font_size = 55
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Joueur3" type="TextureRect" parent="GiveCard/VBoxContainer/Joueurs/Joueurs"]
+material = SubResource("ShaderMaterial_7teeq")
+layout_mode = 2
+texture = ExtResource("10_t8783")
+
+[node name="Nomjoueur3" type="Label" parent="GiveCard/VBoxContainer/Joueurs/Joueurs/Joueur3"]
+layout_mode = 0
+offset_left = -33.998444
+offset_top = 535.0
+offset_right = 560.0016
+offset_bottom = 598.0
+scale = Vector2(1.0000031, 1)
+theme_override_font_sizes/font_size = 55
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GiveCard" type="Button" parent="GiveCard/VBoxContainer"]
+modulate = Color(3.1229057, 3.1229057, 3.1229057, 1)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 10
+theme_override_font_sizes/font_size = 30
+text = "Donner une carte"
+
 [connection signal="pressed" from="Places/Saloon" to="Places" method="_on_saloon_pressed"]
 [connection signal="pressed" from="Places/Restaurant" to="Places" method="_on_restaurant_pressed"]
 [connection signal="pressed" from="Places/Armory" to="Places" method="_on_armory_pressed"]
@@ -2001,14 +2058,17 @@ scale = Vector2(0.3309081, 0.3309081)
 [connection signal="animation_finished" from="SubViewportContainer/SubViewport/Node3D/RollDiceAnimation" to="RollDiceButton" method="_on_roll_dice_animation_animation_finished"]
 [connection signal="pressed" from="RollDiceButton" to="RollDiceButton" method="roll_dice"]
 [connection signal="pressed" from="Restaurant/VBoxContainer/RestaurantUseCard" to="." method="_on_restaurant_use_card_pressed"]
+[connection signal="pressed" from="Restaurant/VBoxContainer/RestaurantGiveCard" to="." method="_on_restaurant_give_card_pressed"]
 [connection signal="pressed" from="Restaurant/VBoxContainer/FoodBuyCard" to="Places" method="_on_food_buy_card_pressed"]
 [connection signal="pressed" from="Restaurant/VBoxContainer/FoodBuyCard" to="RestaurantShop" method="_on_food_buy_card_pressed"]
 [connection signal="pressed" from="Armory/VBoxContainer/ArmoryBuyCard" to="Armory" method="_on_armory_buy_card_pressed"]
 [connection signal="pressed" from="Armory/VBoxContainer/ArmoryUseCard" to="." method="_on_armory_use_card_pressed"]
 [connection signal="pressed" from="Saloon/VBoxContainer/SaloonUseCard" to="." method="_on_saloon_use_card_pressed"]
+[connection signal="pressed" from="Saloon/VBoxContainer/SaloonGiveCard" to="." method="_on_saloon_give_card_pressed"]
 [connection signal="pressed" from="Saloon/VBoxContainer/DrinkBuyCard" to="Places" method="_on_drink_buy_card_pressed"]
 [connection signal="pressed" from="Saloon/VBoxContainer/DrinkBuyCard" to="SaloonShop" method="_on_drink_buy_card_pressed"]
 [connection signal="pressed" from="Profils/Profil/Items/Items/KeypadIcon/KeypadOpen" to="Profils/Profil" method="_on_keypad_open_pressed"]
 [connection signal="pressed" from="Profils/Profil2/Items/Items/KeypadIcon/KeypadOpen" to="Profils/Profil2" method="_on_keypad_open_pressed"]
 [connection signal="pressed" from="Profils/Profil3/Items/Items/KeypadIcon/KeypadOpen" to="Profils/Profil3" method="_on_keypad_open_pressed"]
 [connection signal="pressed" from="Profils/Profil4/Items/Items/KeypadIcon/KeypadOpen" to="Profils/Profil4" method="_on_keypad_open_pressed"]
+[connection signal="pressed" from="GiveCard/VBoxContainer/GiveCard" to="GiveCard" method="_on_give_card_pressed"]

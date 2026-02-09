@@ -33,7 +33,7 @@ func mettre_a_jour_catalogue(cle: String, valeur):
 					"code": clean_val.call(data.get("code", "0")),
 					"effet": data.get("effet", "Inconnu"),
 					"categorie": data.get("categorie", "Inconnue"),
-					"disponible": data.get("valeur", true) # On récupère le booléen
+					"disponible": data.get("disponible", true) # On récupère le booléen
 				}
 	
 	print("[Keypad] Catalogue mis à jour. Nombre de cartes : ", tous_les_codes.size())
@@ -68,9 +68,13 @@ func check_code():
 	print("[Keypad] --- Vérification ---")
 	
 	var carte_trouvee = null
+	var id_a_desactiver = "" # On prépare une variable pour stocker la clé (ex: "ID58")
+
+	# On parcourt le catalogue
 	for id_name in tous_les_codes:
-		if tous_les_codes[id_name]["code"] == input_code:
+		if str(tous_les_codes[id_name]["code"]) == input_code:
 			carte_trouvee = tous_les_codes[id_name]
+			id_a_desactiver = id_name # <--- ON SAUVEGARDE LA CLÉ ICI
 			break
 
 	if not carte_trouvee:
@@ -78,26 +82,30 @@ func check_code():
 		reset_keypad()
 		return
 		
-	if carte_trouvee["disponible"] == false:
+	if carte_trouvee.get("disponible", true) == false:
 		print("🚫 ÉCHEC : Cette carte a déjà été utilisée !")
 		_finaliser_utilisation_keypad()
 		return
 		
-	# On a trouvé une carte, maintenant on vérifie la Zone
 	var category = carte_trouvee["categorie"]
 	
 	if is_zone_valid(category):
-		print("✅ SUCCÈS : Carte valide et zone correcte.")
+		print("✅ SUCCÈS : Carte ", id_a_desactiver, " valide.")
 		
-		apply_card(category, carte_trouvee["effet"])
-		DatabaseConfig.disable_card(carte_trouvee["id"])
+		apply_card(category, carte_trouvee["effet"], id_a_desactiver)
+		
+		# On utilise la clé qu'on a capturée dans la boucle
+		DatabaseConfig.disable_card(id_a_desactiver)
+		
 		carte_trouvee["disponible"] = false 
 	else:
 		print("🚫 MAUVAISE ZONE.")
+	
 	_finaliser_utilisation_keypad()
 
 func _finaliser_utilisation_keypad():
 	DatabaseConfig.zone = "" # On reset la zone globale
+	DatabaseConfig.cible_don_id = "" # RESET CRUCIAL ICI
 	reset_keypad()          # On vide l'affichage et l'input_code
 	self.hide()             # On ferme le keypad
 	print("[Keypad] Zone reset et clavier fermé.")
@@ -118,22 +126,37 @@ func is_zone_valid(category: String) -> bool:
 	
 	return false
 
-func apply_card(category: String, effet_valeur):
+func apply_card(category: String, effet_valeur, id_carte: String):
 	var id_joueur = DatabaseConfig.current_profil_id
 	var effet = int(effet_valeur)
+	# --- LOGIQUE DE CIBLE ---
+	print("[DEBUG Keypad] --- Début apply_card ---")
+	print("[DEBUG Keypad] DatabaseConfig.cible_don_id actuel : '", DatabaseConfig.cible_don_id, "'")
+	print("[DEBUG Keypad] DatabaseConfig.current_profil_id actuel : '", id_joueur, "'")
+	var id_final = ""
 	
+	if DatabaseConfig.cible_don_id != "":
+		# Si une cible a été choisie via le menu GiveCard
+		id_final = DatabaseConfig.cible_don_id
+		print("[DEBUG Keypad] Résultat : Mode DON détecté. Cible = ", id_final)
+	else:
+		# Sinon, application normale sur soi-même
+		id_final = id_joueur
+		print("[DEBUG Keypad] Résultat : Mode NORMAL détecté. Cible = ", id_final)
+		
+		
 	match category:
-		#"MiniJeux":
-			#var succes = DatabaseConfig.spend_money(effet, id_joueur)
+		"MiniJeux":
+			DatabaseConfig.play_minijeux(id_carte)
 		#"Mine":
 			#var succes = DatabaseConfig.spend_money(effet, id_joueur)
 		"saloon":
-			DatabaseConfig.get_drink(effet, id_joueur)
+			DatabaseConfig.get_drink(effet, id_final)
 		"restaurant":
-			DatabaseConfig.get_food(effet, id_joueur)
+			DatabaseConfig.get_food(effet, id_final)
 		"vie":
-			DatabaseConfig.get_life(effet, id_joueur)
+			DatabaseConfig.get_life(effet, id_final)
 		"argent":
-			DatabaseConfig.get_money(effet, id_joueur)
+			DatabaseConfig.get_money(effet, id_final)
 		"arme":
-			DatabaseConfig.update_gun(effet, id_joueur)
+			DatabaseConfig.update_gun(effet, id_final)

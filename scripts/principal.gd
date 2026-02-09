@@ -42,6 +42,7 @@ var cible_duel_id : String = ""
 @onready var armory: Control = $Armory
 @onready var bank: Control = $Bank
 @onready var duel: Control = $Duel
+@onready var give_card: Control = $GiveCard
 
 
 func _ready() -> void:
@@ -53,7 +54,9 @@ func _ready() -> void:
 	DatabaseConfig.script_bank = $Bank
 	DatabaseConfig.script_armory = $Armory
 	DatabaseConfig.script_duel = $Duel
-
+	DatabaseConfig.script_don = $GiveCard
+	give_card.hide()
+	
 	if DatabaseConfig.cache_cartes != null:
 		for kp in keypad:
 			if is_instance_valid(kp) and kp.has_method("mettre_a_jour_catalogue"):
@@ -163,6 +166,7 @@ func ouvrir_menu_duel():
 	else:
 		print("[Principal] ERREUR : Le menu Duel n'est pas prêt ou la méthode est absente.")
 
+		
 # La fonction liée au signal "pressed" de ton bouton Duel sur l'interface
 func _on_duel_pressed() -> void:
 	ouvrir_menu_duel()
@@ -177,6 +181,7 @@ func open_current_keypad():
 	else:
 		print("[Principal] ERREUR : ID de profil hors limites pour le Keypad")
 
+#----------------------------------------------------------------------------------------
 func _on_saloon_use_card_pressed() -> void:
 	DatabaseConfig.zone = "saloon"
 	open_current_keypad()
@@ -189,6 +194,22 @@ func _on_armory_use_card_pressed() -> void:
 	DatabaseConfig.zone = "armurerie"
 	open_current_keypad()
 
-func _on_mine_use_card_pressed() -> void:
-	DatabaseConfig.zone = "mine"
-	open_current_keypad()
+#func _on_mine_use_card_pressed() -> void:
+	#DatabaseConfig.zone = "mine"
+	#open_current_keypad()
+#----------------------------------------------------------------------------
+
+#func _on_give_card_pressed() -> void:
+	#open_current_keypad()
+	
+func _on_saloon_give_card_pressed() -> void:
+	DatabaseConfig.zone = "saloon"
+	var mon_id = DatabaseConfig.current_profil_id
+	give_card.remplir_selection(profils_noeuds, mon_id)
+	give_card.show()
+
+func _on_restaurant_give_card_pressed() -> void:
+	DatabaseConfig.zone = "restaurant" # On définit la zone avant
+	var mon_id = DatabaseConfig.current_profil_id
+	give_card.remplir_selection(profils_noeuds, mon_id)
+	give_card.show()

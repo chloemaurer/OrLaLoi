@@ -12,6 +12,7 @@ var drink_local : int = 0
 var food_local : int = 0
 var actual_Gun : int = 0
 var current_profil_id : String = "0"
+var cible_don_id : String = "" # Contiendra l'ID du joueur sélectionné dans GiveCard
 var zone = ""
 # --- RÉFÉRENCES DES SCRIPTS (Assignées par le Main/Général) ---
 var script_general = null 
@@ -20,6 +21,7 @@ var script_restaurant = null
 var script_bank = null
 var script_armory = null
 var script_duel = null
+var script_don = null
 var cache_cartes = null
 
 func _ready() -> void:
@@ -143,16 +145,23 @@ func get_life(montant: int, profil_id: String):
 	Firebase.Database.get_database_reference("profils/ID" + profil_id).update("", {"Vie": nouveau_total})
 
 func get_drink(val: int, profil_id: String):
-	# On met à jour la variable LOCALE tout de suite
-	drink_local = clampi(drink_local + val, 0, 5)
+	var cible_node = script_general.profils_noeuds[int(profil_id)]
+	var valeur_actuelle_cible = cible_node.get_drink()
+	var nouveau_total = clampi(valeur_actuelle_cible + val, 0, 5)
 	var db_link = Firebase.Database.get_database_reference("profils/ID" + profil_id)
-	db_link.update("", {"Boisson": drink_local})
-	print("Local sync: Drink vaut maintenant ", drink_local)
+	db_link.update("", {"Boisson": nouveau_total})
+	
+	print("[DB] Don Boisson : ID", profil_id, " passe à ", nouveau_total)
 
 func get_food(val: int, profil_id: String):
-	food_local = clampi(food_local + val, 0, 5)
-	Firebase.Database.get_database_reference("profils/ID" + profil_id).update("", {"Nourriture": food_local})
-
+	# 1. On récupère la valeur actuelle de celui qui REÇOIT
+	var cible_node = script_general.profils_noeuds[int(profil_id)]
+	var valeur_actuelle_cible = cible_node.get_food()
+	var nouveau_total = clampi(valeur_actuelle_cible + val, 0, 5)
+	Firebase.Database.get_database_reference("profils/ID" + profil_id).update("", {"Nourriture": nouveau_total})
+	print("[DB] Don Nourriture : ID", profil_id, " passe à ", nouveau_total)
+	
+	
 func update_gun(val: int, profil_id: String):
 	if val == 2 && actual_Gun == 1 :
 		actual_Gun = val
@@ -167,8 +176,12 @@ func update_gun(val: int, profil_id: String):
 	Firebase.Database.get_database_reference("profils/ID" + profil_id).update("", {"Arme": actual_Gun})
 	print (actual_Gun)
 
-func disable_card(id_carte: String) -> void:
+func disable_card(id_carte: String):
+	# Le chemin sera "cartes/ID58"
 	var chemin = "cartes/" + id_carte
 	Firebase.Database.get_database_reference(chemin).update("", {"disponible": false})
-	
-	print("[Database] Carte ", id_carte, " désactivée sur Firebase.")
+
+func play_minijeux(id_minijeux: String):
+	# Le chemin sera "cartes/ID58"
+	var chemin = "MiniJeux/" + id_minijeux
+	Firebase.Database.get_database_reference(chemin).update("", {"play": true})

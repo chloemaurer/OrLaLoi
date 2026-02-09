@@ -1,0 +1,139 @@
+[gd_scene load_steps=7 format=3 uid="uid://da6aa6jetjncv"]
+
+[ext_resource type="Script" uid="uid://y7eqjvvm50d" path="res://scripts/duel.gd" id="1_qo5h2"]
+[ext_resource type="Shader" uid="uid://6bmmgs1kn515" path="res://scenes/ennemyselect.gdshader" id="2_v70eg"]
+[ext_resource type="Texture2D" uid="uid://b0hrtmg55c17b" path="res://assets/profil/joueur.png" id="3_sxnms"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_b72to"]
+shader = ExtResource("2_v70eg")
+shader_parameter/thickness = 0.0
+shader_parameter/ring_count = 60
+shader_parameter/ring_offset = 0.0
+shader_parameter/outline_color = Color(0.7567149, 0.45344824, 5.7756904e-07, 1)
+shader_parameter/border_clipping_fix = true
+shader_parameter/aspect_ratio = 1.0
+shader_parameter/square_border = false
+shader_parameter/offset = Vector2(0, 0)
+shader_parameter/max_or_add = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mgajk"]
+shader = ExtResource("2_v70eg")
+shader_parameter/thickness = 0.0
+shader_parameter/ring_count = 60
+shader_parameter/ring_offset = 0.0
+shader_parameter/outline_color = Color(0.7567149, 0.45344824, 5.7756904e-07, 1)
+shader_parameter/border_clipping_fix = true
+shader_parameter/aspect_ratio = 1.0
+shader_parameter/square_border = false
+shader_parameter/offset = Vector2(0, 0)
+shader_parameter/max_or_add = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7teeq"]
+shader = ExtResource("2_v70eg")
+shader_parameter/thickness = 0.0
+shader_parameter/ring_count = 60
+shader_parameter/ring_offset = 0.0
+shader_parameter/outline_color = Color(0.7567149, 0.45344824, 5.7756904e-07, 1)
+shader_parameter/border_clipping_fix = true
+shader_parameter/aspect_ratio = 1.0
+shader_parameter/square_border = false
+shader_parameter/offset = Vector2(0, 0)
+shader_parameter/max_or_add = true
+
+[node name="GiveCard" type="Control"]
+layout_mode = 3
+anchor_right = 0.661
+anchor_bottom = 0.72200006
+offset_right = -761.47205
+offset_bottom = -467.85605
+script = ExtResource("1_qo5h2")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(19.383072, 12.068146)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+offset_left = 2.0
+offset_top = 21.0
+offset_right = 768.0
+offset_bottom = 462.0
+theme_override_constants/separation = 40
+
+[node name="question" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 35
+text = "A quel joueur voulez-vous donner 
+une carte ?"
+horizontal_alignment = 1
+
+[node name="Joueurs" type="Control" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Joueurs" type="HBoxContainer" parent="VBoxContainer/Joueurs"]
+layout_mode = 1
+offset_left = 33.0
+offset_top = -20.0
+offset_right = 1798.0027
+offset_bottom = 492.0
+scale = Vector2(0.39999944, 0.39999944)
+theme_override_constants/separation = 85
+
+[node name="Joueur1" type="TextureRect" parent="VBoxContainer/Joueurs/Joueurs"]
+material = SubResource("ShaderMaterial_b72to")
+layout_mode = 2
+texture = ExtResource("3_sxnms")
+
+[node name="Nomjoueur1" type="Label" parent="VBoxContainer/Joueurs/Joueurs/Joueur1"]
+layout_mode = 0
+offset_left = -45.00006
+offset_top = 535.0
+offset_right = 548.99994
+offset_bottom = 598.0
+scale = Vector2(1.0000007, 1)
+theme_override_font_sizes/font_size = 55
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Joueur2" type="TextureRect" parent="VBoxContainer/Joueurs/Joueurs"]
+material = SubResource("ShaderMaterial_mgajk")
+layout_mode = 2
+texture = ExtResource("3_sxnms")
+
+[node name="Nomjoueur2" type="Label" parent="VBoxContainer/Joueurs/Joueurs/Joueur2"]
+layout_mode = 0
+offset_left = -34.499237
+offset_top = 535.0
+offset_right = 559.50073
+offset_bottom = 598.0
+scale = Vector2(1.0000015, 1)
+theme_override_font_sizes/font_size = 55
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Joueur3" type="TextureRect" parent="VBoxContainer/Joueurs/Joueurs"]
+material = SubResource("ShaderMaterial_7teeq")
+layout_mode = 2
+texture = ExtResource("3_sxnms")
+
+[node name="Nomjoueur3" type="Label" parent="VBoxContainer/Joueurs/Joueurs/Joueur3"]
+layout_mode = 0
+offset_left = -33.998444
+offset_top = 535.0
+offset_right = 560.0016
+offset_bottom = 598.0
+scale = Vector2(1.0000031, 1)
+theme_override_font_sizes/font_size = 55
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GiveCard" type="Button" parent="VBoxContainer"]
+modulate = Color(3.1229057, 3.1229057, 3.1229057, 1)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 10
+theme_override_font_sizes/font_size = 30
+text = "Donner une carte"
