@@ -9,6 +9,15 @@ extends Control
 @onready var munition: Label = $Items/Items/Control/Munition
 @onready var keypad: Node2D = $Keypad
 @onready var gun: TextureRect = $Items/Items/Control/Gun
+@onready var player_icone: TextureRect = $"PlayerIcon/PlayerIcone"
+
+@onready var personnages = [
+	preload("uid://d3hkmacsq0pag"),
+	preload("uid://bg3rdqu4pcayv"),
+	preload("uid://brntffde21jyb"),
+	preload("uid://b56iwvx4nh63n")
+	
+]
 
 const NIV_1_ICON = preload("uid://dcsgy653c2i6b")
 const NIV_2_ICON = preload("uid://c3kva8nrhjb2s")
@@ -22,8 +31,18 @@ var _money: int = 0
 var _munition: int = 0
 var _arme: int = 0
 
+
 func update_visuel(cle: String, valeur):
 	match cle:
+		"Icone":
+			var index = int(valeur)
+			if index >= 0 and index < personnages.size():
+				# ON UTILISE LE NOM DÉCLARÉ EN HAUT
+				if player_icone: 
+					player_icone.texture = personnages[index]
+					print("Image du profil mise à jour : Index ", index)
+				else:
+					print("ERREUR : Le noeud player_icone est introuvable")
 		"Vie":
 			_vie = int(valeur)
 			_update_hbox_icons(liste_des_coeurs, _vie)
@@ -90,7 +109,6 @@ func show_gun():
 		3:
 			gun.texture = NIV_3_ICON
 			print("Visuel : Arme Niveau 3")
-
 
 
 func _on_keypad_open_pressed() -> void:

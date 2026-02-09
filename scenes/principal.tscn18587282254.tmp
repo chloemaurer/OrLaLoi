@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://c63j8pcxbtd7f"]
+[gd_scene load_steps=32 format=3 uid="uid://c63j8pcxbtd7f"]
 
 [ext_resource type="Script" uid="uid://cssb83qdnrq6u" path="res://scripts/principal.gd" id="1_awm7n"]
 [ext_resource type="PackedScene" uid="uid://cse5t0hgk5hjb" path="res://scenes/interactive_circle.tscn" id="2_iylmw"]
@@ -6,8 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://375a5j6h2crd" path="res://assets/plateau.webp" id="2_srya7"]
 [ext_resource type="PackedScene" uid="uid://co2fegnxpibon" path="res://scenes/dice.tscn" id="3_g3ehx"]
 [ext_resource type="Script" uid="uid://dsec2qiqxhgmk" path="res://scripts/dice.gd" id="4_6ndk6"]
-[ext_resource type="PackedScene" uid="uid://dejcflq75wrbx" path="res://animation/roll_dice_animation.tscn" id="6_1xbp8"]
-[ext_resource type="PackedScene" uid="uid://bul75wbhcq0hr" path="res://animation/roll_dice_animation_2.tscn" id="7_2jxo5"]
 [ext_resource type="Script" uid="uid://ct54k77ngvy4p" path="res://scripts/saloon_shop.gd" id="7_l2a8t"]
 [ext_resource type="Script" uid="uid://boka4heiwao03" path="res://scripts/restaurant_shop.gd" id="8_0at3r"]
 [ext_resource type="Script" uid="uid://bwib1drxiulqp" path="res://scripts/armory.gd" id="8_v2y4t"]
@@ -23,7 +21,7 @@
 [ext_resource type="Texture2D" uid="uid://vcohqkjwjaaf" path="res://assets/profil/or.webp" id="17_1xbp8"]
 [ext_resource type="PackedScene" uid="uid://btox5acdq18om" path="res://scenes/keypad.tscn" id="18_2jxo5"]
 [ext_resource type="Script" uid="uid://dic10dttg35st" path="res://scripts/giveCard.gd" id="21_srya7"]
-[ext_resource type="Shader" uid="uid://6bmmgs1kn515" path="res://ennemyselect.gdshader" id="22_dynj2"]
+[ext_resource type="Shader" uid="uid://6bmmgs1kn515" path="res://scenes/ennemyselect.gdshader" id="22_dynj2"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_g3ehx"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -188,7 +186,7 @@ scale = Vector2(1.6400027, 1.6400027)
 layout_mode = 0
 offset_left = 4.4285316
 offset_top = 1.7857151
-offset_right = 250.42853
+offset_right = 250.42856
 offset_bottom = 184.78572
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="Dés"]
@@ -216,7 +214,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4, 0, 0)
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
 rotation_order = 0
 
-[node name="RollDiceAnimation" parent="Dés/SubViewportContainer/SubViewport/Node3D" instance=ExtResource("6_1xbp8")]
+[node name="RollDiceAnimation" type="AnimationPlayer" parent="Dés/SubViewportContainer/SubViewport/Node3D"]
 
 [node name="Node3D2" type="Node3D" parent="Dés/SubViewportContainer/SubViewport"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4, 0, 0)
@@ -224,7 +222,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4, 0, 0)
 [node name="D2" parent="Dés/SubViewportContainer/SubViewport/Node3D2" instance=ExtResource("3_g3ehx")]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
 
-[node name="RollDiceAnimation2" parent="Dés/SubViewportContainer/SubViewport/Node3D2" instance=ExtResource("7_2jxo5")]
+[node name="RollDiceAnimation2" type="AnimationPlayer" parent="Dés/SubViewportContainer/SubViewport/Node3D2"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Dés/SubViewportContainer/SubViewport"]
 environment = SubResource("Environment_l1yxy")
@@ -245,7 +243,7 @@ current = true
 layout_mode = 0
 offset_left = 39.428528
 offset_top = 13.785715
-offset_right = 285.4286
+offset_right = 285.42856
 offset_bottom = 70.78571
 scale = Vector2(0.7203803, 0.7653786)
 theme_override_font_sizes/font_size = 35
@@ -257,7 +255,7 @@ layout_mode = 0
 offset_left = 103.42853
 offset_top = 53.785736
 offset_right = 160.42853
-offset_bottom = 122.785736
+offset_bottom = 122.78575
 scale = Vector2(0.8377734, 0.8554982)
 theme_override_font_sizes/font_size = 50
 text = "10"
@@ -599,7 +597,6 @@ offset_right = 2.0
 offset_bottom = -6.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
 
 [node name="Profil" type="Control" parent="Profils"]
 anchors_preset = 0

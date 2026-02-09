@@ -35,12 +35,12 @@ func afficher_resultat(valeur: int):
 
 
 #---------------------------------------------------------------------------------
-@onready var saloon: Button = $"../Places/Saloon"
-@onready var mine: Button = $"../Places/Mine"
-@onready var restaurant: Button = $"../Places/Restaurant"
-@onready var bank: Button = $"../Places/Bank"
-@onready var duel: Button = $"../Places/Duel"
-@onready var armory: Button = $"../Places/Armory"
+@onready var saloon: Button = $"../../Places/Saloon"
+@onready var mine: Button = $"../../Places/Mine"
+@onready var restaurant: Button = $"../../Places/Restaurant"
+@onready var armory: Button = $"../../Places/Armory"
+@onready var bank: Button = $"../../Places/Bank"
+@onready var duel: Button = $"../../Places/Duel"
 
 func rerolled() -> void:
 	bank.hide()

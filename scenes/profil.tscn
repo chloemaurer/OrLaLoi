@@ -305,7 +305,7 @@ offset_top = -217.99997
 offset_right = 193.0
 grow_vertical = 0
 
-[node name="TextureRect" type="TextureRect" parent="PlayerIcon"]
+[node name="Personnage" type="TextureRect" parent="PlayerIcon"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5

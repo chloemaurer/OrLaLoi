@@ -7,13 +7,6 @@ extends Control
 	$Profils/Profil4
 ]
 
-#@onready var gun = [
-	#$Profils/Profil/Items/Items/Gun,
-	#$Profils/Profil2/Items/Items/Gun, 
-	#$Profils/Profil3/Items/Items/Gun, 
-	#$Profils/Profil4/Items/Items/Gun
-#]
-
 @onready var boutons_fin_tour = [
 	$Profils/Profil/EndTurn1, 
 	$Profils/Profil2/EndTurn2, 

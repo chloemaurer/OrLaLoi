@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://y7eqjvvm50d" path="res://scripts/duel.gd" id="1_rsfa2"]
 [ext_resource type="Texture2D" uid="uid://b0hrtmg55c17b" path="res://assets/profil/joueur.png" id="2_j65gr"]
-[ext_resource type="Shader" uid="uid://6bmmgs1kn515" path="res://scenes/ennemyselect.gdshader" id="3_b72to"]
+[ext_resource type="Shader" uid="uid://6bmmgs1kn515" path="res://ennemyselect.gdshader" id="3_b72to"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_b72to"]
 shader = ExtResource("3_b72to")
@@ -44,8 +44,10 @@ shader_parameter/max_or_add = true
 layout_mode = 3
 anchor_right = 0.661
 anchor_bottom = 0.72200006
-offset_right = -761.47205
-offset_bottom = -467.85605
+offset_left = 3.0
+offset_top = 3.0
+offset_right = -758.47205
+offset_bottom = -464.85605
 script = ExtResource("1_rsfa2")
 
 [node name="Panel" type="Panel" parent="."]
