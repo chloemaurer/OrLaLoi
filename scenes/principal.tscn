@@ -84,26 +84,19 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 22.0
-offset_top = 155.0
-offset_right = 22.0
-offset_bottom = 155.0
+offset_right = 768.0
+offset_bottom = 432.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 script = ExtResource("1_awm7n")
-
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(0, -66)
 
 [node name="Panel2" type="Panel" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -578.0
-offset_top = -390.0
-offset_right = -578.0
-offset_bottom = -390.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -112,8 +105,8 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = 443.86584
-offset_bottom = 383.02393
+offset_right = 737.4697
+offset_bottom = 642.09717
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.7224918, 0.62656164)
@@ -122,46 +115,46 @@ expand_mode = 1
 stretch_mode = 6
 
 [node name="Places" type="Node2D" parent="."]
-position = Vector2(-3, -26)
-scale = Vector2(0.76, 0.76)
+position = Vector2(923.99994, 629)
+scale = Vector2(1.16, 1.16)
 script = ExtResource("2_l2a8t")
 
 [node name="Saloon" type="Button" parent="Places"]
 self_modulate = Color(1, 1, 1, 0)
-offset_left = -81.57895
-offset_top = -210.52634
-offset_right = -42.105255
-offset_bottom = -169.73686
+offset_left = -54.31028
+offset_top = -240.51724
+offset_right = -14.836586
+offset_bottom = -199.72777
 
 [node name="Saloon" parent="Places/Saloon" instance=ExtResource("2_iylmw")]
 position = Vector2(19.736847, 21.052628)
 
 [node name="Mine" type="Button" parent="Places"]
 self_modulate = Color(1, 1, 1, 0)
-offset_left = 663.15784
-offset_top = 9.2105255
-offset_right = 702.63153
-offset_bottom = 49.999985
+offset_left = 756.89667
+offset_top = 0.86207294
+offset_right = 796.37036
+offset_bottom = 41.65153
 
 [node name="Mine" parent="Places/Mine" instance=ExtResource("2_iylmw")]
 position = Vector2(19.473755, 20.473671)
 
 [node name="Restaurant" type="Button" parent="Places"]
 self_modulate = Color(1, 1, 1, 0)
-offset_left = -455.26315
-offset_top = -122.368416
-offset_right = -414.47366
-offset_bottom = -81.57893
+offset_left = -455.1724
+offset_top = -149.13794
+offset_right = -414.3829
+offset_bottom = -108.34846
 
 [node name="Restaurant" parent="Places/Restaurant" instance=ExtResource("2_iylmw")]
 position = Vector2(20.526314, 19.894753)
 
 [node name="Armory" type="Button" parent="Places"]
 self_modulate = Color(1, 1, 1, 0)
-offset_left = 232.89474
-offset_top = 184.21051
-offset_right = 273.6842
-offset_bottom = 224.99998
+offset_left = 284.48282
+offset_top = 184.48274
+offset_right = 325.27228
+offset_bottom = 225.27222
 
 [node name="Armurerie" parent="Places/Armory" instance=ExtResource("2_iylmw")]
 position = Vector2(19.894745, 20.526321)
@@ -169,10 +162,10 @@ position = Vector2(19.894745, 20.526321)
 [node name="Bank" type="Button" parent="Places"]
 self_modulate = Color(1, 1, 1, 0)
 z_index = 10
-offset_left = 361.8421
-offset_top = -125.0
-offset_right = 402.63156
-offset_bottom = -84.210526
+offset_left = 422.41382
+offset_top = -144.82759
+offset_right = 463.20328
+offset_bottom = -104.03812
 
 [node name="Banque" parent="Places/Bank" instance=ExtResource("2_iylmw")]
 position = Vector2(21.052582, 21.052628)
@@ -188,23 +181,31 @@ scale = Vector2(0.97888863, 0.92170674)
 [node name="Duel" parent="Places/Duel" instance=ExtResource("2_iylmw")]
 position = Vector2(20.052631, 19.947388)
 
-[node name="Panel" type="Panel" parent="."]
-layout_mode = 0
-offset_left = -125.0
-offset_top = -64.0
-offset_right = 121.0
-offset_bottom = 119.0
+[node name="Dés" type="Control" parent="."]
+anchors_preset = 0
+offset_left = -335.0
+offset_top = -269.0
+offset_right = -295.0
+offset_bottom = -229.0
+scale = Vector2(2.2400002, 2.2400002)
 
-[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+[node name="Panel" type="Panel" parent="Dés"]
 layout_mode = 0
-offset_left = -133.0
-offset_top = -8.0
-offset_right = 719.61414
-offset_bottom = 545.00073
+offset_left = 455.0
+offset_top = 327.0
+offset_right = 701.0
+offset_bottom = 510.0
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="Dés"]
+layout_mode = 0
+offset_left = 447.0
+offset_top = 383.0
+offset_right = 1299.6141
+offset_bottom = 936.00073
 scale = Vector2(0.30399907, 0.30399907)
 stretch = true
 
-[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+[node name="SubViewport" type="SubViewport" parent="Dés/SubViewportContainer"]
 transparent_bg = true
 handle_input_locally = false
 physics_object_picking = true
@@ -213,66 +214,66 @@ physics_object_picking_first_only = true
 size = Vector2i(852, 553)
 render_target_update_mode = 4
 
-[node name="Node3D" type="Node3D" parent="SubViewportContainer/SubViewport"]
+[node name="Node3D" type="Node3D" parent="Dés/SubViewportContainer/SubViewport"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4, 0, 0)
 
-[node name="D6" parent="SubViewportContainer/SubViewport/Node3D" instance=ExtResource("3_g3ehx")]
+[node name="D6" parent="Dés/SubViewportContainer/SubViewport/Node3D" instance=ExtResource("3_g3ehx")]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
 rotation_order = 0
 
-[node name="RollDiceAnimation" type="AnimationPlayer" parent="SubViewportContainer/SubViewport/Node3D"]
+[node name="RollDiceAnimation" type="AnimationPlayer" parent="Dés/SubViewportContainer/SubViewport/Node3D"]
 
-[node name="Node3D2" type="Node3D" parent="SubViewportContainer/SubViewport"]
+[node name="Node3D2" type="Node3D" parent="Dés/SubViewportContainer/SubViewport"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4, 0, 0)
 
-[node name="D2" parent="SubViewportContainer/SubViewport/Node3D2" instance=ExtResource("3_g3ehx")]
+[node name="D2" parent="Dés/SubViewportContainer/SubViewport/Node3D2" instance=ExtResource("3_g3ehx")]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
 
-[node name="RollDiceAnimation2" type="AnimationPlayer" parent="SubViewportContainer/SubViewport/Node3D2"]
+[node name="RollDiceAnimation2" type="AnimationPlayer" parent="Dés/SubViewportContainer/SubViewport/Node3D2"]
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="SubViewportContainer/SubViewport"]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Dés/SubViewportContainer/SubViewport"]
 environment = SubResource("Environment_l1yxy")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewportContainer/SubViewport"]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Dés/SubViewportContainer/SubViewport"]
 transform = Transform3D(0.83997047, -0.39022505, -0.3770598, 0, -0.6948718, 0.7191337, -0.54263216, -0.60405105, -0.58367175, 0, 0, 0)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="SubViewportContainer/SubViewport"]
+[node name="StaticBody3D" type="StaticBody3D" parent="Dés/SubViewportContainer/SubViewport"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewportContainer/SubViewport/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Dés/SubViewportContainer/SubViewport/StaticBody3D"]
 shape = SubResource("WorldBoundaryShape3D_g3ehx")
 
-[node name="CameraDice" type="Camera3D" parent="SubViewportContainer/SubViewport"]
+[node name="CameraDice" type="Camera3D" parent="Dés/SubViewportContainer/SubViewport"]
 transform = Transform3D(1, 0, 0, 0, 0.022006782, 0.9997578, 0, -0.9997578, 0.022006782, 0, 4.867, 0)
 current = true
 
-[node name="RollDiceButton" type="Button" parent="."]
+[node name="RollDiceButton" type="Button" parent="Dés"]
 layout_mode = 0
-offset_left = -90.0
-offset_top = -52.0
-offset_right = 156.0
-offset_bottom = 5.0
+offset_left = 490.0
+offset_top = 339.0
+offset_right = 736.0
+offset_bottom = 396.0
 scale = Vector2(0.7203803, 0.7653786)
 theme_override_font_sizes/font_size = 35
 text = "Lancer les dés"
 script = ExtResource("4_6ndk6")
 
-[node name="DiceResultLabel" type="Label" parent="."]
+[node name="DiceResultLabel" type="Label" parent="Dés"]
 layout_mode = 0
-offset_left = -26.0
-offset_top = -12.0
-offset_right = 31.0
-offset_bottom = 57.0
+offset_left = 554.0
+offset_top = 379.0
+offset_right = 611.0
+offset_bottom = 448.0
 scale = Vector2(0.8377734, 0.8554982)
 theme_override_font_sizes/font_size = 50
 text = "10"
 
 [node name="Restaurant" type="Control" parent="."]
 anchors_preset = 0
-offset_left = -81.0
-offset_top = -287.0
-offset_right = -81.0
-offset_bottom = -287.0
-scale = Vector2(0.26850265, 0.26850265)
+offset_left = -113.00006
+offset_top = 56.999954
+offset_right = -113.00006
+offset_bottom = 56.999954
+scale = Vector2(0.6123316, 0.6123316)
 
 [node name="Panel" type="Panel" parent="Restaurant"]
 modulate = Color(0.827451, 0.22745098, 0.40784314, 1)
@@ -330,11 +331,11 @@ text = "À vos risque et périls"
 
 [node name="RestaurantShop" type="Control" parent="."]
 anchors_preset = 0
-offset_left = -86.999985
-offset_top = -290.0
-offset_right = -86.999985
-offset_bottom = -290.0
-scale = Vector2(0.29056025, 0.29056025)
+offset_left = -119.0
+offset_top = 54.0
+offset_right = -119.0
+offset_bottom = 54.0
+scale = Vector2(0.6626349, 0.6626349)
 script = ExtResource("8_0at3r")
 
 [node name="Panel" type="Panel" parent="RestaurantShop"]
@@ -377,11 +378,11 @@ theme_override_font_sizes/font_size = 20
 
 [node name="Armory" type="Control" parent="."]
 anchors_preset = 0
-offset_left = 201.0
-offset_top = 21.0
-offset_right = 201.0
-offset_bottom = 21.0
-scale = Vector2(0.29044107, 0.29044107)
+offset_left = 781.0
+offset_top = 412.0
+offset_right = 781.0
+offset_bottom = 412.0
+scale = Vector2(0.4224615, 0.4224615)
 script = ExtResource("8_v2y4t")
 
 [node name="Panel" type="Panel" parent="Armory"]
@@ -476,19 +477,19 @@ text = "Utiliser une carte armurerie"
 
 [node name="Duel" parent="." instance=ExtResource("9_v2y4t")]
 layout_mode = 1
-offset_left = -396.0
-offset_top = -60.0
-offset_right = -1157.472
-offset_bottom = -527.8561
-scale = Vector2(0.4399994, 0.4399994)
+offset_left = 301.0
+offset_top = 516.0
+offset_right = -460.47205
+offset_bottom = 48.143982
+scale = Vector2(0.64000183, 0.64000183)
 
 [node name="Saloon" type="Control" parent="."]
 anchors_preset = 0
-offset_left = -491.00003
-offset_top = -379.0
-offset_right = -491.00003
-offset_bottom = -379.0
-scale = Vector2(0.42721987, 0.42721987)
+offset_left = 677.99994
+offset_top = -29.999985
+offset_right = 677.99994
+offset_bottom = -29.999985
+scale = Vector2(0.62141335, 0.62141335)
 
 [node name="Panel" type="Panel" parent="Saloon"]
 modulate = Color(1, 0.27999997, 0.4960001, 1)
@@ -547,11 +548,11 @@ text = "À vos risque et périls"
 
 [node name="SaloonShop" type="Control" parent="."]
 anchors_preset = 0
-offset_left = -480.0
-offset_top = -379.0
-offset_right = -480.0
-offset_bottom = -379.0
-scale = Vector2(0.41020092, 0.41020092)
+offset_left = 689.0001
+offset_top = -29.999939
+offset_right = 689.0001
+offset_bottom = -29.999939
+scale = Vector2(0.5966584, 0.5966584)
 script = ExtResource("7_l2a8t")
 
 [node name="Panel" type="Panel" parent="SaloonShop"]
@@ -592,16 +593,21 @@ layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 20
 
-[node name="Profils" type="Node" parent="."]
+[node name="Profils" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Profil" type="Control" parent="Profils"]
-layout_mode = 3
 anchors_preset = 0
-offset_left = -554.0
-offset_top = 237.0
-offset_right = -115.4227
-offset_bottom = 526.0
-scale = Vector2(0.60000086, 0.60000086)
+offset_left = 2.0
+offset_top = 790.99994
+offset_right = 440.5773
+offset_bottom = 1080.0
+scale = Vector2(0.99062616, 0.99062616)
 script = ExtResource("11_t8783")
 
 [node name="Panel" type="Panel" parent="Profils/Profil"]
@@ -939,13 +945,12 @@ offset_bottom = 36.0
 text = "Terminer le tour"
 
 [node name="Profil2" type="Control" parent="Profils"]
-layout_mode = 3
 anchors_preset = 0
-offset_left = 336.0
-offset_top = 239.0
-offset_right = 774.5773
-offset_bottom = 528.0
-scale = Vector2(0.60000086, 0.60000086)
+offset_left = 1485.0
+offset_top = 789.0
+offset_right = 1923.5771
+offset_bottom = 1078.0
+scale = Vector2(0.99062616, 0.99062616)
 script = ExtResource("11_t8783")
 
 [node name="Panel" type="Panel" parent="Profils/Profil2"]
@@ -1278,14 +1283,13 @@ offset_bottom = 31.0
 text = "Terminer le tour"
 
 [node name="Profil3" type="Control" parent="Profils"]
-layout_mode = 3
 anchors_preset = 0
-offset_left = 596.1467
-offset_top = -60.59973
-offset_right = 1034.724
-offset_bottom = 228.40024
+offset_left = 1922.0
+offset_top = 291.0
+offset_right = 2360.5771
+offset_bottom = 580.0
 rotation = 3.1415927
-scale = Vector2(0.60000086, 0.60000086)
+scale = Vector2(0.99062616, 0.99062616)
 script = ExtResource("11_t8783")
 
 [node name="Panel" type="Panel" parent="Profils/Profil3"]
@@ -1619,14 +1623,13 @@ offset_bottom = 272.66632
 text = "Terminer le tour"
 
 [node name="Profil4" type="Control" parent="Profils"]
-layout_mode = 3
 anchors_preset = 0
-offset_left = -290.0
-offset_top = -58.999996
-offset_right = 148.5773
-offset_bottom = 229.99997
+offset_left = 433.0
+offset_top = 289.0
+offset_right = 871.5773
+offset_bottom = 578.0
 rotation = 3.1415927
-scale = Vector2(0.60000086, 0.60000086)
+scale = Vector2(0.99062616, 0.99062616)
 script = ExtResource("11_t8783")
 
 [node name="Panel" type="Panel" parent="Profils/Profil4"]
@@ -1961,21 +1964,21 @@ text = "Terminer le tour"
 
 [node name="Bank" parent="." instance=ExtResource("9_ckosc")]
 layout_mode = 0
-offset_left = 259.0
-offset_top = -259.0
-offset_right = 259.0
-offset_bottom = -259.0
-scale = Vector2(0.3309081, 0.3309081)
+offset_left = 1396.0
+offset_top = 263.0
+offset_right = 1396.0
+offset_bottom = 263.0
+scale = Vector2(0.48132288, 0.48132288)
 
 [node name="GiveCard" type="Control" parent="."]
 layout_mode = 1
 anchor_right = 0.661
 anchor_bottom = 0.72200006
-offset_left = -179.0
-offset_top = -117.99999
-offset_right = -940.47205
-offset_bottom = -585.856
-scale = Vector2(0.43999904, 0.43999904)
+offset_left = 787.0
+offset_top = 427.0
+offset_right = 25.527954
+offset_bottom = -40.856018
+scale = Vector2(0.64000136, 0.64000136)
 script = ExtResource("21_srya7")
 
 [node name="Panel" type="Panel" parent="GiveCard"]
@@ -2074,8 +2077,8 @@ text = "Donner une carte"
 [connection signal="pressed" from="Places/Bank" to="Places" method="_on_bank_pressed"]
 [connection signal="pressed" from="Places/Duel" to="." method="_on_duel_pressed"]
 [connection signal="pressed" from="Places/Duel" to="Places" method="_on_duel_pressed"]
-[connection signal="animation_finished" from="SubViewportContainer/SubViewport/Node3D/RollDiceAnimation" to="RollDiceButton" method="_on_roll_dice_animation_animation_finished"]
-[connection signal="pressed" from="RollDiceButton" to="RollDiceButton" method="roll_dice"]
+[connection signal="animation_finished" from="Dés/SubViewportContainer/SubViewport/Node3D/RollDiceAnimation" to="Dés/RollDiceButton" method="_on_roll_dice_animation_animation_finished"]
+[connection signal="pressed" from="Dés/RollDiceButton" to="Dés/RollDiceButton" method="roll_dice"]
 [connection signal="pressed" from="Restaurant/VBoxContainer/RestaurantUseCard" to="." method="_on_restaurant_use_card_pressed"]
 [connection signal="pressed" from="Restaurant/VBoxContainer/RestaurantGiveCard" to="." method="_on_restaurant_give_card_pressed"]
 [connection signal="pressed" from="Restaurant/VBoxContainer/FoodBuyCard" to="Places" method="_on_food_buy_card_pressed"]
