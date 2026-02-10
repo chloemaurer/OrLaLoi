@@ -45,6 +45,10 @@ func _on_bank_buy_card_pressed() -> void:
 	if succes:
 		print("Banque : Achat validé pour le profil ", id_joueur)
 		life_multiply = DatabaseConfig.get_life(num,id_joueur)
+		DatabaseConfig.actions_faites += 1
+	# On demande au script principal de vérifier si on doit fermer les places
+		if DatabaseConfig.script_general:
+			DatabaseConfig.script_general.verifier_limite_actions()
 
 	else:
 		print("Banque : Échec de l'achat (fonds insuffisants)")
@@ -54,3 +58,7 @@ func _on_bank_buy_card_pressed() -> void:
 func _on_get_card_pressed() -> void:
 	var id_joueur = DatabaseConfig.current_profil_id
 	pioche = DatabaseConfig.spend_money(prix_pioche,id_joueur)
+	DatabaseConfig.actions_faites += 1
+	# On demande au script principal de vérifier si on doit fermer les places
+	if DatabaseConfig.script_general:
+		DatabaseConfig.script_general.verifier_limite_actions()

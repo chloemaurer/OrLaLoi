@@ -24,6 +24,9 @@ var script_duel = null
 var script_don = null
 var cache_cartes = null
 
+var actions_faites : int = 0
+const MAX_ACTIONS : int = 2
+
 func _ready() -> void:
 	Firebase.Auth.login_succeeded.connect(_on_FirebaseAuth_login_succeeded)
 	Firebase.Auth.login_with_email_and_password("chloe29.maurer@gmail.com", "Yeraci_8")
@@ -122,6 +125,18 @@ func _update_local_vars(chemin: String, data):
 		if data.has("Boisson"): drink_local = int(data["Boisson"])
 		if data.has("Munition"): munition_local = int(data["Munition"])
 		if data.has("Arme"): actual_Gun = int(data["Arme"])
+
+
+# ----- Tour ---------------------------------------------------------
+
+func peut_agir() -> bool:
+	return actions_faites < MAX_ACTIONS
+
+func enregistrer_action():
+	actions_faites += 1
+	print("Action enregistrée. Total : ", actions_faites, "/", MAX_ACTIONS)
+	if actions_faites >= MAX_ACTIONS:
+		print("Plus d'actions disponibles !")
 
 # --- FONCTIONS D'ÉCRITURE --------------------------------------------
 

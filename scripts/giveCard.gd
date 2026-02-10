@@ -93,5 +93,9 @@ func _on_give_card_pressed() -> void:
 	# 2. On ferme le menu de sélection
 	self.hide()
 	
-	# 3. ON OUVRE LE KEYPAD MAINTENANT
-	DatabaseConfig.script_general.open_current_keypad()
+	var principal = DatabaseConfig.script_general
+	principal.open_current_keypad() 
+
+	# IMPORTANT : C'est ici qu'on prévient le keypad d'afficher la croix
+	var id_joueur = int(DatabaseConfig.current_profil_id)
+	principal.keypad[id_joueur].preparer_clavier_pour_don()

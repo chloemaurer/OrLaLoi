@@ -56,3 +56,7 @@ func update_drink():
 
 func _on_drink_buy_card_pressed() -> void:
 	update_drink()
+	DatabaseConfig.actions_faites += 1
+	# On demande au script principal de vérifier si on doit fermer les places
+	if DatabaseConfig.script_general:
+		DatabaseConfig.script_general.verifier_limite_actions()

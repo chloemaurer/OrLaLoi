@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://btox5acdq18om"]
+[gd_scene load_steps=4 format=3 uid="uid://btox5acdq18om"]
 
 [ext_resource type="Texture2D" uid="uid://35furc4lwpij" path="res://assets/pavenum/pave-_complet.webp" id="1_vxa2g"]
 [ext_resource type="Script" uid="uid://ypntmx4yrga8" path="res://scripts/keypad.gd" id="2_gjsb8"]
+[ext_resource type="Texture2D" uid="uid://bdmisnoq17jy1" path="res://assets/x.webp" id="3_gjsb8"]
 
 [node name="Keypad" type="Node2D"]
 script = ExtResource("2_gjsb8")
@@ -112,5 +113,13 @@ scale = Vector2(0.8, 0.8)
 [node name="Key4" type="Sprite2D" parent="Screen"]
 position = Vector2(210, -220)
 scale = Vector2(0.8, 0.8)
+
+[node name="CloseButton" type="TextureButton" parent="."]
+self_modulate = Color(0.4627451, 0.08627451, 0.09019608, 1)
+offset_left = 264.0
+offset_top = -343.0
+offset_right = 339.0
+offset_bottom = -269.0
+texture_normal = ExtResource("3_gjsb8")
 
 [connection signal="pressed" from="Actions/Check" to="." method="_on_check_pressed"]

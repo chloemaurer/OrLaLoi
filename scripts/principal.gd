@@ -100,7 +100,9 @@ func distribuer_donnees(chemin: String, data):
 func selectionner_profil(index_choisi: int):
 	print("Passage au profil : ", index_choisi)
 	DatabaseConfig.current_profil_id = str(index_choisi)
-
+	DatabaseConfig.actions_faites = 0 # On remet le compteur à zéro pour le nouveau joueur
+	print("Nouveau tour pour ID", index_choisi, ". Actions : 0/2")
+	
 	# On force la mise à jour des variables globales pour le nouveau profil
 	_synchroniser_stats_vers_global(index_choisi)
 	
@@ -118,6 +120,7 @@ func selectionner_profil(index_choisi: int):
 func _on_end_turn_pressed(index_actuel: int):
 	var prochain_profil = (index_actuel + 1) % profils_noeuds.size()
 	selectionner_profil(prochain_profil)
+	places.show()
 	places.close_all()
 	restaurant_shop.random_food()
 	saloon_shop.random_drink()
@@ -141,6 +144,15 @@ func _synchroniser_stats_vers_global(index: int):
 	DatabaseConfig.munition_local = cible.get_munition()
 	DatabaseConfig.actual_Gun = cible.get_gun()
 	
+#---- Tour -------------------------------------------------------------------------
+func verifier_limite_actions():
+	if DatabaseConfig.actions_faites >= 2:
+		print("[Tour] Limite atteinte, fermeture des lieux.")
+		places.close_all() # Ferme visuellement les accès aux boutiques
+		places.hide()
+		
+		
+#----------------------------------------
 
 func _on_profil_clique(event: InputEvent, index: int):
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
@@ -165,6 +177,11 @@ func _on_duel_pressed() -> void:
 	ouvrir_menu_duel()
 	
 func open_current_keypad():
+	# 1. On vérifie d'abord si le joueur a déjà fait ses 2 actions
+	if DatabaseConfig.actions_faites >= 2:
+		print("[Sécurité] Action refusée : Limite de 2 actions atteinte !")
+		return # On arrête tout ici, le keypad ne s'ouvrira pas
+		
 	var mon_id = int(DatabaseConfig.current_profil_id)
 	if mon_id < keypad.size():
 		var keypad_actuel = keypad[mon_id]

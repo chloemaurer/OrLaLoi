@@ -44,3 +44,7 @@ func _on_armory_buy_card_pressed() -> void:
 	if succes:
 		print("Armurerie : Achat validé pour le profil ", id_actuel)
 		DatabaseConfig.get_munition(num, id_actuel)
+		DatabaseConfig.actions_faites += 1
+	# On demande au script principal de vérifier si on doit fermer les places
+		if DatabaseConfig.script_general:
+			DatabaseConfig.script_general.verifier_limite_actions()
