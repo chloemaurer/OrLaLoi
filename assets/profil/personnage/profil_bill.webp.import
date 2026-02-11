@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://v5lcdv6u4ott"
-path="res://.godot/imported/niv3Icon.webp-d80ee262deb4bca26012ad8c1e746a8b.ctex"
+uid="uid://b7mfhv7byc41k"
+path="res://.godot/imported/profil_bill.webp-11fc2b9043ad72bdacb1063d6a769251.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/profil/niv3Icon.webp"
-dest_files=["res://.godot/imported/niv3Icon.webp-d80ee262deb4bca26012ad8c1e746a8b.ctex"]
+source_file="res://assets/profil/personnage/profil_bill.webp"
+dest_files=["res://.godot/imported/profil_bill.webp-11fc2b9043ad72bdacb1063d6a769251.ctex"]
 
 [params]
 

@@ -1,0 +1,123 @@
+[gd_scene load_steps=14 format=3 uid="uid://b3xr1tqch4x8m"]
+
+[ext_resource type="Script" uid="uid://dwgv8h64dqodi" path="res://scripts/manches.gd" id="1_ph0c3"]
+[ext_resource type="Texture2D" uid="uid://d2r31x7xggh67" path="res://assets/manches/modeleManche.webp" id="2_645kf"]
+[ext_resource type="Texture2D" uid="uid://c5iapgu2vltb6" path="res://assets/manches/mancheRail.webp" id="2_hxvxb"]
+[ext_resource type="Texture2D" uid="uid://0fw4810f5hgt" path="res://assets/manches/manches to come/mancheUnVide.webp" id="3_hclbn"]
+[ext_resource type="Texture2D" uid="uid://cxi4w0adl10gf" path="res://assets/manches/manches to come/mancheDeuxVide.webp" id="4_ss7q1"]
+[ext_resource type="Texture2D" uid="uid://d1tok5ke3hiyx" path="res://assets/manches/manches to come/mancheTroisVide.webp" id="5_k4x4l"]
+[ext_resource type="Texture2D" uid="uid://btchig2cm0ebn" path="res://assets/manches/manches to come/mancheQuatreVide.webp" id="6_ntmn4"]
+[ext_resource type="Texture2D" uid="uid://4oe5jxv11730" path="res://assets/manches/manches to come/mancheCinqVide.webp" id="7_3xraf"]
+[ext_resource type="Texture2D" uid="uid://dujpup0gg3wv8" path="res://assets/manches/manches to come/mancheSixVide.webp" id="8_gfi0v"]
+[ext_resource type="Texture2D" uid="uid://ct623muwomadu" path="res://assets/manches/manches to come/mancheSeptVide.webp" id="9_qg7nb"]
+[ext_resource type="Texture2D" uid="uid://x0g50ubywhb2" path="res://assets/manches/manches to come/mancheHuitVide.webp" id="10_bi638"]
+[ext_resource type="Texture2D" uid="uid://bujo73mhqjlue" path="res://assets/manches/manches to come/mancheNeufVide.webp" id="11_ikdqa"]
+[ext_resource type="Texture2D" uid="uid://bmh4qx47anx7t" path="res://assets/manches/manches to come/mancheDixVide.webp" id="12_8ycl3"]
+
+[node name="Manches" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_ph0c3")
+
+[node name="ModeleManche" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(309, 141)
+texture = ExtResource("2_645kf")
+
+[node name="MancheRail" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 47.0
+offset_right = 617.0
+offset_bottom = 72.0
+texture = ExtResource("2_hxvxb")
+
+[node name="MancheUnVide" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 11.0
+offset_right = 75.0
+offset_bottom = 75.0
+texture = ExtResource("3_hclbn")
+stretch_mode = 5
+
+[node name="MancheDeuxVide" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 67.0
+offset_top = 14.0
+offset_right = 131.0
+offset_bottom = 78.0
+texture = ExtResource("4_ss7q1")
+stretch_mode = 5
+
+[node name="MancheTroisVide" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 126.0
+offset_top = 15.0
+offset_right = 190.0
+offset_bottom = 79.0
+texture = ExtResource("5_k4x4l")
+stretch_mode = 5
+
+[node name="MancheQuatreVide" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 189.0
+offset_top = 15.0
+offset_right = 253.0
+offset_bottom = 79.0
+texture = ExtResource("6_ntmn4")
+stretch_mode = 5
+
+[node name="MancheCinqVide" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 249.0
+offset_top = 12.0
+offset_right = 313.0
+offset_bottom = 76.0
+texture = ExtResource("7_3xraf")
+stretch_mode = 5
+
+[node name="MancheSixVide" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 307.0
+offset_top = 9.0
+offset_right = 371.0
+offset_bottom = 73.0
+texture = ExtResource("8_gfi0v")
+stretch_mode = 5
+
+[node name="MancheSeptVide" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 365.0
+offset_top = 7.0
+offset_right = 429.0
+offset_bottom = 71.0
+texture = ExtResource("9_qg7nb")
+stretch_mode = 5
+
+[node name="MancheHuitVide" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 424.0
+offset_top = 5.0
+offset_right = 488.0
+offset_bottom = 69.0
+texture = ExtResource("10_bi638")
+stretch_mode = 5
+
+[node name="MancheNeufVide" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 482.0
+offset_top = 6.0
+offset_right = 546.0
+offset_bottom = 70.0
+texture = ExtResource("11_ikdqa")
+stretch_mode = 5
+
+[node name="MancheDixVide" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 545.0
+offset_top = 7.0
+offset_right = 609.0
+offset_bottom = 71.0
+texture = ExtResource("12_8ycl3")
+stretch_mode = 5

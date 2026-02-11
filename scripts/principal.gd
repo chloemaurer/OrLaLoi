@@ -38,6 +38,7 @@ var cible_duel_id : String = ""
 @onready var give_card: Control = $GiveCard
 
 
+
 func _ready() -> void:
 	# 1. On donne les accès au singleton immédiatement
 	DatabaseConfig.script_general = self
@@ -118,14 +119,56 @@ func selectionner_profil(index_choisi: int):
 
 		
 func _on_end_turn_pressed(index_actuel: int):
+	check_resources(index_actuel)
 	var prochain_profil = (index_actuel + 1) % profils_noeuds.size()
+	
+	var tentative = 0
+	while profils_noeuds[prochain_profil].get_life() <= 0 and tentative < profils_noeuds.size():
+		print("Joueur ID", prochain_profil, " est mort, on passe au suivant...")
+		prochain_profil = (prochain_profil + 1) % profils_noeuds.size()
+		tentative += 1
+		
+	# SI le prochain profil est l'index 0, cela veut dire que TOUT LE MONDE a joué
+	if prochain_profil == 0:
+		DatabaseConfig.manches += 1
+		print("--- TOUS LES JOUEURS ONT JOUÉ ---")
+		print("DÉBUT DE LA MANCHE : ", DatabaseConfig.manches)
+		$Manches.fill_wagon()
+		$Manches2.fill_wagon()
+		
 	selectionner_profil(prochain_profil)
 	places.show()
 	places.close_all()
 	restaurant_shop.random_food()
 	saloon_shop.random_drink()
 
+func check_resources(index_actuel: int):
+	var joueur = profils_noeuds[index_actuel]
+	var id_str = str(index_actuel)
+	
+	var boisson = joueur.get_drink()
+	var nourriture = joueur.get_food()
 
+	# Si l'un ou l'autre manque, le joueur perd 1 PV
+	if boisson <= 0 or nourriture <= 0:
+		var raison = "soif" if boisson <= 0 else "faim"
+		if boisson <= 0 and nourriture <= 0: raison = "faim et soif"
+		
+		print("Ressources épuisées (", raison, ") pour ID", id_str, " ! -1 PV")
+		DatabaseConfig.lose_life(1, id_str)
+		
+	if joueur.get_life() <= 0:
+		Kill_player(index_actuel)
+
+# Cette fonction gère l'apparence
+func Kill_player(index: int):
+	print("Le joueur ", index, " est éliminé.")
+	var cible = profils_noeuds[index]
+	cible.modulate = Color(0.2, 0.2, 0.2, 0.8) # Le gris
+	
+	# Optionnel : On cache son bouton pour qu'il ne puisse plus cliquer
+	boutons_fin_tour[index].hide()
+	
 func _synchroniser_stats_vers_global(index: int):
 	var cible = profils_noeuds[index]
 	

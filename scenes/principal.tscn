@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://c63j8pcxbtd7f"]
+[gd_scene format=3 uid="uid://c63j8pcxbtd7f"]
 
 [ext_resource type="Script" uid="uid://cssb83qdnrq6u" path="res://scripts/principal.gd" id="1_awm7n"]
 [ext_resource type="PackedScene" uid="uid://cse5t0hgk5hjb" path="res://scenes/interactive_circle.tscn" id="2_iylmw"]
@@ -18,23 +18,14 @@
 [ext_resource type="Texture2D" uid="uid://7nrwkrwc1tok" path="res://assets/profil/coeur.webp" id="12_x2ui6"]
 [ext_resource type="Texture2D" uid="uid://btlu4r2ley4ww" path="res://assets/profil/alcool.webp" id="13_v2y4t"]
 [ext_resource type="Texture2D" uid="uid://jpvdd31q8et" path="res://assets/profil/nourriture.webp" id="14_aojn8"]
-[ext_resource type="Texture2D" uid="uid://dcsgy653c2i6b" path="res://assets/profil/niv1Icon.webp" id="15_x2ui6"]
+[ext_resource type="Texture2D" uid="uid://b7mfhv7byc41k" path="res://assets/profil/personnage/profil_bill.webp" id="15_n46oe"]
+[ext_resource type="Texture2D" uid="uid://dwg03ruoyaydt" path="res://assets/profil/niv1Icon.webp" id="15_x2ui6"]
 [ext_resource type="Texture2D" uid="uid://jhtn7blget3s" path="res://assets/profil/pavePrototype_v2.webp" id="16_dynj2"]
 [ext_resource type="Texture2D" uid="uid://vcohqkjwjaaf" path="res://assets/profil/or.webp" id="17_1xbp8"]
 [ext_resource type="PackedScene" uid="uid://btox5acdq18om" path="res://scenes/keypad.tscn" id="18_2jxo5"]
 [ext_resource type="Script" uid="uid://dic10dttg35st" path="res://scripts/giveCard.gd" id="21_srya7"]
 [ext_resource type="Shader" uid="uid://6bmmgs1kn515" path="res://ennemyselect.gdshader" id="22_dynj2"]
-[ext_resource type="Texture2D" uid="uid://c5iapgu2vltb6" path="res://assets/manches/mancheRail.webp" id="25_rrv1i"]
-[ext_resource type="Texture2D" uid="uid://4oe5jxv11730" path="res://assets/manches/manches to come/mancheCinqVide.webp" id="26_dyk5w"]
-[ext_resource type="Texture2D" uid="uid://cxi4w0adl10gf" path="res://assets/manches/manches to come/mancheDeuxVide.webp" id="27_dwjdh"]
-[ext_resource type="Texture2D" uid="uid://bmh4qx47anx7t" path="res://assets/manches/manches to come/mancheDixVide.webp" id="28_dr6sg"]
-[ext_resource type="Texture2D" uid="uid://x0g50ubywhb2" path="res://assets/manches/manches to come/mancheHuitVide.webp" id="29_eto4s"]
-[ext_resource type="Texture2D" uid="uid://bujo73mhqjlue" path="res://assets/manches/manches to come/mancheNeufVide.webp" id="30_vr4so"]
-[ext_resource type="Texture2D" uid="uid://btchig2cm0ebn" path="res://assets/manches/manches to come/mancheQuatreVide.webp" id="31_nc7xk"]
-[ext_resource type="Texture2D" uid="uid://ct623muwomadu" path="res://assets/manches/manches to come/mancheSeptVide.webp" id="32_f8urn"]
-[ext_resource type="Texture2D" uid="uid://dujpup0gg3wv8" path="res://assets/manches/manches to come/mancheSixVide.webp" id="33_ihcfc"]
-[ext_resource type="Texture2D" uid="uid://d1tok5ke3hiyx" path="res://assets/manches/manches to come/mancheTroisVide.webp" id="34_6vvq3"]
-[ext_resource type="Texture2D" uid="uid://0fw4810f5hgt" path="res://assets/manches/manches to come/mancheUnVide.webp" id="35_voqbm"]
+[ext_resource type="PackedScene" uid="uid://b3xr1tqch4x8m" path="res://scenes/manches.tscn" id="25_2jxo5"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_g3ehx"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -51,12 +42,20 @@ glow_enabled = true
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_g3ehx"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vthg8"]
-bg_color = Color(0.72197306, 0.53042865, 0.4140661, 1)
-corner_radius_top_left = 200
-corner_radius_top_right = 200
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_0ah0u"]
+blend_mode = 2
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_srya7"]
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_aarkv"]
+blend_mode = 2
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_6k428"]
+blend_mode = 2
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_n46oe"]
+blend_mode = 2
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_011ta"]
+blend_mode = 2
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_b72to"]
 shader = ExtResource("22_dynj2")
@@ -94,7 +93,7 @@ shader_parameter/square_border = false
 shader_parameter/offset = Vector2(0, 0)
 shader_parameter/max_or_add = true
 
-[node name="Principal" type="Control"]
+[node name="Principal" type="Control" unique_id=684752956]
 layout_mode = 3
 anchor_right = 1.667
 anchor_bottom = 1.667
@@ -106,7 +105,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_awm7n")
 
-[node name="Panel2" type="Panel" parent="."]
+[node name="Panel2" type="Panel" parent="." unique_id=457074055]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -114,58 +113,58 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="TextureRect" type="TextureRect" parent="Panel2"]
+[node name="TextureRect" type="TextureRect" parent="Panel2" unique_id=983415223]
 layout_mode = 1
 offset_right = 1920.0
 offset_bottom = 1080.0
 texture = ExtResource("2_srya7")
 
-[node name="Places" type="Node2D" parent="."]
+[node name="Places" type="Node2D" parent="." unique_id=389570062]
 position = Vector2(923.99994, 629)
 scale = Vector2(1.16, 1.16)
 script = ExtResource("2_l2a8t")
 
-[node name="Saloon" type="Button" parent="Places"]
+[node name="Saloon" type="Button" parent="Places" unique_id=401545555]
 self_modulate = Color(1, 1, 1, 0)
 offset_left = -54.31028
 offset_top = -240.51724
 offset_right = -14.836586
 offset_bottom = -199.72777
 
-[node name="Saloon" parent="Places/Saloon" instance=ExtResource("2_iylmw")]
+[node name="Saloon" parent="Places/Saloon" unique_id=1026230234 instance=ExtResource("2_iylmw")]
 position = Vector2(19.736847, 21.052628)
 
-[node name="Mine" type="Button" parent="Places"]
+[node name="Mine" type="Button" parent="Places" unique_id=1696777131]
 self_modulate = Color(1, 1, 1, 0)
 offset_left = 661.20703
 offset_top = -4.3103414
 offset_right = 700.6807
 offset_bottom = 36.47912
 
-[node name="Mine" parent="Places/Mine" instance=ExtResource("2_iylmw")]
+[node name="Mine" parent="Places/Mine" unique_id=2132945549 instance=ExtResource("2_iylmw")]
 position = Vector2(19.473755, 20.473671)
 
-[node name="Restaurant" type="Button" parent="Places"]
+[node name="Restaurant" type="Button" parent="Places" unique_id=265307941]
 self_modulate = Color(1, 1, 1, 0)
 offset_left = -393.1034
 offset_top = -142.2414
 offset_right = -352.3139
 offset_bottom = -101.45191
 
-[node name="Restaurant" parent="Places/Restaurant" instance=ExtResource("2_iylmw")]
+[node name="Restaurant" parent="Places/Restaurant" unique_id=1471051336 instance=ExtResource("2_iylmw")]
 position = Vector2(20.526314, 19.894753)
 
-[node name="Armory" type="Button" parent="Places"]
+[node name="Armory" type="Button" parent="Places" unique_id=514647060]
 self_modulate = Color(1, 1, 1, 0)
 offset_left = 256.03455
 offset_top = 184.48274
 offset_right = 296.824
 offset_bottom = 225.27222
 
-[node name="Armurerie" parent="Places/Armory" instance=ExtResource("2_iylmw")]
+[node name="Armurerie" parent="Places/Armory" unique_id=1925101364 instance=ExtResource("2_iylmw")]
 position = Vector2(19.894745, 20.526321)
 
-[node name="Bank" type="Button" parent="Places"]
+[node name="Bank" type="Button" parent="Places" unique_id=1020479236]
 self_modulate = Color(1, 1, 1, 0)
 z_index = 10
 offset_left = 372.41382
@@ -173,10 +172,10 @@ offset_top = -144.82759
 offset_right = 413.20328
 offset_bottom = -104.03812
 
-[node name="Banque" parent="Places/Bank" instance=ExtResource("2_iylmw")]
+[node name="Banque" parent="Places/Bank" unique_id=687670684 instance=ExtResource("2_iylmw")]
 position = Vector2(21.052582, 21.052628)
 
-[node name="Duel" type="Button" parent="Places"]
+[node name="Duel" type="Button" parent="Places" unique_id=1635877723]
 self_modulate = Color(1, 1, 1, 0)
 offset_left = -244.82755
 offset_top = 250.00002
@@ -184,10 +183,10 @@ offset_right = -204.03807
 offset_bottom = 290.7895
 scale = Vector2(0.97888863, 0.92170674)
 
-[node name="Duel" parent="Places/Duel" instance=ExtResource("2_iylmw")]
+[node name="Duel" parent="Places/Duel" unique_id=2129529942 instance=ExtResource("2_iylmw")]
 position = Vector2(20.052631, 19.947388)
 
-[node name="Dés" type="Control" parent="."]
+[node name="Dés" type="Control" parent="." unique_id=986222176]
 anchors_preset = 0
 offset_left = 753.0
 offset_top = 410.0
@@ -195,14 +194,14 @@ offset_right = 1006.125
 offset_bottom = 600.1786
 scale = Vector2(1.6400027, 1.6400027)
 
-[node name="Panel" type="Panel" parent="Dés"]
+[node name="Panel" type="Panel" parent="Dés" unique_id=1332219352]
 layout_mode = 0
 offset_left = 4.4285316
 offset_top = 1.7857151
 offset_right = 250.42853
 offset_bottom = 184.78572
 
-[node name="SubViewportContainer" type="SubViewportContainer" parent="Dés"]
+[node name="SubViewportContainer" type="SubViewportContainer" parent="Dés" unique_id=761849960]
 layout_mode = 0
 offset_left = -3.571434
 offset_top = 57.785736
@@ -211,7 +210,7 @@ offset_bottom = 610.7865
 scale = Vector2(0.30399907, 0.30399907)
 stretch = true
 
-[node name="SubViewport" type="SubViewport" parent="Dés/SubViewportContainer"]
+[node name="SubViewport" type="SubViewport" parent="Dés/SubViewportContainer" unique_id=2047702395]
 transparent_bg = true
 handle_input_locally = false
 physics_object_picking = true
@@ -220,39 +219,39 @@ physics_object_picking_first_only = true
 size = Vector2i(852, 553)
 render_target_update_mode = 4
 
-[node name="Node3D" type="Node3D" parent="Dés/SubViewportContainer/SubViewport"]
+[node name="Node3D" type="Node3D" parent="Dés/SubViewportContainer/SubViewport" unique_id=1695860777]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4, 0, 0)
 
-[node name="D6" parent="Dés/SubViewportContainer/SubViewport/Node3D" instance=ExtResource("3_g3ehx")]
+[node name="D6" parent="Dés/SubViewportContainer/SubViewport/Node3D" unique_id=1787158400 instance=ExtResource("3_g3ehx")]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
 rotation_order = 0
 
-[node name="RollDiceAnimation" parent="Dés/SubViewportContainer/SubViewport/Node3D" instance=ExtResource("6_1xbp8")]
+[node name="RollDiceAnimation" parent="Dés/SubViewportContainer/SubViewport/Node3D" unique_id=1561401649 instance=ExtResource("6_1xbp8")]
 
-[node name="Node3D2" type="Node3D" parent="Dés/SubViewportContainer/SubViewport"]
+[node name="Node3D2" type="Node3D" parent="Dés/SubViewportContainer/SubViewport" unique_id=792333186]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4, 0, 0)
 
-[node name="D2" parent="Dés/SubViewportContainer/SubViewport/Node3D2" instance=ExtResource("3_g3ehx")]
+[node name="D2" parent="Dés/SubViewportContainer/SubViewport/Node3D2" unique_id=552249671 instance=ExtResource("3_g3ehx")]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
 
-[node name="RollDiceAnimation2" parent="Dés/SubViewportContainer/SubViewport/Node3D2" instance=ExtResource("7_2jxo5")]
+[node name="RollDiceAnimation2" parent="Dés/SubViewportContainer/SubViewport/Node3D2" unique_id=1165671951 instance=ExtResource("7_2jxo5")]
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="Dés/SubViewportContainer/SubViewport"]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Dés/SubViewportContainer/SubViewport" unique_id=54301494]
 environment = SubResource("Environment_l1yxy")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Dés/SubViewportContainer/SubViewport"]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Dés/SubViewportContainer/SubViewport" unique_id=1569754254]
 transform = Transform3D(0.83997047, -0.39022505, -0.3770598, 0, -0.6948718, 0.7191337, -0.54263216, -0.60405105, -0.58367175, 0, 0, 0)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Dés/SubViewportContainer/SubViewport"]
+[node name="StaticBody3D" type="StaticBody3D" parent="Dés/SubViewportContainer/SubViewport" unique_id=1748908290]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Dés/SubViewportContainer/SubViewport/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Dés/SubViewportContainer/SubViewport/StaticBody3D" unique_id=1183476198]
 shape = SubResource("WorldBoundaryShape3D_g3ehx")
 
-[node name="CameraDice" type="Camera3D" parent="Dés/SubViewportContainer/SubViewport"]
+[node name="CameraDice" type="Camera3D" parent="Dés/SubViewportContainer/SubViewport" unique_id=782732862]
 transform = Transform3D(1, 0, 0, 0, 0.022006782, 0.9997578, 0, -0.9997578, 0.022006782, 0, 4.867, 0)
 current = true
 
-[node name="RollDiceButton" type="Button" parent="Dés"]
+[node name="RollDiceButton" type="Button" parent="Dés" unique_id=2094645663]
 layout_mode = 0
 offset_left = 39.428528
 offset_top = 13.785715
@@ -263,7 +262,7 @@ theme_override_font_sizes/font_size = 35
 text = "Lancer les dés"
 script = ExtResource("4_6ndk6")
 
-[node name="DiceResultLabel" type="Label" parent="Dés"]
+[node name="DiceResultLabel" type="Label" parent="Dés" unique_id=1428810630]
 layout_mode = 0
 offset_left = 103.42853
 offset_top = 53.785736
@@ -273,7 +272,7 @@ scale = Vector2(0.8377734, 0.8554982)
 theme_override_font_sizes/font_size = 50
 text = "10"
 
-[node name="Restaurant" type="Control" parent="."]
+[node name="Restaurant" type="Control" parent="." unique_id=718299353]
 visible = false
 anchors_preset = 0
 offset_left = 230.99994
@@ -282,7 +281,7 @@ offset_right = 230.99994
 offset_bottom = 56.999954
 scale = Vector2(0.6123316, 0.6123316)
 
-[node name="Panel" type="Panel" parent="Restaurant"]
+[node name="Panel" type="Panel" parent="Restaurant" unique_id=1705846929]
 modulate = Color(0.827451, 0.22745098, 0.40784314, 1)
 layout_mode = 0
 offset_left = 249.0
@@ -290,7 +289,7 @@ offset_top = 69.0
 offset_right = 851.0
 offset_bottom = 567.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Restaurant"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Restaurant" unique_id=1441516783]
 layout_mode = 0
 offset_left = 249.0
 offset_top = 109.0
@@ -298,34 +297,34 @@ offset_right = 852.0
 offset_bottom = 482.0
 theme_override_constants/separation = 29
 
-[node name="Label" type="Label" parent="Restaurant/VBoxContainer"]
+[node name="Label" type="Label" parent="Restaurant/VBoxContainer" unique_id=555113155]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 75
 text = "Taverne"
 
-[node name="RestaurantUseCard" type="Button" parent="Restaurant/VBoxContainer"]
+[node name="RestaurantUseCard" type="Button" parent="Restaurant/VBoxContainer" unique_id=1331140267]
 modulate = Color(3.1229057, 3.1229057, 3.1229057, 1)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 30
 text = "Utiliser une carte"
 
-[node name="RestaurantGiveCard" type="Button" parent="Restaurant/VBoxContainer"]
+[node name="RestaurantGiveCard" type="Button" parent="Restaurant/VBoxContainer" unique_id=1695504744]
 modulate = Color(3.1229057, 3.1229057, 3.1229057, 1)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 30
 text = "Donner une carte"
 
-[node name="FoodBuyCard" type="Button" parent="Restaurant/VBoxContainer"]
+[node name="FoodBuyCard" type="Button" parent="Restaurant/VBoxContainer" unique_id=626690792]
 modulate = Color(3.1229057, 3.1229057, 3.1229057, 1)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 30
 text = "Acheter une carte"
 
-[node name="Label2" type="Label" parent="Restaurant/VBoxContainer/FoodBuyCard"]
+[node name="Label2" type="Label" parent="Restaurant/VBoxContainer/FoodBuyCard" unique_id=2023448666]
 modulate = Color(0.7581918, 0.7581918, 0.7581917, 1)
 layout_mode = 0
 offset_left = 33.0
@@ -336,7 +335,7 @@ size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 20
 text = "À vos risque et périls"
 
-[node name="RestaurantShop" type="Control" parent="."]
+[node name="RestaurantShop" type="Control" parent="." unique_id=253302142]
 visible = false
 anchors_preset = 0
 offset_left = 225.0
@@ -346,7 +345,7 @@ offset_bottom = 54.0
 scale = Vector2(0.6626349, 0.6626349)
 script = ExtResource("8_0at3r")
 
-[node name="Panel" type="Panel" parent="RestaurantShop"]
+[node name="Panel" type="Panel" parent="RestaurantShop" unique_id=996172716]
 modulate = Color(0.8291994, 0.22925165, 0.4097061, 1)
 layout_mode = 0
 offset_left = 249.0
@@ -354,7 +353,7 @@ offset_top = 69.0
 offset_right = 851.0
 offset_bottom = 567.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="RestaurantShop"]
+[node name="VBoxContainer" type="VBoxContainer" parent="RestaurantShop" unique_id=123672786]
 layout_mode = 0
 offset_left = 249.0
 offset_top = 116.0
@@ -362,29 +361,29 @@ offset_right = 852.0
 offset_bottom = 525.0
 theme_override_constants/separation = 40
 
-[node name="Saloon" type="Label" parent="RestaurantShop/VBoxContainer"]
+[node name="Saloon" type="Label" parent="RestaurantShop/VBoxContainer" unique_id=170875098]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 75
 text = "Taverne"
 
-[node name="FoodRoller" type="TextureRect" parent="RestaurantShop/VBoxContainer"]
+[node name="FoodRoller" type="TextureRect" parent="RestaurantShop/VBoxContainer" unique_id=1982238036]
 layout_mode = 2
 size_flags_vertical = 6
 expand_mode = 1
 stretch_mode = 3
 
-[node name="FoodName" type="Label" parent="RestaurantShop/VBoxContainer"]
+[node name="FoodName" type="Label" parent="RestaurantShop/VBoxContainer" unique_id=2133068724]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 30
 
-[node name="FoodDescription" type="Label" parent="RestaurantShop/VBoxContainer"]
+[node name="FoodDescription" type="Label" parent="RestaurantShop/VBoxContainer" unique_id=1567450442]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 20
 
-[node name="Armory" type="Control" parent="."]
+[node name="Armory" type="Control" parent="." unique_id=1680406120]
 visible = false
 anchors_preset = 0
 offset_left = 1209.9999
@@ -394,7 +393,7 @@ offset_bottom = 595.0
 scale = Vector2(0.4224615, 0.4224615)
 script = ExtResource("8_v2y4t")
 
-[node name="Panel" type="Panel" parent="Armory"]
+[node name="Panel" type="Panel" parent="Armory" unique_id=1663753145]
 modulate = Color(0.8291994, 0.22925165, 0.4097061, 1)
 layout_mode = 0
 offset_left = 214.0
@@ -402,7 +401,7 @@ offset_top = 31.0
 offset_right = 930.0
 offset_bottom = 633.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Armory"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Armory" unique_id=297704797]
 layout_mode = 0
 offset_left = 308.0
 offset_top = 63.0
@@ -410,52 +409,52 @@ offset_right = 830.0
 offset_bottom = 578.0
 theme_override_constants/separation = 40
 
-[node name="Titre" type="Label" parent="Armory/VBoxContainer"]
+[node name="Titre" type="Label" parent="Armory/VBoxContainer" unique_id=1172683732]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 75
 text = "Armurerie"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Armory/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Armory/VBoxContainer" unique_id=1430104715]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/separation = 20
 
-[node name="Label" type="Label" parent="Armory/VBoxContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="Armory/VBoxContainer/HBoxContainer" unique_id=1927451088]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/outline_size = 1
 theme_override_font_sizes/font_size = 50
 text = "Munitions"
 
-[node name="moins" type="Button" parent="Armory/VBoxContainer/HBoxContainer"]
+[node name="moins" type="Button" parent="Armory/VBoxContainer/HBoxContainer" unique_id=1757239059]
 modulate = Color(3.1229057, 3.1229057, 3.1229057, 1)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 30
 text = "  -  "
 
-[node name="Count" type="Label" parent="Armory/VBoxContainer/HBoxContainer"]
+[node name="Count" type="Label" parent="Armory/VBoxContainer/HBoxContainer" unique_id=918983646]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 50
 text = "1"
 
-[node name="plus" type="Button" parent="Armory/VBoxContainer/HBoxContainer"]
+[node name="plus" type="Button" parent="Armory/VBoxContainer/HBoxContainer" unique_id=632050188]
 modulate = Color(3.1229057, 3.1229057, 3.1229057, 1)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 30
 text = "  +  "
 
-[node name="Prix" type="Label" parent="Armory/VBoxContainer/HBoxContainer"]
+[node name="Prix" type="Label" parent="Armory/VBoxContainer/HBoxContainer" unique_id=318143626]
 modulate = Color(1, 0.64705884, 0, 1)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 50
 text = "2"
 
-[node name="TextureRect" type="TextureRect" parent="Armory/VBoxContainer/HBoxContainer/Prix"]
+[node name="TextureRect" type="TextureRect" parent="Armory/VBoxContainer/HBoxContainer/Prix" unique_id=1197600260]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -469,7 +468,7 @@ scale = Vector2(1.6861517, 1.5967395)
 texture = ExtResource("17_1xbp8")
 expand_mode = 1
 
-[node name="ArmoryBuyCard" type="Button" parent="Armory/VBoxContainer"]
+[node name="ArmoryBuyCard" type="Button" parent="Armory/VBoxContainer" unique_id=1302460776]
 modulate = Color(3.1229057, 3.1229057, 3.1229057, 1)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -477,14 +476,14 @@ theme_override_colors/font_color = Color(0.875, 0.875, 0.875, 1)
 theme_override_font_sizes/font_size = 38
 text = "Acheter une munition"
 
-[node name="ArmoryUseCard" type="Button" parent="Armory/VBoxContainer"]
+[node name="ArmoryUseCard" type="Button" parent="Armory/VBoxContainer" unique_id=1362764953]
 modulate = Color(3.1229057, 3.1229057, 3.1229057, 1)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 38
 text = "Utiliser une carte armurerie"
 
-[node name="Duel" parent="." instance=ExtResource("9_v2y4t")]
+[node name="Duel" parent="." unique_id=1497874943 instance=ExtResource("9_v2y4t")]
 visible = false
 layout_mode = 1
 offset_left = 217.00002
@@ -493,7 +492,7 @@ offset_right = -1112.4342
 offset_bottom = -253.76807
 scale = Vector2(0.64000183, 0.64000183)
 
-[node name="Saloon" type="Control" parent="."]
+[node name="Saloon" type="Control" parent="." unique_id=2083360927]
 visible = false
 anchors_preset = 0
 offset_left = 680.0
@@ -502,7 +501,7 @@ offset_right = 680.0
 offset_bottom = -30.0
 scale = Vector2(0.62141335, 0.62141335)
 
-[node name="Panel" type="Panel" parent="Saloon"]
+[node name="Panel" type="Panel" parent="Saloon" unique_id=537473098]
 modulate = Color(1, 0.27999997, 0.4960001, 1)
 show_behind_parent = true
 layout_mode = 0
@@ -511,7 +510,7 @@ offset_top = 69.0
 offset_right = 851.0
 offset_bottom = 567.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Saloon"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Saloon" unique_id=1955415373]
 layout_mode = 0
 offset_left = 249.0
 offset_top = 112.0
@@ -519,34 +518,34 @@ offset_right = 852.0
 offset_bottom = 452.0
 theme_override_constants/separation = 29
 
-[node name="Label" type="Label" parent="Saloon/VBoxContainer"]
+[node name="Label" type="Label" parent="Saloon/VBoxContainer" unique_id=1252461336]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 75
 text = "Saloon"
 
-[node name="SaloonUseCard" type="Button" parent="Saloon/VBoxContainer"]
+[node name="SaloonUseCard" type="Button" parent="Saloon/VBoxContainer" unique_id=2073720106]
 modulate = Color(3.1229057, 3.1229057, 3.1229057, 1)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 30
 text = "Utiliser une carte"
 
-[node name="SaloonGiveCard" type="Button" parent="Saloon/VBoxContainer"]
+[node name="SaloonGiveCard" type="Button" parent="Saloon/VBoxContainer" unique_id=1665502334]
 modulate = Color(3.1229057, 3.1229057, 3.1229057, 1)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 30
 text = "Donner une carte"
 
-[node name="DrinkBuyCard" type="Button" parent="Saloon/VBoxContainer"]
+[node name="DrinkBuyCard" type="Button" parent="Saloon/VBoxContainer" unique_id=1165614999]
 modulate = Color(3.1229057, 3.1229057, 3.1229057, 1)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 30
 text = "Acheter une carte"
 
-[node name="Label2" type="Label" parent="Saloon/VBoxContainer/DrinkBuyCard"]
+[node name="Label2" type="Label" parent="Saloon/VBoxContainer/DrinkBuyCard" unique_id=2054022271]
 modulate = Color(0.7581918, 0.7581918, 0.7581917, 1)
 layout_mode = 0
 offset_left = 33.0
@@ -557,7 +556,7 @@ size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 20
 text = "À vos risque et périls"
 
-[node name="SaloonShop" type="Control" parent="."]
+[node name="SaloonShop" type="Control" parent="." unique_id=798128194]
 visible = false
 anchors_preset = 0
 offset_left = 689.0001
@@ -567,7 +566,7 @@ offset_bottom = -29.999939
 scale = Vector2(0.5966584, 0.5966584)
 script = ExtResource("7_l2a8t")
 
-[node name="Panel" type="Panel" parent="SaloonShop"]
+[node name="Panel" type="Panel" parent="SaloonShop" unique_id=644587706]
 modulate = Color(0.8291994, 0.22925165, 0.4097061, 1)
 layout_mode = 0
 offset_left = 249.0
@@ -575,7 +574,7 @@ offset_top = 69.0
 offset_right = 851.0
 offset_bottom = 567.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="SaloonShop"]
+[node name="VBoxContainer" type="VBoxContainer" parent="SaloonShop" unique_id=1527751985]
 layout_mode = 0
 offset_left = 249.0
 offset_top = 141.0
@@ -583,29 +582,29 @@ offset_right = 852.0
 offset_bottom = 476.0
 theme_override_constants/separation = 40
 
-[node name="Saloon" type="Label" parent="SaloonShop/VBoxContainer"]
+[node name="Saloon" type="Label" parent="SaloonShop/VBoxContainer" unique_id=1254304719]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 75
 text = "Saloon"
 
-[node name="DrinkRoller" type="TextureRect" parent="SaloonShop/VBoxContainer"]
+[node name="DrinkRoller" type="TextureRect" parent="SaloonShop/VBoxContainer" unique_id=716934428]
 layout_mode = 2
 size_flags_vertical = 3
 expand_mode = 1
 stretch_mode = 3
 
-[node name="DrinkName" type="Label" parent="SaloonShop/VBoxContainer"]
+[node name="DrinkName" type="Label" parent="SaloonShop/VBoxContainer" unique_id=1341093189]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 30
 
-[node name="DrinkDescription" type="Label" parent="SaloonShop/VBoxContainer"]
+[node name="DrinkDescription" type="Label" parent="SaloonShop/VBoxContainer" unique_id=443216180]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 20
 
-[node name="Profils" type="Control" parent="."]
+[node name="Profils" type="Control" parent="." unique_id=42104301]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -618,43 +617,38 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Profil" type="Control" parent="Profils"]
+[node name="Profil" type="Control" parent="Profils" unique_id=1965343262]
 anchors_preset = 0
-offset_left = 2.0
-offset_top = 790.99994
-offset_right = 440.5773
-offset_bottom = 1080.0
+offset_left = -2.9999995
+offset_top = 793.0
+offset_right = 435.5773
+offset_bottom = 1082.0
 scale = Vector2(0.99062616, 0.99062616)
 script = ExtResource("11_t8783")
 
-[node name="Panel" type="Panel" parent="Profils/Profil"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 1.6666642
-offset_top = 1.6666642
-offset_right = 1.6666565
-offset_bottom = 1.6666565
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_vthg8")
+[node name="TextureRect" type="TextureRect" parent="Profils/Profil" unique_id=1901958565]
+layout_mode = 0
+offset_top = -46.107063
+offset_right = 382.0
+offset_bottom = 294.89294
+texture = ExtResource("15_n46oe")
 
-[node name="Resources" type="Control" parent="Profils/Profil"]
+[node name="Resources" type="Control" parent="Profils/Profil" unique_id=2140531467]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -244.5773
-offset_top = -36.499985
-offset_right = -38.5773
-offset_bottom = 105.500015
+offset_left = -246.77939
+offset_top = -28.411774
+offset_right = -23.16867
+offset_bottom = 113.58823
 grow_horizontal = 0
 grow_vertical = 2
+scale = Vector2(0.7200012, 0.7200012)
 
-[node name="Life" type="HBoxContainer" parent="Profils/Profil/Resources"]
+[node name="Life" type="HBoxContainer" parent="Profils/Profil/Resources" unique_id=59189518]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -665,48 +659,52 @@ grow_vertical = 2
 scale = Vector2(1.003269, 0.9768656)
 pivot_offset = Vector2(0.022644043, 34.029373)
 
-[node name="Coeur" type="TextureRect" parent="Profils/Profil/Resources/Life"]
-modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
-material = SubResource("CanvasItemMaterial_srya7")
+[node name="Coeur" type="TextureRect" parent="Profils/Profil/Resources/Life" unique_id=997964193]
+modulate = Color(0.34548014, 0.34548014, 0.34548014, 1)
+material = SubResource("CanvasItemMaterial_0ah0u")
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("12_x2ui6")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Coeur2" type="TextureRect" parent="Profils/Profil/Resources/Life"]
-modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+[node name="Coeur2" type="TextureRect" parent="Profils/Profil/Resources/Life" unique_id=163502719]
+modulate = Color(0.34548014, 0.34548014, 0.34548014, 1)
+material = SubResource("CanvasItemMaterial_0ah0u")
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("12_x2ui6")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Coeur3" type="TextureRect" parent="Profils/Profil/Resources/Life"]
-modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+[node name="Coeur3" type="TextureRect" parent="Profils/Profil/Resources/Life" unique_id=1080425758]
+modulate = Color(0.34548014, 0.34548014, 0.34548014, 1)
+material = SubResource("CanvasItemMaterial_0ah0u")
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("12_x2ui6")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Coeur4" type="TextureRect" parent="Profils/Profil/Resources/Life"]
-modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+[node name="Coeur4" type="TextureRect" parent="Profils/Profil/Resources/Life" unique_id=2024788419]
+modulate = Color(0.34509805, 0.34509805, 0.34509805, 1)
+material = SubResource("CanvasItemMaterial_aarkv")
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("12_x2ui6")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Coeur5" type="TextureRect" parent="Profils/Profil/Resources/Life"]
-modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+[node name="Coeur5" type="TextureRect" parent="Profils/Profil/Resources/Life" unique_id=1170926488]
+modulate = Color(0.14733289, 0.14733289, 0.14733289, 1)
+material = SubResource("CanvasItemMaterial_6k428")
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("12_x2ui6")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Drink" type="HBoxContainer" parent="Profils/Profil/Resources"]
+[node name="Drink" type="HBoxContainer" parent="Profils/Profil/Resources" unique_id=1808568161]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -719,47 +717,52 @@ scale = Vector2(1.003269, 0.9768656)
 pivot_offset = Vector2(3.5526276, -3.3023376)
 size_flags_horizontal = 0
 
-[node name="Alcohol" type="TextureRect" parent="Profils/Profil/Resources/Drink"]
-modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+[node name="Alcohol" type="TextureRect" parent="Profils/Profil/Resources/Drink" unique_id=74946397]
+modulate = Color(0.14901961, 0.14901961, 0.14901961, 1)
+material = SubResource("CanvasItemMaterial_6k428")
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("13_v2y4t")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Alcohol2" type="TextureRect" parent="Profils/Profil/Resources/Drink"]
-modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+[node name="Alcohol2" type="TextureRect" parent="Profils/Profil/Resources/Drink" unique_id=838497440]
+modulate = Color(0.14901961, 0.14901961, 0.14901961, 1)
+material = SubResource("CanvasItemMaterial_6k428")
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("13_v2y4t")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Alcohol3" type="TextureRect" parent="Profils/Profil/Resources/Drink"]
-modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+[node name="Alcohol3" type="TextureRect" parent="Profils/Profil/Resources/Drink" unique_id=1763508664]
+modulate = Color(0.14901961, 0.14901961, 0.14901961, 1)
+material = SubResource("CanvasItemMaterial_6k428")
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("13_v2y4t")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Alcohol4" type="TextureRect" parent="Profils/Profil/Resources/Drink"]
-modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+[node name="Alcohol4" type="TextureRect" parent="Profils/Profil/Resources/Drink" unique_id=833747669]
+modulate = Color(0.14901961, 0.14901961, 0.14901961, 1)
+material = SubResource("CanvasItemMaterial_6k428")
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("13_v2y4t")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Alcohol5" type="TextureRect" parent="Profils/Profil/Resources/Drink"]
-modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+[node name="Alcohol5" type="TextureRect" parent="Profils/Profil/Resources/Drink" unique_id=2005705126]
+modulate = Color(0.14901961, 0.14901961, 0.14901961, 1)
+material = SubResource("CanvasItemMaterial_6k428")
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("13_v2y4t")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Food" type="HBoxContainer" parent="Profils/Profil/Resources"]
+[node name="Food" type="HBoxContainer" parent="Profils/Profil/Resources" unique_id=141658232]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -774,58 +777,63 @@ scale = Vector2(1.003269, 0.9768656)
 pivot_offset = Vector2(4.0225983, -45.925705)
 size_flags_horizontal = 0
 
-[node name="Food" type="TextureRect" parent="Profils/Profil/Resources/Food"]
-modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+[node name="Food" type="TextureRect" parent="Profils/Profil/Resources/Food" unique_id=1118318486]
+modulate = Color(0.14901961, 0.14901961, 0.14901961, 1)
+material = SubResource("CanvasItemMaterial_6k428")
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("14_aojn8")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Food2" type="TextureRect" parent="Profils/Profil/Resources/Food"]
-modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+[node name="Food2" type="TextureRect" parent="Profils/Profil/Resources/Food" unique_id=1609059438]
+modulate = Color(0.14901961, 0.14901961, 0.14901961, 1)
+material = SubResource("CanvasItemMaterial_6k428")
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("14_aojn8")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Food3" type="TextureRect" parent="Profils/Profil/Resources/Food"]
-modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+[node name="Food3" type="TextureRect" parent="Profils/Profil/Resources/Food" unique_id=1648635091]
+modulate = Color(0.14901961, 0.14901961, 0.14901961, 1)
+material = SubResource("CanvasItemMaterial_6k428")
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("14_aojn8")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Food4" type="TextureRect" parent="Profils/Profil/Resources/Food"]
-modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+[node name="Food4" type="TextureRect" parent="Profils/Profil/Resources/Food" unique_id=1456526885]
+modulate = Color(0.14901961, 0.14901961, 0.14901961, 1)
+material = SubResource("CanvasItemMaterial_6k428")
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("14_aojn8")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Food5" type="TextureRect" parent="Profils/Profil/Resources/Food"]
-modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+[node name="Food5" type="TextureRect" parent="Profils/Profil/Resources/Food" unique_id=573148088]
+modulate = Color(0.14901961, 0.14901961, 0.14901961, 1)
+material = SubResource("CanvasItemMaterial_6k428")
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("14_aojn8")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Items" type="Control" parent="Profils/Profil"]
+[node name="Items" type="Control" parent="Profils/Profil" unique_id=412679630]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -176.28865
-offset_top = 33.0
-offset_right = 118.71135
-offset_bottom = 73.0
+offset_left = -175.88176
+offset_top = 17.160952
+offset_right = 83.11824
+offset_bottom = 57.16095
 grow_horizontal = 2
 
-[node name="Items" type="HBoxContainer" parent="Profils/Profil/Items"]
+[node name="Items" type="HBoxContainer" parent="Profils/Profil/Items" unique_id=1764220674]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -836,12 +844,13 @@ scale = Vector2(0.7654053, 0.8551072)
 pivot_offset = Vector2(125.64456, 94.26876)
 size_flags_horizontal = 0
 
-[node name="Control" type="Control" parent="Profils/Profil/Items/Items"]
+[node name="Control" type="Control" parent="Profils/Profil/Items/Items" unique_id=1813889494]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Gun" type="TextureRect" parent="Profils/Profil/Items/Items/Control"]
-modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+[node name="Gun" type="TextureRect" parent="Profils/Profil/Items/Items/Control" unique_id=1966715158]
+self_modulate = Color(0.34548014, 0.34548014, 0.34548014, 1)
+material = SubResource("CanvasItemMaterial_n46oe")
 layout_mode = 0
 offset_left = -9.766952
 offset_top = 12.67806
@@ -854,7 +863,7 @@ texture = ExtResource("15_x2ui6")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Munition" type="Label" parent="Profils/Profil/Items/Items/Control"]
+[node name="Munition" type="Label" parent="Profils/Profil/Items/Items/Control" unique_id=1991218013]
 modulate = Color(0, 0, 0, 1)
 layout_mode = 1
 anchors_preset = 3
@@ -871,15 +880,15 @@ grow_vertical = 0
 scale = Vector2(0.998024, 1)
 text = "0"
 
-[node name="KeypadIcon" type="TextureRect" parent="Profils/Profil/Items/Items"]
-modulate = Color(0.7148334, 0.31965166, 0.16661742, 1)
+[node name="KeypadIcon" type="TextureRect" parent="Profils/Profil/Items/Items" unique_id=2052890334]
+modulate = Color(0.60784316, 0.31764707, 0.12156863, 1)
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("16_dynj2")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="KeypadOpen" type="Button" parent="Profils/Profil/Items/Items/KeypadIcon"]
+[node name="KeypadOpen" type="Button" parent="Profils/Profil/Items/Items/KeypadIcon" unique_id=387620019]
 modulate = Color(0.02745098, 0.02745098, 0.02745098, 0)
 layout_mode = 0
 offset_left = 28.238892
@@ -888,14 +897,17 @@ offset_right = 36.23889
 offset_bottom = 3.136438
 scale = Vector2(8.067134, 7.890571)
 
-[node name="Money" type="Label" parent="Profils/Profil/Items/Items"]
-modulate = Color(1, 0.64705884, 0, 1)
+[node name="Money" type="Label" parent="Profils/Profil/Items/Items" unique_id=1703040666]
+modulate = Color(0.34548014, 0.34548014, 0.34548014, 1)
+material = SubResource("CanvasItemMaterial_011ta")
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
 text = "10"
 max_lines_visible = 1
 
-[node name="Gold" type="TextureRect" parent="Profils/Profil/Items/Items/Money"]
+[node name="Gold" type="TextureRect" parent="Profils/Profil/Items/Items/Money" unique_id=1982357367]
+modulate = Color(0.8646751, 0.86467516, 0.8646751, 1)
+material = SubResource("CanvasItemMaterial_0ah0u")
 layout_mode = 0
 offset_left = 51.38794
 offset_top = -7.7945204
@@ -906,33 +918,35 @@ texture = ExtResource("17_1xbp8")
 expand_mode = 2
 stretch_mode = 5
 
-[node name="PlayerIcon" type="Control" parent="Profils/Profil"]
+[node name="PlayerIcon" type="Control" parent="Profils/Profil" unique_id=1532733838]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -217.99997
-offset_right = 193.0
+offset_left = -7.0662365
+offset_top = -210.26193
+offset_right = 139.93376
+offset_bottom = -40.261963
 grow_vertical = 0
 
-[node name="PlayerIcone" type="TextureRect" parent="Profils/Profil/PlayerIcon"]
+[node name="Personnage" type="TextureRect" parent="Profils/Profil/PlayerIcon" unique_id=1053168023]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -57.5
-offset_top = -79.999985
-offset_right = 77.5
-offset_bottom = 55.000015
+offset_left = -43.216125
+offset_top = -73.89592
+offset_right = 91.783875
+offset_bottom = 61.10408
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("10_t8783")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="NomJoueur" type="Label" parent="Profils/Profil"]
+[node name="NomJoueur" type="Label" parent="Profils/Profil" unique_id=221801202]
 modulate = Color(0, 0, 0, 1)
 layout_mode = 1
 anchors_preset = 7
@@ -940,61 +954,60 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -0.5
-offset_top = -49.0
-offset_right = 0.5
+offset_left = -36.575928
+offset_top = -45.719543
+offset_right = -35.575928
+offset_bottom = 3.2804565
 grow_horizontal = 2
 grow_vertical = 0
 pivot_offset = Vector2(92.99988, -66.99997)
 theme_override_font_sizes/font_size = 35
 horizontal_alignment = 1
 
-[node name="Keypad" parent="Profils/Profil" instance=ExtResource("18_2jxo5")]
-visible = false
-position = Vector2(205, -123)
+[node name="Keypad" parent="Profils/Profil" unique_id=774372980 instance=ExtResource("18_2jxo5")]
+position = Vector2(189, -118.10706)
 scale = Vector2(0.39007133, 0.39007133)
 
-[node name="EndTurn1" type="Button" parent="Profils/Profil"]
+[node name="EndTurn1" type="Button" parent="Profils/Profil" unique_id=1152333479]
 layout_mode = 0
-offset_left = 148.33307
-offset_top = 5.0
-offset_right = 283.33307
-offset_bottom = 36.0
+offset_left = 202.902
+offset_top = 76.71916
+offset_right = 337.90204
+offset_bottom = 107.71916
 text = "Terminer le tour"
 
-[node name="Profil2" type="Control" parent="Profils"]
+[node name="Profil2" type="Control" parent="Profils" unique_id=912308252]
 anchors_preset = 0
-offset_left = 1485.0
-offset_top = 799.00006
-offset_right = 1923.5771
-offset_bottom = 1088.0
+offset_left = 1541.0001
+offset_top = 798.0
+offset_right = 1979.5774
+offset_bottom = 1087.0
 scale = Vector2(0.99062616, 0.99062616)
 script = ExtResource("11_t8783")
 
-[node name="Panel" type="Panel" parent="Profils/Profil2"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_vthg8")
+[node name="TextureRect" type="TextureRect" parent="Profils/Profil2" unique_id=1495980488]
+layout_mode = 0
+offset_top = -46.107063
+offset_right = 382.0
+offset_bottom = 294.89294
+texture = ExtResource("15_n46oe")
 
-[node name="Resources" type="Control" parent="Profils/Profil2"]
+[node name="Resources" type="Control" parent="Profils/Profil2" unique_id=1095789874]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -244.5773
-offset_top = -36.499985
-offset_right = -38.5773
-offset_bottom = 105.500015
+offset_left = -246.77939
+offset_top = -28.411774
+offset_right = -23.16867
+offset_bottom = 113.58823
 grow_horizontal = 0
 grow_vertical = 2
+scale = Vector2(0.7200012, 0.7200012)
 
-[node name="Life" type="HBoxContainer" parent="Profils/Profil2/Resources"]
+[node name="Life" type="HBoxContainer" parent="Profils/Profil2/Resources" unique_id=1747350786]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1005,47 +1018,52 @@ grow_vertical = 2
 scale = Vector2(1.003269, 0.9768656)
 pivot_offset = Vector2(0.022644043, 34.029373)
 
-[node name="Coeur" type="TextureRect" parent="Profils/Profil2/Resources/Life"]
-modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+[node name="Coeur" type="TextureRect" parent="Profils/Profil2/Resources/Life" unique_id=163565131]
+modulate = Color(0.34548014, 0.34548014, 0.34548014, 1)
+material = SubResource("CanvasItemMaterial_0ah0u")
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("12_x2ui6")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Coeur2" type="TextureRect" parent="Profils/Profil2/Resources/Life"]
-modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+[node name="Coeur2" type="TextureRect" parent="Profils/Profil2/Resources/Life" unique_id=1460384666]
+modulate = Color(0.34548014, 0.34548014, 0.34548014, 1)
+material = SubResource("CanvasItemMaterial_0ah0u")
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("12_x2ui6")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Coeur3" type="TextureRect" parent="Profils/Profil2/Resources/Life"]
-modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+[node name="Coeur3" type="TextureRect" parent="Profils/Profil2/Resources/Life" unique_id=1105469790]
+modulate = Color(0.34548014, 0.34548014, 0.34548014, 1)
+material = SubResource("CanvasItemMaterial_0ah0u")
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("12_x2ui6")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Coeur4" type="TextureRect" parent="Profils/Profil2/Resources/Life"]
-modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+[node name="Coeur4" type="TextureRect" parent="Profils/Profil2/Resources/Life" unique_id=812053460]
+modulate = Color(0.34548014, 0.34548014, 0.34548014, 1)
+material = SubResource("CanvasItemMaterial_aarkv")
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("12_x2ui6")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Coeur5" type="TextureRect" parent="Profils/Profil2/Resources/Life"]
-modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+[node name="Coeur5" type="TextureRect" parent="Profils/Profil2/Resources/Life" unique_id=2098484420]
+modulate = Color(0.14733289, 0.14733289, 0.14733289, 1)
+material = SubResource("CanvasItemMaterial_6k428")
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("12_x2ui6")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Drink" type="HBoxContainer" parent="Profils/Profil2/Resources"]
+[node name="Drink" type="HBoxContainer" parent="Profils/Profil2/Resources" unique_id=1508421196]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1058,47 +1076,52 @@ scale = Vector2(1.003269, 0.9768656)
 pivot_offset = Vector2(3.5526276, -3.3023376)
 size_flags_horizontal = 0
 
-[node name="Alcohol" type="TextureRect" parent="Profils/Profil2/Resources/Drink"]
-modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+[node name="Alcohol" type="TextureRect" parent="Profils/Profil2/Resources/Drink" unique_id=1651261085]
+modulate = Color(0.14901961, 0.14901961, 0.14901961, 1)
+material = SubResource("CanvasItemMaterial_6k428")
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("13_v2y4t")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Alcohol2" type="TextureRect" parent="Profils/Profil2/Resources/Drink"]
-modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+[node name="Alcohol2" type="TextureRect" parent="Profils/Profil2/Resources/Drink" unique_id=202879206]
+modulate = Color(0.14901961, 0.14901961, 0.14901961, 1)
+material = SubResource("CanvasItemMaterial_6k428")
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("13_v2y4t")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Alcohol3" type="TextureRect" parent="Profils/Profil2/Resources/Drink"]
-modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+[node name="Alcohol3" type="TextureRect" parent="Profils/Profil2/Resources/Drink" unique_id=1068109929]
+modulate = Color(0.14901961, 0.14901961, 0.14901961, 1)
+material = SubResource("CanvasItemMaterial_6k428")
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("13_v2y4t")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Alcohol4" type="TextureRect" parent="Profils/Profil2/Resources/Drink"]
-modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+[node name="Alcohol4" type="TextureRect" parent="Profils/Profil2/Resources/Drink" unique_id=705000703]
+modulate = Color(0.14901961, 0.14901961, 0.14901961, 1)
+material = SubResource("CanvasItemMaterial_6k428")
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("13_v2y4t")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Alcohol5" type="TextureRect" parent="Profils/Profil2/Resources/Drink"]
-modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+[node name="Alcohol5" type="TextureRect" parent="Profils/Profil2/Resources/Drink" unique_id=1077116151]
+modulate = Color(0.14901961, 0.14901961, 0.14901961, 1)
+material = SubResource("CanvasItemMaterial_6k428")
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("13_v2y4t")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Food" type="HBoxContainer" parent="Profils/Profil2/Resources"]
+[node name="Food" type="HBoxContainer" parent="Profils/Profil2/Resources" unique_id=1892166110]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1113,58 +1136,63 @@ scale = Vector2(1.003269, 0.9768656)
 pivot_offset = Vector2(4.0225983, -45.925705)
 size_flags_horizontal = 0
 
-[node name="Food" type="TextureRect" parent="Profils/Profil2/Resources/Food"]
-modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+[node name="Food" type="TextureRect" parent="Profils/Profil2/Resources/Food" unique_id=1055458092]
+modulate = Color(0.14901961, 0.14901961, 0.14901961, 1)
+material = SubResource("CanvasItemMaterial_6k428")
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("14_aojn8")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Food2" type="TextureRect" parent="Profils/Profil2/Resources/Food"]
-modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+[node name="Food2" type="TextureRect" parent="Profils/Profil2/Resources/Food" unique_id=349701886]
+modulate = Color(0.14901961, 0.14901961, 0.14901961, 1)
+material = SubResource("CanvasItemMaterial_6k428")
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("14_aojn8")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Food3" type="TextureRect" parent="Profils/Profil2/Resources/Food"]
-modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+[node name="Food3" type="TextureRect" parent="Profils/Profil2/Resources/Food" unique_id=697949419]
+modulate = Color(0.14901961, 0.14901961, 0.14901961, 1)
+material = SubResource("CanvasItemMaterial_6k428")
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("14_aojn8")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Food4" type="TextureRect" parent="Profils/Profil2/Resources/Food"]
-modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+[node name="Food4" type="TextureRect" parent="Profils/Profil2/Resources/Food" unique_id=1941352343]
+modulate = Color(0.14901961, 0.14901961, 0.14901961, 1)
+material = SubResource("CanvasItemMaterial_6k428")
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("14_aojn8")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Food5" type="TextureRect" parent="Profils/Profil2/Resources/Food"]
-modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+[node name="Food5" type="TextureRect" parent="Profils/Profil2/Resources/Food" unique_id=531396933]
+modulate = Color(0.14901961, 0.14901961, 0.14901961, 1)
+material = SubResource("CanvasItemMaterial_6k428")
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("14_aojn8")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Items" type="Control" parent="Profils/Profil2"]
+[node name="Items" type="Control" parent="Profils/Profil2" unique_id=2093325092]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -176.28865
-offset_top = 33.0
-offset_right = 118.71135
-offset_bottom = 73.0
+offset_left = -175.88176
+offset_top = 17.160952
+offset_right = 83.11824
+offset_bottom = 57.16095
 grow_horizontal = 2
 
-[node name="Items" type="HBoxContainer" parent="Profils/Profil2/Items"]
+[node name="Items" type="HBoxContainer" parent="Profils/Profil2/Items" unique_id=2146932109]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1175,12 +1203,13 @@ scale = Vector2(0.7654053, 0.8551072)
 pivot_offset = Vector2(125.64456, 94.26876)
 size_flags_horizontal = 0
 
-[node name="Control" type="Control" parent="Profils/Profil2/Items/Items"]
+[node name="Control" type="Control" parent="Profils/Profil2/Items/Items" unique_id=464992022]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Gun" type="TextureRect" parent="Profils/Profil2/Items/Items/Control"]
-modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+[node name="Gun" type="TextureRect" parent="Profils/Profil2/Items/Items/Control" unique_id=434222126]
+self_modulate = Color(0.34548014, 0.34548014, 0.34548014, 1)
+material = SubResource("CanvasItemMaterial_n46oe")
 layout_mode = 0
 offset_left = -9.766952
 offset_top = 12.67806
@@ -1193,7 +1222,7 @@ texture = ExtResource("15_x2ui6")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Munition" type="Label" parent="Profils/Profil2/Items/Items/Control"]
+[node name="Munition" type="Label" parent="Profils/Profil2/Items/Items/Control" unique_id=1497290750]
 modulate = Color(0, 0, 0, 1)
 layout_mode = 1
 anchors_preset = 3
@@ -1210,15 +1239,15 @@ grow_vertical = 0
 scale = Vector2(0.998024, 1)
 text = "0"
 
-[node name="KeypadIcon" type="TextureRect" parent="Profils/Profil2/Items/Items"]
-modulate = Color(0.7148334, 0.31965166, 0.16661742, 1)
+[node name="KeypadIcon" type="TextureRect" parent="Profils/Profil2/Items/Items" unique_id=1840939515]
+modulate = Color(0.60784316, 0.31764707, 0.12156863, 1)
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("16_dynj2")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="KeypadOpen" type="Button" parent="Profils/Profil2/Items/Items/KeypadIcon"]
+[node name="KeypadOpen" type="Button" parent="Profils/Profil2/Items/Items/KeypadIcon" unique_id=2136546563]
 modulate = Color(0.02745098, 0.02745098, 0.02745098, 0)
 layout_mode = 0
 offset_left = 28.238892
@@ -1227,14 +1256,17 @@ offset_right = 36.23889
 offset_bottom = 3.136438
 scale = Vector2(8.067134, 7.890571)
 
-[node name="Money" type="Label" parent="Profils/Profil2/Items/Items"]
-modulate = Color(1, 0.64705884, 0, 1)
+[node name="Money" type="Label" parent="Profils/Profil2/Items/Items" unique_id=344063615]
+modulate = Color(0.34548014, 0.34548014, 0.34548014, 1)
+material = SubResource("CanvasItemMaterial_011ta")
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
 text = "10"
 max_lines_visible = 1
 
-[node name="Gold" type="TextureRect" parent="Profils/Profil2/Items/Items/Money"]
+[node name="Gold" type="TextureRect" parent="Profils/Profil2/Items/Items/Money" unique_id=388905157]
+modulate = Color(0.8627451, 0.8627451, 0.8627451, 1)
+material = SubResource("CanvasItemMaterial_n46oe")
 layout_mode = 0
 offset_left = 51.38794
 offset_top = -7.7945204
@@ -1245,33 +1277,35 @@ texture = ExtResource("17_1xbp8")
 expand_mode = 2
 stretch_mode = 5
 
-[node name="PlayerIcon" type="Control" parent="Profils/Profil2"]
+[node name="PlayerIcon" type="Control" parent="Profils/Profil2" unique_id=451521205]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -217.99997
-offset_right = 193.0
+offset_left = -7.0662365
+offset_top = -210.26193
+offset_right = 139.93376
+offset_bottom = -40.261963
 grow_vertical = 0
 
-[node name="PlayerIcone" type="TextureRect" parent="Profils/Profil2/PlayerIcon"]
+[node name="Personnage" type="TextureRect" parent="Profils/Profil2/PlayerIcon" unique_id=1164671683]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -57.5
-offset_top = -79.999985
-offset_right = 77.5
-offset_bottom = 55.000015
+offset_left = -43.216125
+offset_top = -73.89592
+offset_right = 91.783875
+offset_bottom = 61.10408
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("10_t8783")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="NomJoueur" type="Label" parent="Profils/Profil2"]
+[node name="NomJoueur" type="Label" parent="Profils/Profil2" unique_id=1691180563]
 modulate = Color(0, 0, 0, 1)
 layout_mode = 1
 anchors_preset = 7
@@ -1279,61 +1313,61 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -0.5
-offset_top = -49.0
-offset_right = 0.5
+offset_left = -36.575928
+offset_top = -45.719543
+offset_right = -35.575928
+offset_bottom = 3.2804565
 grow_horizontal = 2
 grow_vertical = 0
 pivot_offset = Vector2(92.99988, -66.99997)
 theme_override_font_sizes/font_size = 35
 horizontal_alignment = 1
 
-[node name="Keypad" parent="Profils/Profil2" instance=ExtResource("18_2jxo5")]
-visible = false
-position = Vector2(205, -123)
+[node name="Keypad" parent="Profils/Profil2" unique_id=554215312 instance=ExtResource("18_2jxo5")]
+position = Vector2(189, -118.10706)
 scale = Vector2(0.39007133, 0.39007133)
 
-[node name="EndTurn2" type="Button" parent="Profils/Profil2"]
+[node name="EndTurn2" type="Button" parent="Profils/Profil2" unique_id=274533568]
 layout_mode = 0
-offset_left = 159.99976
-offset_right = 294.99976
-offset_bottom = 31.0
+offset_left = 208.95862
+offset_top = 76.71912
+offset_right = 343.95862
+offset_bottom = 107.71912
 text = "Terminer le tour"
 
-[node name="Profil3" type="Control" parent="Profils"]
+[node name="Profil3" type="Control" parent="Profils" unique_id=1643295922]
 anchors_preset = 0
-offset_left = 1922.0
-offset_top = 291.0
-offset_right = 2360.5771
-offset_bottom = 580.0
+offset_left = 1919.4661
+offset_top = 295.29095
+offset_right = 2358.0435
+offset_bottom = 584.29095
 rotation = 3.1415927
 scale = Vector2(0.99062616, 0.99062616)
 script = ExtResource("11_t8783")
 
-[node name="Panel" type="Panel" parent="Profils/Profil3"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_vthg8")
+[node name="TextureRect" type="TextureRect" parent="Profils/Profil3" unique_id=299599021]
+layout_mode = 0
+offset_top = -46.107063
+offset_right = 382.0
+offset_bottom = 294.89294
+texture = ExtResource("15_n46oe")
 
-[node name="Resources" type="Control" parent="Profils/Profil3"]
+[node name="Resources" type="Control" parent="Profils/Profil3" unique_id=763675177]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -244.5773
-offset_top = -36.499985
-offset_right = -38.5773
-offset_bottom = 105.500015
+offset_left = -246.77939
+offset_top = -28.411774
+offset_right = -23.16867
+offset_bottom = 113.58823
 grow_horizontal = 0
 grow_vertical = 2
+scale = Vector2(0.7200012, 0.7200012)
 
-[node name="Life" type="HBoxContainer" parent="Profils/Profil3/Resources"]
+[node name="Life" type="HBoxContainer" parent="Profils/Profil3/Resources" unique_id=2095478022]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1344,47 +1378,52 @@ grow_vertical = 2
 scale = Vector2(1.003269, 0.9768656)
 pivot_offset = Vector2(0.022644043, 34.029373)
 
-[node name="Coeur" type="TextureRect" parent="Profils/Profil3/Resources/Life"]
-modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+[node name="Coeur" type="TextureRect" parent="Profils/Profil3/Resources/Life" unique_id=1441842735]
+modulate = Color(0.34548014, 0.34548014, 0.34548014, 1)
+material = SubResource("CanvasItemMaterial_0ah0u")
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("12_x2ui6")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Coeur2" type="TextureRect" parent="Profils/Profil3/Resources/Life"]
-modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+[node name="Coeur2" type="TextureRect" parent="Profils/Profil3/Resources/Life" unique_id=5306251]
+modulate = Color(0.34548014, 0.34548014, 0.34548014, 1)
+material = SubResource("CanvasItemMaterial_0ah0u")
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("12_x2ui6")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Coeur3" type="TextureRect" parent="Profils/Profil3/Resources/Life"]
-modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+[node name="Coeur3" type="TextureRect" parent="Profils/Profil3/Resources/Life" unique_id=1966655631]
+modulate = Color(0.34548014, 0.34548014, 0.34548014, 1)
+material = SubResource("CanvasItemMaterial_0ah0u")
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("12_x2ui6")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Coeur4" type="TextureRect" parent="Profils/Profil3/Resources/Life"]
-modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+[node name="Coeur4" type="TextureRect" parent="Profils/Profil3/Resources/Life" unique_id=1784799564]
+modulate = Color(0.34548014, 0.34548014, 0.34548014, 1)
+material = SubResource("CanvasItemMaterial_aarkv")
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("12_x2ui6")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Coeur5" type="TextureRect" parent="Profils/Profil3/Resources/Life"]
-modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+[node name="Coeur5" type="TextureRect" parent="Profils/Profil3/Resources/Life" unique_id=1263357146]
+modulate = Color(0.14733289, 0.14733289, 0.14733289, 1)
+material = SubResource("CanvasItemMaterial_6k428")
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("12_x2ui6")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Drink" type="HBoxContainer" parent="Profils/Profil3/Resources"]
+[node name="Drink" type="HBoxContainer" parent="Profils/Profil3/Resources" unique_id=326039991]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1397,47 +1436,52 @@ scale = Vector2(1.003269, 0.9768656)
 pivot_offset = Vector2(3.5526276, -3.3023376)
 size_flags_horizontal = 0
 
-[node name="Alcohol" type="TextureRect" parent="Profils/Profil3/Resources/Drink"]
-modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+[node name="Alcohol" type="TextureRect" parent="Profils/Profil3/Resources/Drink" unique_id=1288328643]
+modulate = Color(0.14901961, 0.14901961, 0.14901961, 1)
+material = SubResource("CanvasItemMaterial_6k428")
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("13_v2y4t")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Alcohol2" type="TextureRect" parent="Profils/Profil3/Resources/Drink"]
-modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+[node name="Alcohol2" type="TextureRect" parent="Profils/Profil3/Resources/Drink" unique_id=921455251]
+modulate = Color(0.14901961, 0.14901961, 0.14901961, 1)
+material = SubResource("CanvasItemMaterial_6k428")
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("13_v2y4t")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Alcohol3" type="TextureRect" parent="Profils/Profil3/Resources/Drink"]
-modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+[node name="Alcohol3" type="TextureRect" parent="Profils/Profil3/Resources/Drink" unique_id=1921081206]
+modulate = Color(0.14901961, 0.14901961, 0.14901961, 1)
+material = SubResource("CanvasItemMaterial_6k428")
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("13_v2y4t")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Alcohol4" type="TextureRect" parent="Profils/Profil3/Resources/Drink"]
-modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+[node name="Alcohol4" type="TextureRect" parent="Profils/Profil3/Resources/Drink" unique_id=1069213983]
+modulate = Color(0.14901961, 0.14901961, 0.14901961, 1)
+material = SubResource("CanvasItemMaterial_6k428")
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("13_v2y4t")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Alcohol5" type="TextureRect" parent="Profils/Profil3/Resources/Drink"]
-modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+[node name="Alcohol5" type="TextureRect" parent="Profils/Profil3/Resources/Drink" unique_id=121561649]
+modulate = Color(0.14901961, 0.14901961, 0.14901961, 1)
+material = SubResource("CanvasItemMaterial_6k428")
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("13_v2y4t")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Food" type="HBoxContainer" parent="Profils/Profil3/Resources"]
+[node name="Food" type="HBoxContainer" parent="Profils/Profil3/Resources" unique_id=1627358499]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1452,58 +1496,63 @@ scale = Vector2(1.003269, 0.9768656)
 pivot_offset = Vector2(4.0225983, -45.925705)
 size_flags_horizontal = 0
 
-[node name="Food" type="TextureRect" parent="Profils/Profil3/Resources/Food"]
-modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+[node name="Food" type="TextureRect" parent="Profils/Profil3/Resources/Food" unique_id=636274255]
+modulate = Color(0.14901961, 0.14901961, 0.14901961, 1)
+material = SubResource("CanvasItemMaterial_6k428")
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("14_aojn8")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Food2" type="TextureRect" parent="Profils/Profil3/Resources/Food"]
-modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+[node name="Food2" type="TextureRect" parent="Profils/Profil3/Resources/Food" unique_id=1010749614]
+modulate = Color(0.14901961, 0.14901961, 0.14901961, 1)
+material = SubResource("CanvasItemMaterial_6k428")
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("14_aojn8")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Food3" type="TextureRect" parent="Profils/Profil3/Resources/Food"]
-modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+[node name="Food3" type="TextureRect" parent="Profils/Profil3/Resources/Food" unique_id=1596299477]
+modulate = Color(0.14901961, 0.14901961, 0.14901961, 1)
+material = SubResource("CanvasItemMaterial_6k428")
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("14_aojn8")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Food4" type="TextureRect" parent="Profils/Profil3/Resources/Food"]
-modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+[node name="Food4" type="TextureRect" parent="Profils/Profil3/Resources/Food" unique_id=2094814620]
+modulate = Color(0.14901961, 0.14901961, 0.14901961, 1)
+material = SubResource("CanvasItemMaterial_6k428")
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("14_aojn8")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Food5" type="TextureRect" parent="Profils/Profil3/Resources/Food"]
-modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+[node name="Food5" type="TextureRect" parent="Profils/Profil3/Resources/Food" unique_id=34785155]
+modulate = Color(0.14901961, 0.14901961, 0.14901961, 1)
+material = SubResource("CanvasItemMaterial_6k428")
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("14_aojn8")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Items" type="Control" parent="Profils/Profil3"]
+[node name="Items" type="Control" parent="Profils/Profil3" unique_id=12360119]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -176.28865
-offset_top = 33.0
-offset_right = 118.71135
-offset_bottom = 73.0
+offset_left = -175.88176
+offset_top = 17.160952
+offset_right = 83.11824
+offset_bottom = 57.16095
 grow_horizontal = 2
 
-[node name="Items" type="HBoxContainer" parent="Profils/Profil3/Items"]
+[node name="Items" type="HBoxContainer" parent="Profils/Profil3/Items" unique_id=689357846]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1514,12 +1563,13 @@ scale = Vector2(0.7654053, 0.8551072)
 pivot_offset = Vector2(125.64456, 94.26876)
 size_flags_horizontal = 0
 
-[node name="Control" type="Control" parent="Profils/Profil3/Items/Items"]
+[node name="Control" type="Control" parent="Profils/Profil3/Items/Items" unique_id=1202860352]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Gun" type="TextureRect" parent="Profils/Profil3/Items/Items/Control"]
-modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+[node name="Gun" type="TextureRect" parent="Profils/Profil3/Items/Items/Control" unique_id=178317291]
+self_modulate = Color(0.34548014, 0.34548014, 0.34548014, 1)
+material = SubResource("CanvasItemMaterial_n46oe")
 layout_mode = 0
 offset_left = -9.766952
 offset_top = 12.67806
@@ -1532,7 +1582,7 @@ texture = ExtResource("15_x2ui6")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Munition" type="Label" parent="Profils/Profil3/Items/Items/Control"]
+[node name="Munition" type="Label" parent="Profils/Profil3/Items/Items/Control" unique_id=213872346]
 modulate = Color(0, 0, 0, 1)
 layout_mode = 1
 anchors_preset = 3
@@ -1549,15 +1599,15 @@ grow_vertical = 0
 scale = Vector2(0.998024, 1)
 text = "0"
 
-[node name="KeypadIcon" type="TextureRect" parent="Profils/Profil3/Items/Items"]
-modulate = Color(0.7148334, 0.31965166, 0.16661742, 1)
+[node name="KeypadIcon" type="TextureRect" parent="Profils/Profil3/Items/Items" unique_id=979362391]
+modulate = Color(0.60784316, 0.31764707, 0.12156863, 1)
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("16_dynj2")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="KeypadOpen" type="Button" parent="Profils/Profil3/Items/Items/KeypadIcon"]
+[node name="KeypadOpen" type="Button" parent="Profils/Profil3/Items/Items/KeypadIcon" unique_id=1352125697]
 modulate = Color(0.02745098, 0.02745098, 0.02745098, 0)
 layout_mode = 0
 offset_left = 28.238892
@@ -1566,14 +1616,17 @@ offset_right = 36.23889
 offset_bottom = 3.136438
 scale = Vector2(8.067134, 7.890571)
 
-[node name="Money" type="Label" parent="Profils/Profil3/Items/Items"]
-modulate = Color(1, 0.64705884, 0, 1)
+[node name="Money" type="Label" parent="Profils/Profil3/Items/Items" unique_id=97365489]
+modulate = Color(0.34548014, 0.34548014, 0.34548014, 1)
+material = SubResource("CanvasItemMaterial_011ta")
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
 text = "10"
 max_lines_visible = 1
 
-[node name="Gold" type="TextureRect" parent="Profils/Profil3/Items/Items/Money"]
+[node name="Gold" type="TextureRect" parent="Profils/Profil3/Items/Items/Money" unique_id=1282140388]
+modulate = Color(0.8627451, 0.8627451, 0.8627451, 1)
+material = SubResource("CanvasItemMaterial_n46oe")
 layout_mode = 0
 offset_left = 51.38794
 offset_top = -7.7945204
@@ -1584,33 +1637,35 @@ texture = ExtResource("17_1xbp8")
 expand_mode = 2
 stretch_mode = 5
 
-[node name="PlayerIcon" type="Control" parent="Profils/Profil3"]
+[node name="PlayerIcon" type="Control" parent="Profils/Profil3" unique_id=1648915880]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -217.99997
-offset_right = 193.0
+offset_left = -7.0662365
+offset_top = -210.26193
+offset_right = 139.93376
+offset_bottom = -40.261963
 grow_vertical = 0
 
-[node name="PlayerIcone" type="TextureRect" parent="Profils/Profil3/PlayerIcon"]
+[node name="Personnage" type="TextureRect" parent="Profils/Profil3/PlayerIcon" unique_id=1520417410]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -57.5
-offset_top = -79.999985
-offset_right = 77.5
-offset_bottom = 55.000015
+offset_left = -43.216125
+offset_top = -73.89592
+offset_right = 91.783875
+offset_bottom = 61.10408
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("10_t8783")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="NomJoueur" type="Label" parent="Profils/Profil3"]
+[node name="NomJoueur" type="Label" parent="Profils/Profil3" unique_id=1039430927]
 modulate = Color(0, 0, 0, 1)
 layout_mode = 1
 anchors_preset = 7
@@ -1618,62 +1673,61 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -0.5
-offset_top = -49.0
-offset_right = 0.5
+offset_left = -36.575928
+offset_top = -45.719543
+offset_right = -35.575928
+offset_bottom = 3.2804565
 grow_horizontal = 2
 grow_vertical = 0
 pivot_offset = Vector2(92.99988, -66.99997)
 theme_override_font_sizes/font_size = 35
 horizontal_alignment = 1
 
-[node name="Keypad" parent="Profils/Profil3" instance=ExtResource("18_2jxo5")]
-visible = false
-position = Vector2(205, -123)
+[node name="Keypad" parent="Profils/Profil3" unique_id=496744008 instance=ExtResource("18_2jxo5")]
+position = Vector2(189, -118.10706)
 scale = Vector2(0.39007133, 0.39007133)
 
-[node name="EndTurn3" type="Button" parent="Profils/Profil3"]
+[node name="EndTurn3" type="Button" parent="Profils/Profil3" unique_id=909946187]
 layout_mode = 0
-offset_left = 164.99988
-offset_top = 241.66632
-offset_right = 299.99988
-offset_bottom = 272.66632
+offset_left = 200.34409
+offset_top = 80.041245
+offset_right = 335.3441
+offset_bottom = 111.041245
 text = "Terminer le tour"
 
-[node name="Profil4" type="Control" parent="Profils"]
+[node name="Profil4" type="Control" parent="Profils" unique_id=808373957]
 anchors_preset = 0
-offset_left = 433.0
-offset_top = 289.0
-offset_right = 871.5773
-offset_bottom = 578.0
+offset_left = 375.46613
+offset_top = 299.29095
+offset_right = 814.04346
+offset_bottom = 588.29095
 rotation = 3.1415927
 scale = Vector2(0.99062616, 0.99062616)
 script = ExtResource("11_t8783")
 
-[node name="Panel" type="Panel" parent="Profils/Profil4"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_vthg8")
+[node name="TextureRect" type="TextureRect" parent="Profils/Profil4" unique_id=1327086082]
+layout_mode = 0
+offset_top = -46.107063
+offset_right = 382.0
+offset_bottom = 294.89294
+texture = ExtResource("15_n46oe")
 
-[node name="Resources" type="Control" parent="Profils/Profil4"]
+[node name="Resources" type="Control" parent="Profils/Profil4" unique_id=1081930778]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -244.5773
-offset_top = -36.499985
-offset_right = -38.5773
-offset_bottom = 105.500015
+offset_left = -246.77939
+offset_top = -28.411774
+offset_right = -23.16867
+offset_bottom = 113.58823
 grow_horizontal = 0
 grow_vertical = 2
+scale = Vector2(0.7200012, 0.7200012)
 
-[node name="Life" type="HBoxContainer" parent="Profils/Profil4/Resources"]
+[node name="Life" type="HBoxContainer" parent="Profils/Profil4/Resources" unique_id=943312540]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1684,47 +1738,52 @@ grow_vertical = 2
 scale = Vector2(1.003269, 0.9768656)
 pivot_offset = Vector2(0.022644043, 34.029373)
 
-[node name="Coeur" type="TextureRect" parent="Profils/Profil4/Resources/Life"]
-modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+[node name="Coeur" type="TextureRect" parent="Profils/Profil4/Resources/Life" unique_id=1016633844]
+modulate = Color(0.34548014, 0.34548014, 0.34548014, 1)
+material = SubResource("CanvasItemMaterial_0ah0u")
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("12_x2ui6")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Coeur2" type="TextureRect" parent="Profils/Profil4/Resources/Life"]
-modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+[node name="Coeur2" type="TextureRect" parent="Profils/Profil4/Resources/Life" unique_id=841971689]
+modulate = Color(0.34548014, 0.34548014, 0.34548014, 1)
+material = SubResource("CanvasItemMaterial_0ah0u")
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("12_x2ui6")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Coeur3" type="TextureRect" parent="Profils/Profil4/Resources/Life"]
-modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+[node name="Coeur3" type="TextureRect" parent="Profils/Profil4/Resources/Life" unique_id=414491636]
+modulate = Color(0.34548014, 0.34548014, 0.34548014, 1)
+material = SubResource("CanvasItemMaterial_0ah0u")
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("12_x2ui6")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Coeur4" type="TextureRect" parent="Profils/Profil4/Resources/Life"]
-modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+[node name="Coeur4" type="TextureRect" parent="Profils/Profil4/Resources/Life" unique_id=215964686]
+modulate = Color(0.34548014, 0.34548014, 0.34548014, 1)
+material = SubResource("CanvasItemMaterial_aarkv")
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("12_x2ui6")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Coeur5" type="TextureRect" parent="Profils/Profil4/Resources/Life"]
-modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+[node name="Coeur5" type="TextureRect" parent="Profils/Profil4/Resources/Life" unique_id=346300118]
+modulate = Color(0.14733289, 0.14733289, 0.14733289, 1)
+material = SubResource("CanvasItemMaterial_6k428")
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("12_x2ui6")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Drink" type="HBoxContainer" parent="Profils/Profil4/Resources"]
+[node name="Drink" type="HBoxContainer" parent="Profils/Profil4/Resources" unique_id=873311442]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1737,47 +1796,52 @@ scale = Vector2(1.003269, 0.9768656)
 pivot_offset = Vector2(3.5526276, -3.3023376)
 size_flags_horizontal = 0
 
-[node name="Alcohol" type="TextureRect" parent="Profils/Profil4/Resources/Drink"]
-modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+[node name="Alcohol" type="TextureRect" parent="Profils/Profil4/Resources/Drink" unique_id=482127125]
+modulate = Color(0.14901961, 0.14901961, 0.14901961, 1)
+material = SubResource("CanvasItemMaterial_6k428")
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("13_v2y4t")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Alcohol2" type="TextureRect" parent="Profils/Profil4/Resources/Drink"]
-modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+[node name="Alcohol2" type="TextureRect" parent="Profils/Profil4/Resources/Drink" unique_id=424899640]
+modulate = Color(0.14901961, 0.14901961, 0.14901961, 1)
+material = SubResource("CanvasItemMaterial_6k428")
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("13_v2y4t")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Alcohol3" type="TextureRect" parent="Profils/Profil4/Resources/Drink"]
-modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+[node name="Alcohol3" type="TextureRect" parent="Profils/Profil4/Resources/Drink" unique_id=426437543]
+modulate = Color(0.14901961, 0.14901961, 0.14901961, 1)
+material = SubResource("CanvasItemMaterial_6k428")
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("13_v2y4t")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Alcohol4" type="TextureRect" parent="Profils/Profil4/Resources/Drink"]
-modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+[node name="Alcohol4" type="TextureRect" parent="Profils/Profil4/Resources/Drink" unique_id=1931053870]
+modulate = Color(0.14901961, 0.14901961, 0.14901961, 1)
+material = SubResource("CanvasItemMaterial_6k428")
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("13_v2y4t")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Alcohol5" type="TextureRect" parent="Profils/Profil4/Resources/Drink"]
-modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+[node name="Alcohol5" type="TextureRect" parent="Profils/Profil4/Resources/Drink" unique_id=1018997552]
+modulate = Color(0.14901961, 0.14901961, 0.14901961, 1)
+material = SubResource("CanvasItemMaterial_6k428")
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("13_v2y4t")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Food" type="HBoxContainer" parent="Profils/Profil4/Resources"]
+[node name="Food" type="HBoxContainer" parent="Profils/Profil4/Resources" unique_id=334816666]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1792,58 +1856,63 @@ scale = Vector2(1.003269, 0.9768656)
 pivot_offset = Vector2(4.0225983, -45.925705)
 size_flags_horizontal = 0
 
-[node name="Food" type="TextureRect" parent="Profils/Profil4/Resources/Food"]
-modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+[node name="Food" type="TextureRect" parent="Profils/Profil4/Resources/Food" unique_id=653902760]
+modulate = Color(0.14901961, 0.14901961, 0.14901961, 1)
+material = SubResource("CanvasItemMaterial_6k428")
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("14_aojn8")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Food2" type="TextureRect" parent="Profils/Profil4/Resources/Food"]
-modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+[node name="Food2" type="TextureRect" parent="Profils/Profil4/Resources/Food" unique_id=1732772087]
+modulate = Color(0.14901961, 0.14901961, 0.14901961, 1)
+material = SubResource("CanvasItemMaterial_6k428")
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("14_aojn8")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Food3" type="TextureRect" parent="Profils/Profil4/Resources/Food"]
-modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+[node name="Food3" type="TextureRect" parent="Profils/Profil4/Resources/Food" unique_id=1721954017]
+modulate = Color(0.14901961, 0.14901961, 0.14901961, 1)
+material = SubResource("CanvasItemMaterial_6k428")
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("14_aojn8")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Food4" type="TextureRect" parent="Profils/Profil4/Resources/Food"]
-modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+[node name="Food4" type="TextureRect" parent="Profils/Profil4/Resources/Food" unique_id=824209916]
+modulate = Color(0.14901961, 0.14901961, 0.14901961, 1)
+material = SubResource("CanvasItemMaterial_6k428")
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("14_aojn8")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Food5" type="TextureRect" parent="Profils/Profil4/Resources/Food"]
-modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+[node name="Food5" type="TextureRect" parent="Profils/Profil4/Resources/Food" unique_id=112705808]
+modulate = Color(0.14901961, 0.14901961, 0.14901961, 1)
+material = SubResource("CanvasItemMaterial_6k428")
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("14_aojn8")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Items" type="Control" parent="Profils/Profil4"]
+[node name="Items" type="Control" parent="Profils/Profil4" unique_id=1418696471]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -176.28865
-offset_top = 33.0
-offset_right = 118.71135
-offset_bottom = 73.0
+offset_left = -175.88176
+offset_top = 17.160952
+offset_right = 83.11824
+offset_bottom = 57.16095
 grow_horizontal = 2
 
-[node name="Items" type="HBoxContainer" parent="Profils/Profil4/Items"]
+[node name="Items" type="HBoxContainer" parent="Profils/Profil4/Items" unique_id=1736991985]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1854,12 +1923,13 @@ scale = Vector2(0.7654053, 0.8551072)
 pivot_offset = Vector2(125.64456, 94.26876)
 size_flags_horizontal = 0
 
-[node name="Control" type="Control" parent="Profils/Profil4/Items/Items"]
+[node name="Control" type="Control" parent="Profils/Profil4/Items/Items" unique_id=678801466]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Gun" type="TextureRect" parent="Profils/Profil4/Items/Items/Control"]
-modulate = Color(0.8392157, 0.1254902, 0.25882354, 1)
+[node name="Gun" type="TextureRect" parent="Profils/Profil4/Items/Items/Control" unique_id=183540350]
+self_modulate = Color(0.34548014, 0.34548014, 0.34548014, 1)
+material = SubResource("CanvasItemMaterial_n46oe")
 layout_mode = 0
 offset_left = -9.766952
 offset_top = 12.67806
@@ -1872,7 +1942,7 @@ texture = ExtResource("15_x2ui6")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Munition" type="Label" parent="Profils/Profil4/Items/Items/Control"]
+[node name="Munition" type="Label" parent="Profils/Profil4/Items/Items/Control" unique_id=1425792549]
 modulate = Color(0, 0, 0, 1)
 layout_mode = 1
 anchors_preset = 3
@@ -1889,15 +1959,15 @@ grow_vertical = 0
 scale = Vector2(0.998024, 1)
 text = "0"
 
-[node name="KeypadIcon" type="TextureRect" parent="Profils/Profil4/Items/Items"]
-modulate = Color(0.7148334, 0.31965166, 0.16661742, 1)
+[node name="KeypadIcon" type="TextureRect" parent="Profils/Profil4/Items/Items" unique_id=966620221]
+modulate = Color(0.60784316, 0.31764707, 0.12156863, 1)
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("16_dynj2")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="KeypadOpen" type="Button" parent="Profils/Profil4/Items/Items/KeypadIcon"]
+[node name="KeypadOpen" type="Button" parent="Profils/Profil4/Items/Items/KeypadIcon" unique_id=1400776485]
 modulate = Color(0.02745098, 0.02745098, 0.02745098, 0)
 layout_mode = 0
 offset_left = 28.238892
@@ -1906,14 +1976,17 @@ offset_right = 36.23889
 offset_bottom = 3.136438
 scale = Vector2(8.067134, 7.890571)
 
-[node name="Money" type="Label" parent="Profils/Profil4/Items/Items"]
-modulate = Color(1, 0.64705884, 0, 1)
+[node name="Money" type="Label" parent="Profils/Profil4/Items/Items" unique_id=392453831]
+modulate = Color(0.34548014, 0.34548014, 0.34548014, 1)
+material = SubResource("CanvasItemMaterial_011ta")
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
 text = "10"
 max_lines_visible = 1
 
-[node name="Gold" type="TextureRect" parent="Profils/Profil4/Items/Items/Money"]
+[node name="Gold" type="TextureRect" parent="Profils/Profil4/Items/Items/Money" unique_id=1865512038]
+modulate = Color(0.8627451, 0.8627451, 0.8627451, 1)
+material = SubResource("CanvasItemMaterial_n46oe")
 layout_mode = 0
 offset_left = 51.38794
 offset_top = -7.7945204
@@ -1924,33 +1997,35 @@ texture = ExtResource("17_1xbp8")
 expand_mode = 2
 stretch_mode = 5
 
-[node name="PlayerIcon" type="Control" parent="Profils/Profil4"]
+[node name="PlayerIcon" type="Control" parent="Profils/Profil4" unique_id=1342042704]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -217.99997
-offset_right = 193.0
+offset_left = -7.0662365
+offset_top = -210.26193
+offset_right = 139.93376
+offset_bottom = -40.261963
 grow_vertical = 0
 
-[node name="PlayerIcone" type="TextureRect" parent="Profils/Profil4/PlayerIcon"]
+[node name="Personnage" type="TextureRect" parent="Profils/Profil4/PlayerIcon" unique_id=611145179]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -57.5
-offset_top = -79.999985
-offset_right = 77.5
-offset_bottom = 55.000015
+offset_left = -43.216125
+offset_top = -73.89592
+offset_right = 91.783875
+offset_bottom = 61.10408
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("10_t8783")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="NomJoueur" type="Label" parent="Profils/Profil4"]
+[node name="NomJoueur" type="Label" parent="Profils/Profil4" unique_id=1376018608]
 modulate = Color(0, 0, 0, 1)
 layout_mode = 1
 anchors_preset = 7
@@ -1958,29 +2033,29 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -0.5
-offset_top = -49.0
-offset_right = 0.5
+offset_left = -36.575928
+offset_top = -45.719543
+offset_right = -35.575928
+offset_bottom = 3.2804565
 grow_horizontal = 2
 grow_vertical = 0
 pivot_offset = Vector2(92.99988, -66.99997)
 theme_override_font_sizes/font_size = 35
 horizontal_alignment = 1
 
-[node name="Keypad" parent="Profils/Profil4" instance=ExtResource("18_2jxo5")]
-visible = false
-position = Vector2(205, -123)
+[node name="Keypad" parent="Profils/Profil4" unique_id=2074569258 instance=ExtResource("18_2jxo5")]
+position = Vector2(189, -118.10706)
 scale = Vector2(0.39007133, 0.39007133)
 
-[node name="EndTurn4" type="Button" parent="Profils/Profil4"]
+[node name="EndTurn4" type="Button" parent="Profils/Profil4" unique_id=1678085941]
 layout_mode = 0
-offset_left = 89.99994
-offset_top = 226.66634
-offset_right = 224.99994
-offset_bottom = 257.66632
+offset_left = 203.3725
+offset_top = 78.02231
+offset_right = 338.3725
+offset_bottom = 109.02231
 text = "Terminer le tour"
 
-[node name="Bank" parent="." instance=ExtResource("9_ckosc")]
+[node name="Bank" parent="." unique_id=2118626797 instance=ExtResource("9_ckosc")]
 visible = false
 layout_mode = 0
 offset_left = 1355.0
@@ -1989,7 +2064,7 @@ offset_right = 1355.0
 offset_bottom = 271.0
 scale = Vector2(0.48132288, 0.48132288)
 
-[node name="GiveCard" type="Control" parent="."]
+[node name="GiveCard" type="Control" parent="." unique_id=502793126]
 visible = false
 layout_mode = 1
 anchor_right = 0.661
@@ -2001,13 +2076,13 @@ offset_bottom = -88.6427
 scale = Vector2(0.64000136, 0.64000136)
 script = ExtResource("21_srya7")
 
-[node name="Panel" type="Panel" parent="GiveCard"]
+[node name="Panel" type="Panel" parent="GiveCard" unique_id=461444429]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 scale = Vector2(19.383072, 12.068146)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="GiveCard"]
+[node name="VBoxContainer" type="VBoxContainer" parent="GiveCard" unique_id=222058577]
 layout_mode = 1
 offset_left = 2.0
 offset_top = 21.0
@@ -2015,7 +2090,7 @@ offset_right = 768.0
 offset_bottom = 462.0
 theme_override_constants/separation = 40
 
-[node name="question" type="Label" parent="GiveCard/VBoxContainer"]
+[node name="question" type="Label" parent="GiveCard/VBoxContainer" unique_id=1772955947]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 35
@@ -2023,10 +2098,10 @@ text = "A quel joueur voulez-vous donner
 une carte ?"
 horizontal_alignment = 1
 
-[node name="Joueurs" type="Control" parent="GiveCard/VBoxContainer"]
+[node name="Joueurs" type="Control" parent="GiveCard/VBoxContainer" unique_id=1049432180]
 layout_mode = 2
 
-[node name="Joueurs" type="HBoxContainer" parent="GiveCard/VBoxContainer/Joueurs"]
+[node name="Joueurs" type="HBoxContainer" parent="GiveCard/VBoxContainer/Joueurs" unique_id=1055576432]
 layout_mode = 1
 offset_left = 33.0
 offset_top = -20.0
@@ -2035,12 +2110,12 @@ offset_bottom = 492.0
 scale = Vector2(0.39999944, 0.39999944)
 theme_override_constants/separation = 85
 
-[node name="Joueur1" type="TextureRect" parent="GiveCard/VBoxContainer/Joueurs/Joueurs"]
+[node name="Joueur1" type="TextureRect" parent="GiveCard/VBoxContainer/Joueurs/Joueurs" unique_id=1291490256]
 material = SubResource("ShaderMaterial_b72to")
 layout_mode = 2
 texture = ExtResource("10_t8783")
 
-[node name="Nomjoueur1" type="Label" parent="GiveCard/VBoxContainer/Joueurs/Joueurs/Joueur1"]
+[node name="Nomjoueur1" type="Label" parent="GiveCard/VBoxContainer/Joueurs/Joueurs/Joueur1" unique_id=790908500]
 layout_mode = 0
 offset_left = -45.00006
 offset_top = 535.0
@@ -2051,12 +2126,12 @@ theme_override_font_sizes/font_size = 55
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Joueur2" type="TextureRect" parent="GiveCard/VBoxContainer/Joueurs/Joueurs"]
+[node name="Joueur2" type="TextureRect" parent="GiveCard/VBoxContainer/Joueurs/Joueurs" unique_id=908924591]
 material = SubResource("ShaderMaterial_mgajk")
 layout_mode = 2
 texture = ExtResource("10_t8783")
 
-[node name="Nomjoueur2" type="Label" parent="GiveCard/VBoxContainer/Joueurs/Joueurs/Joueur2"]
+[node name="Nomjoueur2" type="Label" parent="GiveCard/VBoxContainer/Joueurs/Joueurs/Joueur2" unique_id=686714384]
 layout_mode = 0
 offset_left = -34.499237
 offset_top = 535.0
@@ -2067,12 +2142,12 @@ theme_override_font_sizes/font_size = 55
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Joueur3" type="TextureRect" parent="GiveCard/VBoxContainer/Joueurs/Joueurs"]
+[node name="Joueur3" type="TextureRect" parent="GiveCard/VBoxContainer/Joueurs/Joueurs" unique_id=181278566]
 material = SubResource("ShaderMaterial_7teeq")
 layout_mode = 2
 texture = ExtResource("10_t8783")
 
-[node name="Nomjoueur3" type="Label" parent="GiveCard/VBoxContainer/Joueurs/Joueurs/Joueur3"]
+[node name="Nomjoueur3" type="Label" parent="GiveCard/VBoxContainer/Joueurs/Joueurs/Joueur3" unique_id=384940154]
 layout_mode = 0
 offset_left = -33.998444
 offset_top = 535.0
@@ -2083,7 +2158,7 @@ theme_override_font_sizes/font_size = 55
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="GiveCard" type="Button" parent="GiveCard/VBoxContainer"]
+[node name="GiveCard" type="Button" parent="GiveCard/VBoxContainer" unique_id=636693576]
 modulate = Color(3.1229057, 3.1229057, 3.1229057, 1)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -2091,109 +2166,22 @@ size_flags_vertical = 10
 theme_override_font_sizes/font_size = 30
 text = "Donner une carte"
 
-[node name="Manches" type="Control" parent="."]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="MancheRail" type="TextureRect" parent="Manches"]
+[node name="Manches" parent="." unique_id=1608420756 instance=ExtResource("25_2jxo5")]
 layout_mode = 0
-offset_left = 518.00006
-offset_top = 1031.0
-offset_right = 1124.0
-offset_bottom = 1056.0
+offset_left = 507.0
+offset_top = 971.0
+offset_right = 507.0
+offset_bottom = 971.0
 scale = Vector2(1.48, 1.48)
-texture = ExtResource("25_rrv1i")
 
-[node name="MancheUnVide" type="TextureRect" parent="Manches"]
+[node name="Manches2" parent="." unique_id=1943367806 instance=ExtResource("25_2jxo5")]
 layout_mode = 0
-offset_left = 532.0
-offset_top = 1001.99994
-offset_right = 585.0
-offset_bottom = 1042.0
+offset_left = 1419.0
+offset_top = 105.0
+offset_right = 1419.0
+offset_bottom = 105.0
+rotation = 3.1415927
 scale = Vector2(1.48, 1.48)
-texture = ExtResource("35_voqbm")
-
-[node name="MancheDeuxVide" type="TextureRect" parent="Manches"]
-layout_mode = 0
-offset_left = 616.00006
-offset_top = 1006.99994
-offset_right = 670.00006
-offset_bottom = 1048.0
-scale = Vector2(1.48, 1.48)
-texture = ExtResource("27_dwjdh")
-
-[node name="MancheTroisVide" type="TextureRect" parent="Manches"]
-layout_mode = 0
-offset_left = 708.0
-offset_top = 1004.00006
-offset_right = 762.0
-offset_bottom = 1046.0
-scale = Vector2(1.48, 1.48)
-texture = ExtResource("34_6vvq3")
-
-[node name="MancheQuatreVide" type="TextureRect" parent="Manches"]
-layout_mode = 0
-offset_left = 795.0
-offset_top = 1003.99994
-offset_right = 849.0
-offset_bottom = 1046.0
-scale = Vector2(1.48, 1.48)
-texture = ExtResource("31_nc7xk")
-
-[node name="MancheCinqVide" type="TextureRect" parent="Manches"]
-layout_mode = 0
-offset_left = 883.00006
-offset_top = 999.99994
-offset_right = 938.00006
-offset_bottom = 1042.0
-scale = Vector2(1.48, 1.48)
-texture = ExtResource("26_dyk5w")
-
-[node name="MancheSixVide" type="TextureRect" parent="Manches"]
-layout_mode = 0
-offset_left = 971.0
-offset_top = 996.00006
-offset_right = 1026.0
-offset_bottom = 1039.0
-scale = Vector2(1.48, 1.48)
-texture = ExtResource("33_ihcfc")
-
-[node name="MancheSeptVide" type="TextureRect" parent="Manches"]
-layout_mode = 0
-offset_left = 1058.0
-offset_top = 994.0
-offset_right = 1113.0
-offset_bottom = 1036.0
-scale = Vector2(1.48, 1.48)
-texture = ExtResource("32_f8urn")
-
-[node name="MancheHuitVide" type="TextureRect" parent="Manches"]
-layout_mode = 0
-offset_left = 1146.0
-offset_top = 991.99994
-offset_right = 1200.0
-offset_bottom = 1033.0
-scale = Vector2(1.48, 1.48)
-texture = ExtResource("29_eto4s")
-
-[node name="MancheNeufVide" type="TextureRect" parent="Manches"]
-layout_mode = 0
-offset_left = 1239.0
-offset_top = 991.0
-offset_right = 1293.0
-offset_bottom = 1032.0
-scale = Vector2(1.48, 1.48)
-texture = ExtResource("30_vr4so")
-
-[node name="MancheDixVide" type="TextureRect" parent="Manches"]
-layout_mode = 0
-offset_left = 1325.0001
-offset_top = 994.99994
-offset_right = 1378.0001
-offset_bottom = 1035.0
-scale = Vector2(1.48, 1.48)
-texture = ExtResource("28_dr6sg")
 
 [connection signal="pressed" from="Places/Saloon" to="Places" method="_on_saloon_pressed"]
 [connection signal="pressed" from="Places/Restaurant" to="Places" method="_on_restaurant_pressed"]
@@ -2213,8 +2201,4 @@ texture = ExtResource("28_dr6sg")
 [connection signal="pressed" from="Saloon/VBoxContainer/SaloonGiveCard" to="." method="_on_saloon_give_card_pressed"]
 [connection signal="pressed" from="Saloon/VBoxContainer/DrinkBuyCard" to="Places" method="_on_drink_buy_card_pressed"]
 [connection signal="pressed" from="Saloon/VBoxContainer/DrinkBuyCard" to="SaloonShop" method="_on_drink_buy_card_pressed"]
-[connection signal="pressed" from="Profils/Profil/Items/Items/KeypadIcon/KeypadOpen" to="Profils/Profil" method="_on_keypad_open_pressed"]
-[connection signal="pressed" from="Profils/Profil2/Items/Items/KeypadIcon/KeypadOpen" to="Profils/Profil2" method="_on_keypad_open_pressed"]
-[connection signal="pressed" from="Profils/Profil3/Items/Items/KeypadIcon/KeypadOpen" to="Profils/Profil3" method="_on_keypad_open_pressed"]
-[connection signal="pressed" from="Profils/Profil4/Items/Items/KeypadIcon/KeypadOpen" to="Profils/Profil4" method="_on_keypad_open_pressed"]
 [connection signal="pressed" from="GiveCard/VBoxContainer/GiveCard" to="GiveCard" method="_on_give_card_pressed"]

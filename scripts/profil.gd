@@ -9,19 +9,20 @@ extends Control
 @onready var munition: Label = $Items/Items/Control/Munition
 @onready var keypad: Node2D = $Keypad
 @onready var gun: TextureRect = $Items/Items/Control/Gun
-@onready var player_icone: TextureRect = $"PlayerIcon/PlayerIcone"
+@onready var player_icone: TextureRect = $"PlayerIcon/Personnage"
+@onready var fond: TextureRect = $"TextureRect"
 
 @onready var personnages = [
-	preload("uid://d3hkmacsq0pag"),
-	preload("uid://bg3rdqu4pcayv"),
-	preload("uid://brntffde21jyb"),
-	preload("uid://b56iwvx4nh63n")
-	
+	{"sprite": preload("uid://d3hkmacsq0pag"), "fond": preload("uid://b7mfhv7byc41k")},
+	{"sprite": preload("uid://bg3rdqu4pcayv"), "fond": preload("uid://ge5n77q02fhq")},
+	{"sprite": preload("uid://b56iwvx4nh63n"), "fond": preload("uid://cgvlmje6wxcwj")},
+	{"sprite": preload("uid://brntffde21jyb"), "fond": preload("uid://k8aqihjvcery")}
 ]
 
-const NIV_1_ICON = preload("uid://dcsgy653c2i6b")
-const NIV_2_ICON = preload("uid://c3kva8nrhjb2s")
-const NIV_3_ICON = preload("uid://s1gbkxaaxbje")
+
+const NIV_1_ICON = preload("uid://dwg03ruoyaydt")
+const NIV_2_ICON = preload("uid://dmcrgshg65fct")
+const NIV_3_ICON = preload("uid://v5lcdv6u4ott")
 
 # Variables internes pour mémoriser les stats (très important pour le Dispatcher)
 var _vie: int = 0
@@ -37,12 +38,18 @@ func update_visuel(cle: String, valeur):
 		"Icone":
 			var index = int(valeur)
 			if index >= 0 and index < personnages.size():
-				# ON UTILISE LE NOM DÉCLARÉ EN HAUT
+				var design = personnages[index]
 				if player_icone: 
-					player_icone.texture = personnages[index]
-					print("Image du profil mise à jour : Index ", index)
+					player_icone.texture = design["sprite"]
+					
+				if fond:
+					fond.texture = design["fond"]
 				else:
-					print("ERREUR : Le noeud player_icone est introuvable")
+					# Si ce message s'affiche, c'est que ton chemin @onready fond est faux
+					print("ERREUR : Le noeud 'fond' est introuvable sur ", name)
+			else:
+				print("ERREUR : Index d'icône invalide : ", index)
+				
 		"Vie":
 			_vie = int(valeur)
 			_update_hbox_icons(liste_des_coeurs, _vie)
@@ -74,7 +81,7 @@ func _update_hbox_icons(container: HBoxContainer, n: int):
 	var enfants = container.get_children()
 	for i in range(enfants.size()):
 		# Rose/Rouge si actif, noir si vide
-		enfants[i].modulate = Color(1, 0, 0.3) if i < n else Color(0, 0, 0)
+		enfants[i].modulate = Color(0.345, 0.345, 0.345) if i < n else Color(0.149, 0.149, 0.149)
 
 # --- FONCTIONS DE LECTURE (Appelées par le script Principal) ---
 # Note : Les noms correspondent maintenant exactement à ton script Principal

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b7mfhv7byc41k"
-path="res://.godot/imported/pastille (2).webp-1699738be6c09b5e4aaa35cac0ac4e97.ctex"
+uid="uid://k8aqihjvcery"
+path="res://.godot/imported/profil_joe.webp-5833c703cadc6a3c22c6869a6ff0f703.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://pastille (2).webp"
-dest_files=["res://.godot/imported/pastille (2).webp-1699738be6c09b5e4aaa35cac0ac4e97.ctex"]
+source_file="res://assets/profil/personnage/profil_joe.webp"
+dest_files=["res://.godot/imported/profil_joe.webp-5833c703cadc6a3c22c6869a6ff0f703.ctex"]
 
 [params]
 

@@ -1,11 +1,10 @@
-[gd_scene load_steps=15 format=3 uid="uid://b0faj1t3lwxrx"]
+[gd_scene format=3 uid="uid://b0faj1t3lwxrx"]
 
 [ext_resource type="Script" uid="uid://2e700233qs4k" path="res://scripts/profil.gd" id="1_wfgmg"]
 [ext_resource type="Texture2D" uid="uid://7nrwkrwc1tok" path="res://assets/profil/coeur.webp" id="2_j1w42"]
-[ext_resource type="Texture2D" uid="uid://b7mfhv7byc41k" path="res://pastille (2).webp" id="2_oyrg5"]
+[ext_resource type="Texture2D" uid="uid://b7mfhv7byc41k" path="res://assets/profil/personnage/profil_bill.webp" id="2_oyrg5"]
 [ext_resource type="Texture2D" uid="uid://btlu4r2ley4ww" path="res://assets/profil/alcool.webp" id="3_ehcmw"]
 [ext_resource type="Texture2D" uid="uid://jpvdd31q8et" path="res://assets/profil/nourriture.webp" id="4_84ug0"]
-[ext_resource type="Texture2D" uid="uid://dcsgy653c2i6b" path="res://assets/profil/niv1Icon.webp" id="5_edwgy"]
 [ext_resource type="Texture2D" uid="uid://jhtn7blget3s" path="res://assets/profil/pavePrototype_v2.webp" id="6_cl1r5"]
 [ext_resource type="Texture2D" uid="uid://vcohqkjwjaaf" path="res://assets/profil/or.webp" id="7_cubo0"]
 [ext_resource type="Texture2D" uid="uid://b0hrtmg55c17b" path="res://assets/profil/joueur.png" id="8_bjxe8"]
@@ -20,38 +19,41 @@ blend_mode = 2
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_kc7mi"]
 blend_mode = 2
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_edwgy"]
+load_path = "res://.godot/imported/niv1Icon.webp-f683bff002525be22b3c7f81d2d5cddb.ctex"
+
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_5ewr7"]
 blend_mode = 2
 
-[node name="Profil" type="Control"]
+[node name="Profil" type="Control" unique_id=196013822]
 layout_mode = 3
 anchors_preset = 0
-offset_right = 438.5773
-offset_bottom = 288.99997
+offset_right = 382.0
+offset_bottom = 341.0
 script = ExtResource("1_wfgmg")
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1256014880]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 texture = ExtResource("2_oyrg5")
 
-[node name="Resources" type="Control" parent="."]
+[node name="Resources" type="Control" parent="." unique_id=826573713]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -261.5773
-offset_top = 11.500015
-offset_right = -37.966583
-offset_bottom = 153.50002
+offset_left = -199.99998
+offset_top = -14.5
+offset_right = 23.610718
+offset_bottom = 127.5
 grow_horizontal = 0
 grow_vertical = 2
 scale = Vector2(0.7200012, 0.7200012)
 
-[node name="Life" type="HBoxContainer" parent="Resources"]
+[node name="Life" type="HBoxContainer" parent="Resources" unique_id=1284073066]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -62,7 +64,7 @@ grow_vertical = 2
 scale = Vector2(1.003269, 0.9768656)
 pivot_offset = Vector2(0.022644043, 34.029373)
 
-[node name="Coeur" type="TextureRect" parent="Resources/Life"]
+[node name="Coeur" type="TextureRect" parent="Resources/Life" unique_id=899504499]
 modulate = Color(0.34548014, 0.34548014, 0.34548014, 1)
 material = SubResource("CanvasItemMaterial_edwgy")
 layout_mode = 2
@@ -71,7 +73,7 @@ texture = ExtResource("2_j1w42")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Coeur2" type="TextureRect" parent="Resources/Life"]
+[node name="Coeur2" type="TextureRect" parent="Resources/Life" unique_id=461186938]
 modulate = Color(0.34548014, 0.34548014, 0.34548014, 1)
 material = SubResource("CanvasItemMaterial_edwgy")
 layout_mode = 2
@@ -80,7 +82,7 @@ texture = ExtResource("2_j1w42")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Coeur3" type="TextureRect" parent="Resources/Life"]
+[node name="Coeur3" type="TextureRect" parent="Resources/Life" unique_id=1540945518]
 modulate = Color(0.34548014, 0.34548014, 0.34548014, 1)
 material = SubResource("CanvasItemMaterial_edwgy")
 layout_mode = 2
@@ -89,7 +91,7 @@ texture = ExtResource("2_j1w42")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Coeur4" type="TextureRect" parent="Resources/Life"]
+[node name="Coeur4" type="TextureRect" parent="Resources/Life" unique_id=1141914138]
 modulate = Color(0.34548014, 0.34548014, 0.34548014, 1)
 material = SubResource("CanvasItemMaterial_oyrg5")
 layout_mode = 2
@@ -98,8 +100,8 @@ texture = ExtResource("2_j1w42")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Coeur5" type="TextureRect" parent="Resources/Life"]
-modulate = Color(0.14733289, 0.14733289, 0.14733289, 1)
+[node name="Coeur5" type="TextureRect" parent="Resources/Life" unique_id=937945193]
+modulate = Color(0.14901961, 0.14901961, 0.14901961, 1)
 material = SubResource("CanvasItemMaterial_kc7mi")
 layout_mode = 2
 size_flags_horizontal = 3
@@ -107,7 +109,7 @@ texture = ExtResource("2_j1w42")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Drink" type="HBoxContainer" parent="Resources"]
+[node name="Drink" type="HBoxContainer" parent="Resources" unique_id=853551784]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -120,7 +122,7 @@ scale = Vector2(1.003269, 0.9768656)
 pivot_offset = Vector2(3.5526276, -3.3023376)
 size_flags_horizontal = 0
 
-[node name="Alcohol" type="TextureRect" parent="Resources/Drink"]
+[node name="Alcohol" type="TextureRect" parent="Resources/Drink" unique_id=863393442]
 modulate = Color(0.14901961, 0.14901961, 0.14901961, 1)
 material = SubResource("CanvasItemMaterial_kc7mi")
 layout_mode = 2
@@ -129,7 +131,7 @@ texture = ExtResource("3_ehcmw")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Alcohol2" type="TextureRect" parent="Resources/Drink"]
+[node name="Alcohol2" type="TextureRect" parent="Resources/Drink" unique_id=147634939]
 modulate = Color(0.14901961, 0.14901961, 0.14901961, 1)
 material = SubResource("CanvasItemMaterial_kc7mi")
 layout_mode = 2
@@ -138,7 +140,7 @@ texture = ExtResource("3_ehcmw")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Alcohol3" type="TextureRect" parent="Resources/Drink"]
+[node name="Alcohol3" type="TextureRect" parent="Resources/Drink" unique_id=593104043]
 modulate = Color(0.14901961, 0.14901961, 0.14901961, 1)
 material = SubResource("CanvasItemMaterial_kc7mi")
 layout_mode = 2
@@ -147,7 +149,7 @@ texture = ExtResource("3_ehcmw")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Alcohol4" type="TextureRect" parent="Resources/Drink"]
+[node name="Alcohol4" type="TextureRect" parent="Resources/Drink" unique_id=1308509292]
 modulate = Color(0.14901961, 0.14901961, 0.14901961, 1)
 material = SubResource("CanvasItemMaterial_kc7mi")
 layout_mode = 2
@@ -156,7 +158,7 @@ texture = ExtResource("3_ehcmw")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Alcohol5" type="TextureRect" parent="Resources/Drink"]
+[node name="Alcohol5" type="TextureRect" parent="Resources/Drink" unique_id=2111382107]
 modulate = Color(0.14901961, 0.14901961, 0.14901961, 1)
 material = SubResource("CanvasItemMaterial_kc7mi")
 layout_mode = 2
@@ -165,7 +167,7 @@ texture = ExtResource("3_ehcmw")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Food" type="HBoxContainer" parent="Resources"]
+[node name="Food" type="HBoxContainer" parent="Resources" unique_id=26473926]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -180,7 +182,7 @@ scale = Vector2(1.003269, 0.9768656)
 pivot_offset = Vector2(4.0225983, -45.925705)
 size_flags_horizontal = 0
 
-[node name="Food" type="TextureRect" parent="Resources/Food"]
+[node name="Food" type="TextureRect" parent="Resources/Food" unique_id=2108469714]
 modulate = Color(0.14901961, 0.14901961, 0.14901961, 1)
 material = SubResource("CanvasItemMaterial_kc7mi")
 layout_mode = 2
@@ -189,7 +191,7 @@ texture = ExtResource("4_84ug0")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Food2" type="TextureRect" parent="Resources/Food"]
+[node name="Food2" type="TextureRect" parent="Resources/Food" unique_id=1238788787]
 modulate = Color(0.14901961, 0.14901961, 0.14901961, 1)
 material = SubResource("CanvasItemMaterial_kc7mi")
 layout_mode = 2
@@ -198,7 +200,7 @@ texture = ExtResource("4_84ug0")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Food3" type="TextureRect" parent="Resources/Food"]
+[node name="Food3" type="TextureRect" parent="Resources/Food" unique_id=1332448092]
 modulate = Color(0.14901961, 0.14901961, 0.14901961, 1)
 material = SubResource("CanvasItemMaterial_kc7mi")
 layout_mode = 2
@@ -207,7 +209,7 @@ texture = ExtResource("4_84ug0")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Food4" type="TextureRect" parent="Resources/Food"]
+[node name="Food4" type="TextureRect" parent="Resources/Food" unique_id=173717448]
 modulate = Color(0.14901961, 0.14901961, 0.14901961, 1)
 material = SubResource("CanvasItemMaterial_kc7mi")
 layout_mode = 2
@@ -216,7 +218,7 @@ texture = ExtResource("4_84ug0")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Food5" type="TextureRect" parent="Resources/Food"]
+[node name="Food5" type="TextureRect" parent="Resources/Food" unique_id=1861017652]
 modulate = Color(0.14901961, 0.14901961, 0.14901961, 1)
 material = SubResource("CanvasItemMaterial_kc7mi")
 layout_mode = 2
@@ -225,18 +227,18 @@ texture = ExtResource("4_84ug0")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Items" type="Control" parent="."]
+[node name="Items" type="Control" parent="." unique_id=1621288407]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -181.28865
+offset_left = -154.0
 offset_top = 63.0
-offset_right = 77.71135
+offset_right = 105.0
 offset_bottom = 103.0
 grow_horizontal = 2
 
-[node name="Items" type="HBoxContainer" parent="Items"]
+[node name="Items" type="HBoxContainer" parent="Items" unique_id=12742602]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -247,11 +249,11 @@ scale = Vector2(0.7654053, 0.8551072)
 pivot_offset = Vector2(125.64456, 94.26876)
 size_flags_horizontal = 0
 
-[node name="Control" type="Control" parent="Items/Items"]
+[node name="Control" type="Control" parent="Items/Items" unique_id=162558572]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Gun" type="TextureRect" parent="Items/Items/Control"]
+[node name="Gun" type="TextureRect" parent="Items/Items/Control" unique_id=1608921248]
 modulate = Color(0.14901961, 0.14901961, 0.14901961, 1)
 layout_mode = 0
 offset_left = -9.766952
@@ -261,11 +263,11 @@ offset_bottom = 67.67806
 rotation = -0.13264503
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.89
-texture = ExtResource("5_edwgy")
+texture = SubResource("CompressedTexture2D_edwgy")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Munition" type="Label" parent="Items/Items/Control"]
+[node name="Munition" type="Label" parent="Items/Items/Control" unique_id=887486255]
 modulate = Color(0, 0, 0, 1)
 layout_mode = 1
 anchors_preset = 3
@@ -282,7 +284,7 @@ grow_vertical = 0
 scale = Vector2(0.998024, 1)
 text = "0"
 
-[node name="KeypadIcon" type="TextureRect" parent="Items/Items"]
+[node name="KeypadIcon" type="TextureRect" parent="Items/Items" unique_id=2139227182]
 modulate = Color(0.60784316, 0.31764707, 0.12156863, 1)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -290,7 +292,7 @@ texture = ExtResource("6_cl1r5")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="KeypadOpen" type="Button" parent="Items/Items/KeypadIcon"]
+[node name="KeypadOpen" type="Button" parent="Items/Items/KeypadIcon" unique_id=1096802298]
 modulate = Color(0.02745098, 0.02745098, 0.02745098, 0)
 layout_mode = 0
 offset_left = 28.238892
@@ -299,7 +301,7 @@ offset_right = 36.23889
 offset_bottom = 3.136438
 scale = Vector2(8.067134, 7.890571)
 
-[node name="Money" type="Label" parent="Items/Items"]
+[node name="Money" type="Label" parent="Items/Items" unique_id=1469285769]
 modulate = Color(0.34548014, 0.34548014, 0.34548014, 1)
 material = SubResource("CanvasItemMaterial_5ewr7")
 layout_mode = 2
@@ -307,7 +309,7 @@ theme_override_font_sizes/font_size = 40
 text = "10"
 max_lines_visible = 1
 
-[node name="Gold" type="TextureRect" parent="Items/Items/Money"]
+[node name="Gold" type="TextureRect" parent="Items/Items/Money" unique_id=1038605463]
 modulate = Color(0.34548014, 0.34548014, 0.34548014, 1)
 layout_mode = 0
 offset_left = 51.38794
@@ -319,18 +321,18 @@ texture = ExtResource("7_cubo0")
 expand_mode = 2
 stretch_mode = 5
 
-[node name="PlayerIcon" type="Control" parent="."]
+[node name="PlayerIcon" type="Control" parent="." unique_id=2103845841]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 18.0
-offset_top = -170.99997
-offset_right = 165.0
-offset_bottom = -1.0
+offset_left = 13.0
+offset_top = -223.0
+offset_right = 160.0
+offset_bottom = -53.00003
 grow_vertical = 0
 
-[node name="Personnage" type="TextureRect" parent="PlayerIcon"]
+[node name="Personnage" type="TextureRect" parent="PlayerIcon" unique_id=518028915]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -347,7 +349,7 @@ texture = ExtResource("8_bjxe8")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="NomJoueur" type="Label" parent="."]
+[node name="NomJoueur" type="Label" parent="." unique_id=214903671]
 modulate = Color(0, 0, 0, 1)
 layout_mode = 1
 anchors_preset = 7
@@ -364,7 +366,7 @@ pivot_offset = Vector2(92.99988, -66.99997)
 theme_override_font_sizes/font_size = 35
 horizontal_alignment = 1
 
-[node name="Keypad" parent="." instance=ExtResource("9_awxfq")]
+[node name="Keypad" parent="." unique_id=122953398 instance=ExtResource("9_awxfq")]
 position = Vector2(189, -72)
 scale = Vector2(0.39007133, 0.39007133)
 

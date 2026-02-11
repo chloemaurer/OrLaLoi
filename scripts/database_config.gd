@@ -4,7 +4,7 @@ signal db_ready
 var db_ref : FirebaseDatabaseReference = null
 var is_ready : bool = false
 
-# Variables locales de calcul (synchronisées avec le profil actif)
+# Variables locales
 var money_local : int = 0
 var munition_local : int = 0
 var life_local : int = 0
@@ -14,6 +14,9 @@ var actual_Gun : int = 0
 var current_profil_id : String = "0"
 var cible_don_id : String = "" # Contiendra l'ID du joueur sélectionné dans GiveCard
 var zone = ""
+var manches : int = 0
+
+
 # --- RÉFÉRENCES DES SCRIPTS (Assignées par le Main/Général) ---
 var script_general = null 
 var script_saloon = null 
@@ -23,7 +26,7 @@ var script_armory = null
 var script_duel = null
 var script_don = null
 var cache_cartes = null
-
+#------- Actions par Tour ----------------------------------
 var actions_faites : int = 0
 const MAX_ACTIONS : int = 2
 
@@ -146,7 +149,7 @@ func spend_money(montant: int, profil_id: String) -> bool:
 		Firebase.Database.get_database_reference("profils/ID" + profil_id).update("", {"Argent": nouveau_solde})
 		return true
 	return false
-	
+
 func get_munition(montant_a_ajouter: int, profil_id: String):
 	munition_local += montant_a_ajouter
 	Firebase.Database.get_database_reference("profils/ID" + profil_id).update("", {"Munition": munition_local})
@@ -154,7 +157,7 @@ func get_munition(montant_a_ajouter: int, profil_id: String):
 func get_money(montant: int, profil_id: String):
 	var nouveau_total = money_local + montant
 	Firebase.Database.get_database_reference("profils/ID" + profil_id).update("", {"Argent": nouveau_total})
-	
+
 func get_life(montant: int, profil_id: String):
 	var nouveau_total = clampi(life_local + montant, 0, 5)
 	Firebase.Database.get_database_reference("profils/ID" + profil_id).update("", {"Vie": nouveau_total})
@@ -175,8 +178,7 @@ func get_food(val: int, profil_id: String):
 	var nouveau_total = clampi(valeur_actuelle_cible + val, 0, 5)
 	Firebase.Database.get_database_reference("profils/ID" + profil_id).update("", {"Nourriture": nouveau_total})
 	print("[DB] Don Nourriture : ID", profil_id, " passe à ", nouveau_total)
-	
-	
+
 func update_gun(val: int, profil_id: String):
 	if val == 2 && actual_Gun == 1 :
 		actual_Gun = val
@@ -200,3 +202,14 @@ func play_minijeux(id_minijeux: String):
 	# Le chemin sera "cartes/ID58"
 	var chemin = "MiniJeux/" + id_minijeux
 	Firebase.Database.get_database_reference(chemin).update("", {"play": true})
+
+func lose_life(montant: int, profil_id: String):
+	var index = int(profil_id)
+	if script_general and script_general.profils_noeuds.size() > index:
+		var cible = script_general.profils_noeuds[index]
+		var vie_actuelle = cible.get_life() 
+		var nouveau_total = clampi(vie_actuelle - montant, 0, 5)
+		Firebase.Database.get_database_reference("profils/ID" + profil_id).update("", {"Vie": nouveau_total})
+
+		if nouveau_total <= 0:
+			script_general.Kill_player(index)
