@@ -1,20 +1,20 @@
-[gd_scene load_steps=4 format=3 uid="uid://btox5acdq18om"]
+[gd_scene format=3 uid="uid://btox5acdq18om"]
 
 [ext_resource type="Texture2D" uid="uid://35furc4lwpij" path="res://assets/pavenum/pave-_complet.webp" id="1_vxa2g"]
 [ext_resource type="Script" uid="uid://ypntmx4yrga8" path="res://scripts/keypad.gd" id="2_gjsb8"]
 [ext_resource type="Texture2D" uid="uid://bdmisnoq17jy1" path="res://assets/x.webp" id="3_gjsb8"]
 
-[node name="Keypad" type="Node2D"]
+[node name="Keypad" type="Node2D" unique_id=195819942]
 script = ExtResource("2_gjsb8")
 
-[node name="PaveComplet" type="Sprite2D" parent="."]
+[node name="PaveComplet" type="Sprite2D" parent="." unique_id=428604717]
 scale = Vector2(0.7006198, 0.7202563)
 texture = ExtResource("1_vxa2g")
 
-[node name="Actions" type="Node2D" parent="."]
+[node name="Actions" type="Node2D" parent="." unique_id=425376676]
 scale = Vector2(0.7006198, 0.7202563)
 
-[node name="Check" type="Button" parent="Actions"]
+[node name="Check" type="Button" parent="Actions" unique_id=155240650]
 modulate = Color(1, 1, 1, 0)
 offset_left = 218.0
 offset_top = 9.0
@@ -22,7 +22,7 @@ offset_right = 405.0
 offset_bottom = 397.0
 metadata/_edit_use_anchors_ = true
 
-[node name="Back" type="Button" parent="Actions"]
+[node name="Back" type="Button" parent="Actions" unique_id=1326137056]
 modulate = Color(1, 1, 1, 0)
 offset_left = 225.0
 offset_top = -191.0
@@ -30,91 +30,91 @@ offset_right = 412.0
 offset_bottom = -6.0
 metadata/_edit_use_anchors_ = true
 
-[node name="Code" type="Node2D" parent="."]
+[node name="Code" type="Node2D" parent="." unique_id=935942897]
 scale = Vector2(0.7006198, 0.7202563)
 
-[node name="1" type="Button" parent="Code"]
+[node name="1" type="Button" parent="Code" unique_id=1475049236]
 modulate = Color(1, 1, 1, 0)
 offset_left = -408.0
 offset_top = -195.0
 offset_right = -221.0
 offset_bottom = -10.0
 
-[node name="2" type="Button" parent="Code"]
+[node name="2" type="Button" parent="Code" unique_id=1538018186]
 modulate = Color(1, 1, 1, 0)
 offset_left = -201.0
 offset_top = -195.0
 offset_right = -14.0
 offset_bottom = -10.0
 
-[node name="3" type="Button" parent="Code"]
+[node name="3" type="Button" parent="Code" unique_id=440111258]
 modulate = Color(1, 1, 1, 0)
 offset_left = 12.0
 offset_top = -193.0
 offset_right = 199.0
 offset_bottom = -8.0
 
-[node name="4" type="Button" parent="Code"]
+[node name="4" type="Button" parent="Code" unique_id=1453209778]
 modulate = Color(1, 1, 1, 0)
 offset_left = -411.0
 offset_top = 10.0
 offset_right = -224.0
 offset_bottom = 195.0
 
-[node name="5" type="Button" parent="Code"]
+[node name="5" type="Button" parent="Code" unique_id=1216034147]
 modulate = Color(1, 1, 1, 0)
 offset_left = -198.0
 offset_top = 8.0
 offset_right = -11.0
 offset_bottom = 193.0
 
-[node name="6" type="Button" parent="Code"]
+[node name="6" type="Button" parent="Code" unique_id=1610250031]
 modulate = Color(1, 1, 1, 0)
 offset_left = 12.0
 offset_top = 14.0
 offset_right = 199.0
 offset_bottom = 199.0
 
-[node name="7" type="Button" parent="Code"]
+[node name="7" type="Button" parent="Code" unique_id=475216737]
 modulate = Color(1, 1, 1, 0)
 offset_left = -406.0
 offset_top = 215.0
 offset_right = -219.0
 offset_bottom = 400.0
 
-[node name="8" type="Button" parent="Code"]
+[node name="8" type="Button" parent="Code" unique_id=1650645080]
 modulate = Color(1, 1, 1, 0)
 offset_left = -198.0
 offset_top = 214.0
 offset_right = -11.0
 offset_bottom = 399.0
 
-[node name="9" type="Button" parent="Code"]
+[node name="9" type="Button" parent="Code" unique_id=322537558]
 modulate = Color(1, 1, 1, 0)
 offset_left = 10.0
 offset_top = 213.0
 offset_right = 197.0
 offset_bottom = 398.0
 
-[node name="Screen" type="Node2D" parent="."]
+[node name="Screen" type="Node2D" parent="." unique_id=470358438]
 
-[node name="Key1" type="Sprite2D" parent="Screen"]
+[node name="Key1" type="Sprite2D" parent="Screen" unique_id=1206532371]
 position = Vector2(-210, -220)
 scale = Vector2(0.8, 0.8)
 
-[node name="Key2" type="Sprite2D" parent="Screen"]
+[node name="Key2" type="Sprite2D" parent="Screen" unique_id=510611080]
 position = Vector2(-70, -220)
 scale = Vector2(0.8, 0.8)
 
-[node name="Key3" type="Sprite2D" parent="Screen"]
+[node name="Key3" type="Sprite2D" parent="Screen" unique_id=358765259]
 position = Vector2(70, -220)
 scale = Vector2(0.8, 0.8)
 
-[node name="Key4" type="Sprite2D" parent="Screen"]
+[node name="Key4" type="Sprite2D" parent="Screen" unique_id=496405660]
 position = Vector2(210, -220)
 scale = Vector2(0.8, 0.8)
 
-[node name="CloseButton" type="TextureButton" parent="."]
+[node name="CloseButton" type="TextureButton" parent="." unique_id=239156743]
 self_modulate = Color(0.4627451, 0.08627451, 0.09019608, 1)
 offset_left = 264.0
 offset_top = -343.0

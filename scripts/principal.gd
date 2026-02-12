@@ -21,21 +21,18 @@ extends Control
 	$Profils/Profil4/Keypad
 ]
 
-@onready var duel_ui = $Duel
-@onready var duel_slots = [
-	{"rect": $Duel/VBoxContainer/Joueurs/Joueurs/Joueur1, "label": $Duel/VBoxContainer/Joueurs/Joueurs/Joueur1/Nomjoueur1},
-	{"rect": $Duel/VBoxContainer/Joueurs/Joueurs/Joueur2, "label": $Duel/VBoxContainer/Joueurs/Joueurs/Joueur2/Nomjoueur2},
-	{"rect": $Duel/VBoxContainer/Joueurs/Joueurs/Joueur3, "label": $Duel/VBoxContainer/Joueurs/Joueurs/Joueur3/Nomjoueur3}
-]
-
+var joueurs_prets = [false, false, false, false]
+var jeu_demarre = false
 var cible_duel_id : String = ""
-@onready var places: Node2D = $Places
-@onready var restaurant_shop: Control = $RestaurantShop
-@onready var saloon_shop: Control = $SaloonShop
-@onready var armory: Control = $Armory
-@onready var bank: Control = $Bank
-@onready var duel: Control = $Duel
-@onready var give_card: Control = $GiveCard
+@onready var places: Node2D = $Map/Places
+@onready var restaurant_shop: Control = $Map/RestaurantShop
+@onready var saloon_shop: Control = $Map/SaloonShop
+@onready var armory: Control = $Map/Armory
+@onready var bank: Control = $Map/Bank
+@onready var duel: Control = $Map/Duel
+@onready var give_card: Control = $Map/GiveCard
+@onready var map: Control = $Map
+@onready var start_action: Control = $Map/StartAction
 
 
 
@@ -43,12 +40,12 @@ func _ready() -> void:
 	# 1. On donne les accès au singleton immédiatement
 	DatabaseConfig.script_general = self
 	# 2. Branchement des autres boutiques
-	DatabaseConfig.script_saloon = $SaloonShop
-	DatabaseConfig.script_restaurant = $RestaurantShop
-	DatabaseConfig.script_bank = $Bank
-	DatabaseConfig.script_armory = $Armory
-	DatabaseConfig.script_duel = $Duel
-	DatabaseConfig.script_don = $GiveCard
+	DatabaseConfig.script_saloon = $Map/SaloonShop
+	DatabaseConfig.script_restaurant = $Map/RestaurantShop
+	DatabaseConfig.script_bank = $Map/Bank
+	DatabaseConfig.script_armory = $Map/Armory
+	DatabaseConfig.script_duel = $Map/Duel
+	DatabaseConfig.script_don = $Map/GiveCard
 	give_card.hide()
 	
 	if DatabaseConfig.cache_cartes != null:
@@ -67,8 +64,11 @@ func _ready() -> void:
 		DatabaseConfig.db_ready.connect(_initialisation_depart)
 
 func _initialisation_depart():
-	selectionner_profil(0)
-	print("Initialisation terminée : Données profils récupérées.")
+	print("En attente des joueurs... Cliquez sur vos profils pour commencer.")
+	places.hide()
+	start_action.hide()
+	for p in profils_noeuds:
+		p.modulate = Color(0.2, 0.2, 0.2, 1)
 
 func distribuer_donnees(chemin: String, data):
 	if chemin == "profils" and typeof(data) == TYPE_DICTIONARY:
@@ -100,10 +100,17 @@ func distribuer_donnees(chemin: String, data):
 
 func selectionner_profil(index_choisi: int):
 	print("Passage au profil : ", index_choisi)
+	start_action.show()
 	DatabaseConfig.current_profil_id = str(index_choisi)
 	DatabaseConfig.actions_faites = 0 # On remet le compteur à zéro pour le nouveau joueur
 	print("Nouveau tour pour ID", index_choisi, ". Actions : 0/2")
 	
+	# Si c'est le tour du joueur 3 (index 2) ou joueur 4 (index 3)
+	if index_choisi == 2 or index_choisi == 3:
+		map.rotation_degrees = 180
+	else:
+		map.rotation_degrees = 0
+		
 	# On force la mise à jour des variables globales pour le nouveau profil
 	_synchroniser_stats_vers_global(index_choisi)
 	
@@ -127,8 +134,12 @@ func _on_end_turn_pressed(index_actuel: int):
 		print("Joueur ID", prochain_profil, " est mort, on passe au suivant...")
 		prochain_profil = (prochain_profil + 1) % profils_noeuds.size()
 		tentative += 1
+		DatabaseConfig.manches += 1
+		print("--- TOUS LES JOUEURS ONT JOUÉ ---")
+		print("DÉBUT DE LA MANCHE : ", DatabaseConfig.manches)
+		$Manches.fill_wagon()
+		$Manches2.fill_wagon()
 		
-	# SI le prochain profil est l'index 0, cela veut dire que TOUT LE MONDE a joué
 	if prochain_profil == 0:
 		DatabaseConfig.manches += 1
 		print("--- TOUS LES JOUEURS ONT JOUÉ ---")
@@ -168,6 +179,14 @@ func Kill_player(index: int):
 	
 	# Optionnel : On cache son bouton pour qu'il ne puisse plus cliquer
 	boutons_fin_tour[index].hide()
+
+func revive_player():
+	# On remet la couleur normale (blanc = pas de filtre)
+	self.modulate = Color(1, 1, 1, 1)
+	# On s'assure que le bouton de fin de tour est à nouveau cliquable
+	if has_node("EndTurn1"):
+		get_node("EndTurn1").disabled = false
+	print("Le joueur ", name, " est revenu à la vie !")
 	
 func _synchroniser_stats_vers_global(index: int):
 	var cible = profils_noeuds[index]
@@ -198,8 +217,31 @@ func verifier_limite_actions():
 #----------------------------------------
 
 func _on_profil_clique(event: InputEvent, index: int):
+	# Si le jeu est déjà lancé, on ignore les clics sur les profils
+	if jeu_demarre:
+		return
+
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
-		selectionner_profil(index)
+		if not joueurs_prets[index]:
+			joueurs_prets[index] = true
+			profils_noeuds[index].modulate = Color(1, 1, 1, 1) # On allume le profil
+			print("Joueur ", index, " est prêt !")
+			
+			# On vérifie si tout le monde est prêt
+			verifier_tous_les_joueurs_prets()
+
+func verifier_tous_les_joueurs_prets():
+	if not joueurs_prets.has(false): # Si plus aucun 'false' dans le tableau
+		jeu_demarre = true
+		print("TOUS LES JOUEURS SONT PRÊTS ! Lancement de la partie...")
+		
+		# On déconnecte les clics sur les profils pour le reste de la partie
+		for i in range(profils_noeuds.size()):
+			if profils_noeuds[i].gui_input.is_connected(_on_profil_clique):
+				profils_noeuds[i].gui_input.disconnect(_on_profil_clique)
+		
+		# On lance enfin le premier tour
+		selectionner_profil(0)
 
 func ouvrir_menu_duel():
 	# 1. On identifie qui est le joueur actif (ex: "0")
@@ -266,3 +308,6 @@ func _on_restaurant_give_card_pressed() -> void:
 	var mon_id = DatabaseConfig.current_profil_id
 	give_card.remplir_selection(profils_noeuds, mon_id)
 	give_card.show()
+	
+	
+#--------------------------------------------------------------------------------

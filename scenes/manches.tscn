@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://b3xr1tqch4x8m"]
+[gd_scene format=3 uid="uid://b3xr1tqch4x8m"]
 
 [ext_resource type="Script" uid="uid://dwgv8h64dqodi" path="res://scripts/manches.gd" id="1_ph0c3"]
 [ext_resource type="Texture2D" uid="uid://d2r31x7xggh67" path="res://assets/manches/modeleManche.webp" id="2_645kf"]
@@ -14,17 +14,17 @@
 [ext_resource type="Texture2D" uid="uid://bujo73mhqjlue" path="res://assets/manches/manches to come/mancheNeufVide.webp" id="11_ikdqa"]
 [ext_resource type="Texture2D" uid="uid://bmh4qx47anx7t" path="res://assets/manches/manches to come/mancheDixVide.webp" id="12_8ycl3"]
 
-[node name="Manches" type="Control"]
+[node name="Manches" type="Control" unique_id=163516752]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_ph0c3")
 
-[node name="ModeleManche" type="Sprite2D" parent="."]
+[node name="ModeleManche" type="Sprite2D" parent="." unique_id=1418113145]
 visible = false
 position = Vector2(309, 141)
 texture = ExtResource("2_645kf")
 
-[node name="MancheRail" type="TextureRect" parent="."]
+[node name="MancheRail" type="TextureRect" parent="." unique_id=2073328209]
 layout_mode = 0
 offset_left = 11.0
 offset_top = 47.0
@@ -32,7 +32,7 @@ offset_right = 617.0
 offset_bottom = 72.0
 texture = ExtResource("2_hxvxb")
 
-[node name="MancheUnVide" type="TextureRect" parent="."]
+[node name="MancheUnVide" type="TextureRect" parent="." unique_id=1866933886]
 layout_mode = 0
 offset_left = 11.0
 offset_top = 11.0
@@ -41,7 +41,7 @@ offset_bottom = 75.0
 texture = ExtResource("3_hclbn")
 stretch_mode = 5
 
-[node name="MancheDeuxVide" type="TextureRect" parent="."]
+[node name="MancheDeuxVide" type="TextureRect" parent="." unique_id=1608172887]
 layout_mode = 0
 offset_left = 67.0
 offset_top = 14.0
@@ -50,7 +50,7 @@ offset_bottom = 78.0
 texture = ExtResource("4_ss7q1")
 stretch_mode = 5
 
-[node name="MancheTroisVide" type="TextureRect" parent="."]
+[node name="MancheTroisVide" type="TextureRect" parent="." unique_id=1860308043]
 layout_mode = 0
 offset_left = 126.0
 offset_top = 15.0
@@ -59,7 +59,7 @@ offset_bottom = 79.0
 texture = ExtResource("5_k4x4l")
 stretch_mode = 5
 
-[node name="MancheQuatreVide" type="TextureRect" parent="."]
+[node name="MancheQuatreVide" type="TextureRect" parent="." unique_id=45026284]
 layout_mode = 0
 offset_left = 189.0
 offset_top = 15.0
@@ -68,7 +68,7 @@ offset_bottom = 79.0
 texture = ExtResource("6_ntmn4")
 stretch_mode = 5
 
-[node name="MancheCinqVide" type="TextureRect" parent="."]
+[node name="MancheCinqVide" type="TextureRect" parent="." unique_id=968193056]
 layout_mode = 0
 offset_left = 249.0
 offset_top = 12.0
@@ -77,7 +77,7 @@ offset_bottom = 76.0
 texture = ExtResource("7_3xraf")
 stretch_mode = 5
 
-[node name="MancheSixVide" type="TextureRect" parent="."]
+[node name="MancheSixVide" type="TextureRect" parent="." unique_id=1199676197]
 layout_mode = 0
 offset_left = 307.0
 offset_top = 9.0
@@ -86,7 +86,7 @@ offset_bottom = 73.0
 texture = ExtResource("8_gfi0v")
 stretch_mode = 5
 
-[node name="MancheSeptVide" type="TextureRect" parent="."]
+[node name="MancheSeptVide" type="TextureRect" parent="." unique_id=371581221]
 layout_mode = 0
 offset_left = 365.0
 offset_top = 7.0
@@ -95,7 +95,7 @@ offset_bottom = 71.0
 texture = ExtResource("9_qg7nb")
 stretch_mode = 5
 
-[node name="MancheHuitVide" type="TextureRect" parent="."]
+[node name="MancheHuitVide" type="TextureRect" parent="." unique_id=1070872673]
 layout_mode = 0
 offset_left = 424.0
 offset_top = 5.0
@@ -104,7 +104,7 @@ offset_bottom = 69.0
 texture = ExtResource("10_bi638")
 stretch_mode = 5
 
-[node name="MancheNeufVide" type="TextureRect" parent="."]
+[node name="MancheNeufVide" type="TextureRect" parent="." unique_id=1896166496]
 layout_mode = 0
 offset_left = 482.0
 offset_top = 6.0
@@ -113,7 +113,7 @@ offset_bottom = 70.0
 texture = ExtResource("11_ikdqa")
 stretch_mode = 5
 
-[node name="MancheDixVide" type="TextureRect" parent="."]
+[node name="MancheDixVide" type="TextureRect" parent="." unique_id=1179311597]
 layout_mode = 0
 offset_left = 545.0
 offset_top = 7.0

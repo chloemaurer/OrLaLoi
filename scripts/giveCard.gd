@@ -25,27 +25,32 @@ func remplir_selection(tous_les_profils: Array, mon_id_actuel: String) -> void:
 		if id_adversaire == mon_id_actuel:
 			continue
 		
-		# Si on a encore de la place dans nos 3 slots d'affichage
 		if index_slot < emplacements.size():
 			var slot = emplacements[index_slot]
 			var profil_data = tous_les_profils[i]
 			
-			# On remplit le nom et l'image depuis le script Profil
+			# --- RÉCUPÉRATION DU NOM ---
 			slot.label.text = profil_data.nom_joueur.text
 			
-			# Récupération de l'image (TextureRect "Icone" ou autre dans ton Profil)
-			var icone_source = profil_data.get_node_or_null("Icone") 
-			if icone_source:
-				slot.rect.texture = icone_source.texture
-				
+			# --- RÉCUPÉRATION DE L'ICÔNE (Méthode fiable) ---
+			if profil_data.player_icone and profil_data.player_icone.texture:
+				slot.rect.texture = profil_data.player_icone.texture
+			else:
+				# Sécurité : on pioche dans le tableau si le visuel n'est pas encore prêt
+				slot.rect.texture = profil_data.personnages[i]["sprite"]
+
+			# --- GESTION DU CLIC (Déconnexion propre puis connexion) ---
+			if slot.rect.gui_input.is_connected(_on_adversaire_clique):
+				slot.rect.gui_input.disconnect(_on_adversaire_clique)
 			slot.rect.gui_input.connect(_on_adversaire_clique.bind(index_slot))
 			
-			# On stocke l'ID dans la Meta pour savoir qui on frappe plus tard
+			# --- METADATA ET AFFICHAGE ---
 			slot.rect.set_meta("joueur_id", id_adversaire)
-			slot.rect.show()
 			
+			# OPTIONNEL : Si le joueur est mort, on rend son icône grise aussi dans le menu
+			slot.rect.modulate = profil_data.modulate
+			slot.rect.show()
 			index_slot += 1
-		
 
 func _on_adversaire_clique(event: InputEvent, index: int) -> void:
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
@@ -73,7 +78,7 @@ func _on_adversaire_clique(event: InputEvent, index: int) -> void:
 				cible_choisie_id = nouvelle_cible
 				var texture_rect : TextureRect = slot_clique.rect
 				if texture_rect.material is ShaderMaterial:
-					texture_rect.material.set("shader_parameter/thickness", 30.0)
+					texture_rect.material.set("shader_parameter/thickness", 5.0)
 		
 			print("[Duel] SUCCÈS : Cible choisie = ", cible_choisie_id)
 		else:

@@ -28,19 +28,27 @@ func remplir_selection(tous_les_profils: Array, mon_id_actuel: String) -> void:
 		# Si on a encore de la place dans nos 3 slots d'affichage
 		if index_slot < emplacements.size():
 			var slot = emplacements[index_slot]
-			var profil_data = tous_les_profils[i]
+			var profil_data = tous_les_profils[i] # Référence au script Profil.gd
 			
-			# On remplit le nom et l'image depuis le script Profil
+			# NOM : Récupéré directement du label du profil
 			slot.label.text = profil_data.nom_joueur.text
 			
-			# Récupération de l'image (TextureRect "Icone" ou autre dans ton Profil)
-			var icone_source = profil_data.get_node_or_null("Icone") 
-			if icone_source:
-				slot.rect.texture = icone_source.texture
-				
+			# IMAGE : Récupérée du TextureRect "personnage" du profil
+			if profil_data.player_icone and profil_data.player_icone.texture:
+				slot.rect.texture = profil_data.player_icone.texture
+			else:
+				# Sécurité si le visuel n'est pas encore prêt
+				slot.rect.texture = profil_data.personnages[i]["sprite"]
+
+			# COULEUR/VIE : Si le joueur est mort (gris), il apparaît gris ici aussi
+			slot.rect.modulate = profil_data.modulate
+
+			# SIGNAL : Nettoyage avant connexion pour éviter les doubles clics
+			if slot.rect.gui_input.is_connected(_on_adversaire_clique):
+				slot.rect.gui_input.disconnect(_on_adversaire_clique)
 			slot.rect.gui_input.connect(_on_adversaire_clique.bind(index_slot))
 			
-			# On stocke l'ID dans la Meta pour savoir qui on frappe plus tard
+			# META & AFFICHAGE
 			slot.rect.set_meta("joueur_id", id_adversaire)
 			slot.rect.show()
 			
@@ -73,8 +81,22 @@ func _on_adversaire_clique(event: InputEvent, index: int) -> void:
 				cible_choisie_id = nouvelle_cible
 				var texture_rect : TextureRect = slot_clique.rect
 				if texture_rect.material is ShaderMaterial:
-					texture_rect.material.set("shader_parameter/thickness", 30.0)
+					texture_rect.material.set("shader_parameter/thickness", 5.0)
 		
 			print("[Duel] SUCCÈS : Cible choisie = ", cible_choisie_id)
 		else:
 			print("[Duel] ERREUR : Le Slot ", index, " n'a pas de Meta joueur_id au moment du clic !")
+
+
+func _on_versus_pressed() -> void:
+	if cible_choisie_id == "":
+		print("Erreur : Aucune cible sélectionnée !")
+		return
+	
+	var mon_id = DatabaseConfig.current_profil_id
+	
+	# On active le duel uniquement pour ces deux IDs dans la DB
+	DatabaseConfig.duel_versus(mon_id, cible_choisie_id)
+	
+	self.hide()
+	

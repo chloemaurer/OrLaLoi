@@ -12,6 +12,9 @@ preload("uid://by34fmmkfdae3"),preload("uid://civ1gsrq8j33m"),preload("uid://du7
 var current_index := 0
 var input_code := "" 
 var tous_les_codes := {} 
+var mode_mine := false
+var compteur_mines := 0
+signal mine_terminee
 
 func _ready():
 	for node in code.get_children():
@@ -87,11 +90,28 @@ func check_code():
 		_finaliser_utilisation_keypad()
 		return
 		
+	
 	if is_zone_valid(carte_trouvee["categorie"]):
 		print("✅ SUCCÈS.")
-		apply_card(carte_trouvee["categorie"], carte_trouvee["effet"], id_a_desactiver)
-		DatabaseConfig.disable_card(id_a_desactiver)
-		_consommer_action_et_quitter()
+		if mode_mine:
+			# --- LOGIQUE MINE (Pas de consommation d'action) ---
+			compteur_mines += 1
+			DatabaseConfig.disable_card(id_a_desactiver)
+			reset_keypad()
+			
+			if compteur_mines >= 2:
+				print("🎉 SURVIE : 2 cartes Mines données.")
+				_finaliser_mine_reussie()
+			else:
+				print("⏳ Encore une carte Mine nécessaire...")
+			
+			return # <--- TRÈS IMPORTANT : On sort de la fonction ici !
+			
+		else:
+			# --- LOGIQUE NORMALE ---
+			apply_card(carte_trouvee["categorie"], carte_trouvee["effet"], id_a_desactiver)
+			DatabaseConfig.disable_card(id_a_desactiver)
+			_consommer_action_et_quitter()
 	else:
 		print("🚫 MAUVAISE ZONE.")
 
@@ -132,3 +152,17 @@ func apply_card(category: String, effet_valeur, id_carte: String):
 		"vie": DatabaseConfig.get_life(effet, id_final)
 		"argent": DatabaseConfig.get_money(effet, id_final)
 		"arme": DatabaseConfig.update_gun(effet, id_final)
+
+
+func preparer_pour_mine():
+	mode_mine = true
+	compteur_mines = 0
+	close_button.hide() # On ne peut pas fuir la mine !
+	self.show()
+	print("[Keypad] MODE MINE : Sacrifiez 2 cartes !")
+	
+func _finaliser_mine_reussie():
+	mode_mine = false
+	compteur_mines = 0
+	mine_terminee.emit()
+	_finaliser_utilisation_keypad()

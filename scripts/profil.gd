@@ -13,12 +13,11 @@ extends Control
 @onready var fond: TextureRect = $"TextureRect"
 
 @onready var personnages = [
-	{"sprite": preload("uid://d3hkmacsq0pag"), "fond": preload("uid://b7mfhv7byc41k")},
-	{"sprite": preload("uid://bg3rdqu4pcayv"), "fond": preload("uid://ge5n77q02fhq")},
+	{"sprite": preload("uid://brntffde21jyb"), "fond": preload("uid://k8aqihjvcery")},
 	{"sprite": preload("uid://b56iwvx4nh63n"), "fond": preload("uid://cgvlmje6wxcwj")},
-	{"sprite": preload("uid://brntffde21jyb"), "fond": preload("uid://k8aqihjvcery")}
+	{"sprite": preload("uid://bg3rdqu4pcayv"), "fond": preload("uid://ge5n77q02fhq")},
+	{"sprite": preload("uid://d3hkmacsq0pag"), "fond": preload("uid://b7mfhv7byc41k")},
 ]
-
 
 const NIV_1_ICON = preload("uid://dwg03ruoyaydt")
 const NIV_2_ICON = preload("uid://dmcrgshg65fct")

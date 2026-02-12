@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://cvjvuytfbacf8"]
+
+[ext_resource type="Script" uid="uid://bhsoc74tsc1o3" path="res://scripts/mine.gd" id="1_kqr42"]
+
+[node name="Mine" type="Control" unique_id=970763158]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_kqr42")
+
+[node name="Panel" type="Panel" parent="." unique_id=353026245]
+layout_mode = 0
+offset_right = 500.0
+offset_bottom = 420.0
+
+[node name="Titre" type="Label" parent="." unique_id=168305606]
+layout_mode = 0
+offset_left = 153.0
+offset_top = 32.0
+offset_right = 334.0
+offset_bottom = 135.0
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 75
+text = "Mine"
+
+[node name="Label2" type="Label" parent="." unique_id=2074509469]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 154.0
+offset_right = 502.0
+offset_bottom = 197.0
+theme_override_font_sizes/font_size = 25
+text = "Veuillez rentrer vos deux cartes mines"
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="." unique_id=232416224]
+layout_mode = 0
+offset_left = 77.0
+offset_top = 246.0
+offset_right = 424.0
+offset_bottom = 306.0
+text = "Rentrer dans la mine"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

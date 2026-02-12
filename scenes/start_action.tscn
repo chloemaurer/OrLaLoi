@@ -1,0 +1,91 @@
+[gd_scene format=3 uid="uid://c6oiyw3qtp8i"]
+
+[ext_resource type="Texture2D" uid="uid://b5rvx4867ip50" path="res://assets/icone/piocher.webp" id="1_0c3f2"]
+[ext_resource type="Script" uid="uid://bplxuggdh62p2" path="res://scripts/start_action.gd" id="1_vtkbs"]
+[ext_resource type="Texture2D" uid="uid://d3q8mek75cmag" path="res://assets/icone/dés.webp" id="3_dw5uq"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vtkbs"]
+bg_color = Color(0.18857142, 0.12281906, 0.09618177, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dw5uq"]
+
+[node name="StartAction" type="Control" unique_id=651877005]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_vtkbs")
+
+[node name="Panel" type="Panel" parent="." unique_id=1792100022]
+layout_mode = 0
+offset_right = 585.0
+offset_bottom = 412.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_vtkbs")
+
+[node name="Label" type="Label" parent="." unique_id=834612485]
+layout_mode = 0
+offset_left = 35.0
+offset_top = 41.0
+offset_right = 534.0
+offset_bottom = 91.0
+theme_override_font_sizes/font_size = 36
+text = "Choisissez votre destin "
+horizontal_alignment = 1
+
+[node name="Choix" type="HBoxContainer" parent="." unique_id=1552290671]
+layout_mode = 0
+offset_left = 35.0
+offset_top = 116.0
+offset_right = 536.0
+offset_bottom = 321.0
+theme_override_constants/separation = 25
+alignment = 1
+
+[node name="piocher" type="VBoxContainer" parent="Choix" unique_id=2043761240]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="IconePioche" type="TextureRect" parent="Choix/piocher" unique_id=1071572412]
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("1_0c3f2")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Piocher" type="Button" parent="Choix/piocher/IconePioche" unique_id=334265421]
+layout_mode = 0
+offset_top = -24.0
+offset_right = 229.0
+offset_bottom = 231.0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_dw5uq")
+
+[node name="Label" type="Label" parent="Choix/piocher" unique_id=1491741942]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Piocher"
+horizontal_alignment = 1
+
+[node name="dés" type="VBoxContainer" parent="Choix" unique_id=409947028]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Icone dé" type="TextureRect" parent="Choix/dés" unique_id=1259680828]
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("3_dw5uq")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Lancer les dé" type="Button" parent="Choix/dés/Icone dé" unique_id=172576391]
+layout_mode = 0
+offset_top = -20.0
+offset_right = 226.0
+offset_bottom = 234.0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_dw5uq")
+
+[node name="Label" type="Label" parent="Choix/dés" unique_id=682793697]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Lancer les dés"
+horizontal_alignment = 1
+
+[connection signal="pressed" from="Choix/piocher/IconePioche/Piocher" to="." method="_on_piocher_pressed"]
+[connection signal="pressed" from="Choix/dés/Icone dé/Lancer les dé" to="." method="_on_lancer_les_dé_pressed"]

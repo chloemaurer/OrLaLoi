@@ -29,7 +29,7 @@ ProfilTurn="*res://scripts/profil_turn.gd"
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
-window/size/mode=3
+window/size/mode=2
 window/size/initial_position_type=3
 
 [editor_plugins]
@@ -39,6 +39,10 @@ enabled=PackedStringArray("res://addons/godot-firebase/plugin.cfg", "res://addon
 [file_customization]
 
 folder_colors={
+"res://assets/icone/": "yellow",
+"res://assets/manches/": "red",
+"res://assets/pavenum/": "orange",
+"res://assets/profil/": "pink",
 "res://scenes/": "purple",
 "res://scripts/": "blue"
 }

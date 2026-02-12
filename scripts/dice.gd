@@ -9,8 +9,9 @@ const Getdice = preload("uid://fd3fwqw0llor")
 @onready var d_2: Getdice = $"../SubViewportContainer/SubViewport/Node3D2/D2"
 @onready var dice_result_label: Label = $"../DiceResultLabel"
 var totalnumber := 0
+@onready var places: Node2D = $"../../Places"
 
-
+	
 func roll_dice():
 	rerolled()
 	d_6.rotate_x(deg_to_rad(randi_range(0, 5) * 90))
@@ -51,11 +52,14 @@ func rerolled() -> void:
 	armory.hide()
 
 func enable_place():
+	var manche_actuelle = DatabaseConfig.manches
 	match totalnumber:
 		2:
 			bank.show()
-			mine.show()
 			duel.show()
+			if manche_actuelle >= 6:
+				mine.show()
+				print("Mine débloquée (Manche ", manche_actuelle, ")")
 		3:
 			bank.show()
 			duel.show()
@@ -88,10 +92,13 @@ func enable_place():
 		12:
 			armory.show()
 			bank.show()
-			mine.show()
+			if manche_actuelle >= 6:
+				mine.show()
+				print("Mine débloquée (Manche ", manche_actuelle, ")")
 		_:
 			print("unknown DICE NUMBER")
 
 func _on_roll_dice_animation_animation_finished(_anim_name: StringName) -> void:
+	places.show()
 	afficher_resultat(totalnumber)	
 	enable_place()

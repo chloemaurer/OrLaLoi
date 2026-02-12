@@ -15,8 +15,10 @@ var current_profil_id : String = "0"
 var cible_don_id : String = "" # Contiendra l'ID du joueur sélectionné dans GiveCard
 var zone = ""
 var manches : int = 0
-
-
+var cible_duel_id : String = ""
+var mini_jeu_en_cours = ""
+var recompenses_distribuees = false
+var scores_accumules = {"0": 0.0, "1": 0.0, "2": 0.0, "3": 0.0}
 # --- RÉFÉRENCES DES SCRIPTS (Assignées par le Main/Général) ---
 var script_general = null 
 var script_saloon = null 
@@ -97,6 +99,11 @@ func _on_db_data_update(resource: FirebaseResource):
 						print("[DB] ERREUR : Le nœud ", kp.name, " n'a pas le script Keypad.gd")
 		else:
 			print("[DB] En attente du script_general pour envoyer les cartes.")
+			
+	#---- 2. Mini jeux-------------------------------
+	if chemin.begins_with("mini_jeu"):
+		_verifier_scores_minijeux(data)
+		
 # --- LOGIQUE DE TRIAGE DES VARIABLES ----------------------------------
 
 func _trier_donnees_locales(chemin: String, data):
@@ -162,6 +169,17 @@ func get_life(montant: int, profil_id: String):
 	var nouveau_total = clampi(life_local + montant, 0, 5)
 	Firebase.Database.get_database_reference("profils/ID" + profil_id).update("", {"Vie": nouveau_total})
 
+func lose_life(montant: int, profil_id: String):
+	var index = int(profil_id)
+	if script_general and script_general.profils_noeuds.size() > index:
+		var cible = script_general.profils_noeuds[index]
+		var vie_actuelle = cible.get_life() 
+		var nouveau_total = clampi(vie_actuelle - montant, 0, 5)
+		Firebase.Database.get_database_reference("profils/ID" + profil_id).update("", {"Vie": nouveau_total})
+
+		if nouveau_total <= 0:
+			script_general.Kill_player(index)
+			
 func get_drink(val: int, profil_id: String):
 	var cible_node = script_general.profils_noeuds[int(profil_id)]
 	var valeur_actuelle_cible = cible_node.get_drink()
@@ -198,18 +216,122 @@ func disable_card(id_carte: String):
 	var chemin = "cartes/" + id_carte
 	Firebase.Database.get_database_reference(chemin).update("", {"disponible": false})
 
+#---- Mini jeux ----------------------------
 func play_minijeux(id_minijeux: String):
+	recompenses_distribuees = false
+	scores_accumules = {"0": 0.0, "1": 0.0, "2": 0.0, "3": 0.0} # RESET LOCAL
 	# Le chemin sera "cartes/ID58"
 	var chemin = "MiniJeux/" + id_minijeux
 	Firebase.Database.get_database_reference(chemin).update("", {"play": true})
+	var reset_scores = {
+		"ID0": 0, "ID1": 0, "ID2": 0, "ID3": 0
+	}
+	Firebase.Database.get_database_reference("mini_jeu").update("", reset_scores)
+	
+	print("[DB] Mini-jeu ", id_minijeux, " activé. Scores réinitialisés.")
 
-func lose_life(montant: int, profil_id: String):
-	var index = int(profil_id)
-	if script_general and script_general.profils_noeuds.size() > index:
-		var cible = script_general.profils_noeuds[index]
-		var vie_actuelle = cible.get_life() 
-		var nouveau_total = clampi(vie_actuelle - montant, 0, 5)
-		Firebase.Database.get_database_reference("profils/ID" + profil_id).update("", {"Vie": nouveau_total})
+func _verifier_scores_minijeux(data):
+	if typeof(data) != TYPE_DICTIONARY: return
+	
+	# 1. Mise à jour de la mémoire locale
+	for i in range(4):
+		var key = "ID" + str(i)
+		if data.has(key) and data[key] != null:
+			# On convertit en String puis en float pour éviter le crash de constructeur
+			var value_as_string = str(data[key])
+			scores_accumules[str(i)] = value_as_string.to_float()
+	
+	# 2. Vérification des scores
+	var resultats_temp = []
+	var joueurs_termines = 0
+	
+	for id_key in scores_accumules.keys():
+		var temps = scores_accumules[id_key]
+		if temps > 0.0:
+			joueurs_termines += 1
+			resultats_temp.append({"id": id_key, "temps": temps})
+	
+	# 3. Podium
+	if joueurs_termines == 4 and not recompenses_distribuees:
+		recompenses_distribuees = true
+		print("[SYSTÈME] Les 4 scores sont là : ", scores_accumules)
+		winner_miniJeux(resultats_temp)
+func winner_miniJeux(resultats: Array):
+	# 1. On trie le tableau du plus petit temps au plus grand
+	# (Le plus rapide gagne)
+	resultats.sort_custom(func(a, b): return a["temps"] < b["temps"])
+	
+	print("--- RÉSULTATS DU MINI-JEU ---")
+	
+	for i in range(resultats.size()):
+		var id_joueur = resultats[i]["id"]
+		var temps = resultats[i]["temps"]
+		var nom_joueur = "Joueur " + str(int(id_joueur) + 1) # Pour l'affichage
+		
+		match i:
+			0: # PREMIER
+				print("1er: ", nom_joueur, " (", temps, "s) -> +5 pièces")
+				get_money(5, id_joueur)
+				
+			1: # DEUXIÈME
+				print("2ème: ", nom_joueur, " (", temps, "s) -> +3 pièces")
+				get_money(3, id_joueur)
+				
+			2: # TROISIÈME
+				print("3ème: ", nom_joueur, " (", temps, "s) -> +2 pièces")
+				get_money(2, id_joueur)
+				
+			3: # DERNIER (Quatrième)
+				# On récupère le nom du premier pour le print spécial
+				var nom_premier = "Joueur " + str(int(resultats[0]["id"]) + 1)
+				print("Dernier: ", nom_joueur, ". Action: Donner deux cartes à ", nom_premier)
 
-		if nouveau_total <= 0:
-			script_general.Kill_player(index)
+#---- Duel ----------------------------
+func duel_versus(id_attaquant: String, id_cible: String):
+	# On définit les chemins pour les deux joueurs dans le dossier MiniJeux
+	var chemin_attaquant = "mini_jeu/ID" + id_attaquant
+	var chemin_cible = "mini_jeu/ID" + id_cible
+	
+	Firebase.Database.get_database_reference(chemin_attaquant).update("", {"duel": true})
+	Firebase.Database.get_database_reference(chemin_cible).update("", {"duel": true})
+	
+	print("[DB] Duel activé pour ID", id_attaquant, " et ID", id_cible)
+	
+#---- Reset ----------------------------
+func reset_game_start():
+	print("[DB] Réinitialisation complète de la partie...")
+	
+	# 1. On réinitialise les 4 profils (ID0 à ID3)
+	for i in range(4):
+		var id_str = "ID" + str(i)
+		var path = "profils/" + id_str
+		
+		var reset_data = {
+			"Vie": 5,
+			"Boisson": 5,
+			"Nourriture": 5,
+			"Munition": 0,
+			"Argent": 10, 
+			"Arme": 1
+		}
+		
+		Firebase.Database.get_database_reference(path).update("", reset_data)
+		script_general.revive_player()
+	
+	_reset_all_cards()
+	
+	manches = 0
+	if script_general:
+		var m1 = script_general.get_node_or_null("Manches")
+		var m2 = script_general.get_node_or_null("Manches2")
+
+		if m1: m1.fill_wagon() # Va maintenant remettre les textures vides
+		if m2: m2.fill_wagon()
+			
+func _reset_all_cards():
+	for i in range(100): 
+		var id_carte = "ID" + str(i)
+		Firebase.Database.get_database_reference("cartes/" + id_carte).update("", {"disponible": true})
+	
+	print("[DB] 100 Cartes réinitialisées à 'disponible: true'.")
+	

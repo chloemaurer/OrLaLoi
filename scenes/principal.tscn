@@ -26,6 +26,13 @@
 [ext_resource type="Script" uid="uid://dic10dttg35st" path="res://scripts/giveCard.gd" id="21_srya7"]
 [ext_resource type="Shader" uid="uid://6bmmgs1kn515" path="res://ennemyselect.gdshader" id="22_dynj2"]
 [ext_resource type="PackedScene" uid="uid://b3xr1tqch4x8m" path="res://scenes/manches.tscn" id="25_2jxo5"]
+[ext_resource type="Script" uid="uid://bkh7kd8symyl6" path="res://scripts/settings.gd" id="27_pmure"]
+[ext_resource type="Texture2D" uid="uid://vg54pksbl74s" path="res://assets/icone/parametre.webp" id="28_etfdl"]
+[ext_resource type="Texture2D" uid="uid://cipx6kvt7xgce" path="res://assets/icone/reset.webp" id="29_vdtr1"]
+[ext_resource type="Texture2D" uid="uid://bqspcwu3db8kt" path="res://assets/icone/son.webp" id="30_yd7e0"]
+[ext_resource type="Texture2D" uid="uid://b2sbq33egsir7" path="res://assets/icone/video.webp" id="31_nexnj"]
+[ext_resource type="PackedScene" uid="uid://c6oiyw3qtp8i" path="res://scenes/start_action.tscn" id="32_etfdl"]
+[ext_resource type="PackedScene" uid="uid://cvjvuytfbacf8" path="res://scenes/mine.tscn" id="33_vdtr1"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_g3ehx"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -42,21 +49,6 @@ glow_enabled = true
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_g3ehx"]
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_0ah0u"]
-blend_mode = 2
-
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_aarkv"]
-blend_mode = 2
-
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_6k428"]
-blend_mode = 2
-
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_n46oe"]
-blend_mode = 2
-
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_011ta"]
-blend_mode = 2
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_b72to"]
 shader = ExtResource("22_dynj2")
 shader_parameter/thickness = 0.0
@@ -72,7 +64,7 @@ shader_parameter/max_or_add = true
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_mgajk"]
 shader = ExtResource("22_dynj2")
 shader_parameter/thickness = 0.0
-shader_parameter/ring_count = 60
+shader_parameter/ring_count = 50
 shader_parameter/ring_offset = 0.0
 shader_parameter/outline_color = Color(0.7567149, 0.45344824, 5.7756904e-07, 1)
 shader_parameter/border_clipping_fix = true
@@ -93,6 +85,37 @@ shader_parameter/square_border = false
 shader_parameter/offset = Vector2(0, 0)
 shader_parameter/max_or_add = true
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kwvs3"]
+bg_color = Color(0.78895694, 0.54169035, 0.23833492, 1)
+corner_radius_top_left = 200
+corner_radius_top_right = 200
+corner_radius_bottom_right = 200
+corner_radius_bottom_left = 200
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2jao0"]
+bg_color = Color(0.78895694, 0.54169035, 0.23833492, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pmure"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_0ah0u"]
+blend_mode = 2
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_aarkv"]
+blend_mode = 2
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_6k428"]
+blend_mode = 2
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_n46oe"]
+blend_mode = 2
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_011ta"]
+blend_mode = 2
+
 [node name="Principal" type="Control" unique_id=684752956]
 layout_mode = 3
 anchor_right = 1.667
@@ -105,7 +128,17 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_awm7n")
 
-[node name="Panel2" type="Panel" parent="." unique_id=457074055]
+[node name="Map" type="Control" parent="." unique_id=1190129692]
+layout_mode = 1
+anchor_right = 0.601
+anchor_bottom = 0.601
+offset_top = 0.00033173594
+offset_right = -3.354004
+offset_bottom = -1.8862305
+rotation = 6.2831855
+pivot_offset = Vector2(960, 540)
+
+[node name="Panel2" type="Panel" parent="Map" unique_id=457074055]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -113,58 +146,58 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="TextureRect" type="TextureRect" parent="Panel2" unique_id=983415223]
+[node name="TextureRect" type="TextureRect" parent="Map/Panel2" unique_id=983415223]
 layout_mode = 1
 offset_right = 1920.0
 offset_bottom = 1080.0
 texture = ExtResource("2_srya7")
 
-[node name="Places" type="Node2D" parent="." unique_id=389570062]
+[node name="Places" type="Node2D" parent="Map" unique_id=389570062]
 position = Vector2(923.99994, 629)
 scale = Vector2(1.16, 1.16)
 script = ExtResource("2_l2a8t")
 
-[node name="Saloon" type="Button" parent="Places" unique_id=401545555]
+[node name="Saloon" type="Button" parent="Map/Places" unique_id=401545555]
 self_modulate = Color(1, 1, 1, 0)
 offset_left = -54.31028
 offset_top = -240.51724
 offset_right = -14.836586
 offset_bottom = -199.72777
 
-[node name="Saloon" parent="Places/Saloon" unique_id=1026230234 instance=ExtResource("2_iylmw")]
+[node name="Saloon" parent="Map/Places/Saloon" unique_id=1026230234 instance=ExtResource("2_iylmw")]
 position = Vector2(19.736847, 21.052628)
 
-[node name="Mine" type="Button" parent="Places" unique_id=1696777131]
+[node name="Mine" type="Button" parent="Map/Places" unique_id=1696777131]
 self_modulate = Color(1, 1, 1, 0)
 offset_left = 661.20703
 offset_top = -4.3103414
 offset_right = 700.6807
 offset_bottom = 36.47912
 
-[node name="Mine" parent="Places/Mine" unique_id=2132945549 instance=ExtResource("2_iylmw")]
+[node name="Mine" parent="Map/Places/Mine" unique_id=2132945549 instance=ExtResource("2_iylmw")]
 position = Vector2(19.473755, 20.473671)
 
-[node name="Restaurant" type="Button" parent="Places" unique_id=265307941]
+[node name="Restaurant" type="Button" parent="Map/Places" unique_id=265307941]
 self_modulate = Color(1, 1, 1, 0)
 offset_left = -393.1034
 offset_top = -142.2414
 offset_right = -352.3139
 offset_bottom = -101.45191
 
-[node name="Restaurant" parent="Places/Restaurant" unique_id=1471051336 instance=ExtResource("2_iylmw")]
+[node name="Restaurant" parent="Map/Places/Restaurant" unique_id=1471051336 instance=ExtResource("2_iylmw")]
 position = Vector2(20.526314, 19.894753)
 
-[node name="Armory" type="Button" parent="Places" unique_id=514647060]
+[node name="Armory" type="Button" parent="Map/Places" unique_id=514647060]
 self_modulate = Color(1, 1, 1, 0)
 offset_left = 256.03455
 offset_top = 184.48274
 offset_right = 296.824
 offset_bottom = 225.27222
 
-[node name="Armurerie" parent="Places/Armory" unique_id=1925101364 instance=ExtResource("2_iylmw")]
+[node name="Armurerie" parent="Map/Places/Armory" unique_id=1925101364 instance=ExtResource("2_iylmw")]
 position = Vector2(19.894745, 20.526321)
 
-[node name="Bank" type="Button" parent="Places" unique_id=1020479236]
+[node name="Bank" type="Button" parent="Map/Places" unique_id=1020479236]
 self_modulate = Color(1, 1, 1, 0)
 z_index = 10
 offset_left = 372.41382
@@ -172,10 +205,10 @@ offset_top = -144.82759
 offset_right = 413.20328
 offset_bottom = -104.03812
 
-[node name="Banque" parent="Places/Bank" unique_id=687670684 instance=ExtResource("2_iylmw")]
+[node name="Banque" parent="Map/Places/Bank" unique_id=687670684 instance=ExtResource("2_iylmw")]
 position = Vector2(21.052582, 21.052628)
 
-[node name="Duel" type="Button" parent="Places" unique_id=1635877723]
+[node name="Duel" type="Button" parent="Map/Places" unique_id=1635877723]
 self_modulate = Color(1, 1, 1, 0)
 offset_left = -244.82755
 offset_top = 250.00002
@@ -183,25 +216,25 @@ offset_right = -204.03807
 offset_bottom = 290.7895
 scale = Vector2(0.97888863, 0.92170674)
 
-[node name="Duel" parent="Places/Duel" unique_id=2129529942 instance=ExtResource("2_iylmw")]
+[node name="Duel" parent="Map/Places/Duel" unique_id=2129529942 instance=ExtResource("2_iylmw")]
 position = Vector2(20.052631, 19.947388)
 
-[node name="Dés" type="Control" parent="." unique_id=986222176]
+[node name="Dés" type="Control" parent="Map" unique_id=986222176]
 anchors_preset = 0
 offset_left = 753.0
-offset_top = 410.0
+offset_top = 440.99973
 offset_right = 1006.125
-offset_bottom = 600.1786
+offset_bottom = 631.17834
 scale = Vector2(1.6400027, 1.6400027)
 
-[node name="Panel" type="Panel" parent="Dés" unique_id=1332219352]
+[node name="Panel" type="Panel" parent="Map/Dés" unique_id=1332219352]
 layout_mode = 0
 offset_left = 4.4285316
 offset_top = 1.7857151
 offset_right = 250.42853
 offset_bottom = 184.78572
 
-[node name="SubViewportContainer" type="SubViewportContainer" parent="Dés" unique_id=761849960]
+[node name="SubViewportContainer" type="SubViewportContainer" parent="Map/Dés" unique_id=761849960]
 layout_mode = 0
 offset_left = -3.571434
 offset_top = 57.785736
@@ -210,7 +243,7 @@ offset_bottom = 610.7865
 scale = Vector2(0.30399907, 0.30399907)
 stretch = true
 
-[node name="SubViewport" type="SubViewport" parent="Dés/SubViewportContainer" unique_id=2047702395]
+[node name="SubViewport" type="SubViewport" parent="Map/Dés/SubViewportContainer" unique_id=2047702395]
 transparent_bg = true
 handle_input_locally = false
 physics_object_picking = true
@@ -219,39 +252,39 @@ physics_object_picking_first_only = true
 size = Vector2i(852, 553)
 render_target_update_mode = 4
 
-[node name="Node3D" type="Node3D" parent="Dés/SubViewportContainer/SubViewport" unique_id=1695860777]
+[node name="Node3D" type="Node3D" parent="Map/Dés/SubViewportContainer/SubViewport" unique_id=1695860777]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4, 0, 0)
 
-[node name="D6" parent="Dés/SubViewportContainer/SubViewport/Node3D" unique_id=1787158400 instance=ExtResource("3_g3ehx")]
+[node name="D6" parent="Map/Dés/SubViewportContainer/SubViewport/Node3D" unique_id=1787158400 instance=ExtResource("3_g3ehx")]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
 rotation_order = 0
 
-[node name="RollDiceAnimation" parent="Dés/SubViewportContainer/SubViewport/Node3D" unique_id=1561401649 instance=ExtResource("6_1xbp8")]
+[node name="RollDiceAnimation" parent="Map/Dés/SubViewportContainer/SubViewport/Node3D" unique_id=1561401649 instance=ExtResource("6_1xbp8")]
 
-[node name="Node3D2" type="Node3D" parent="Dés/SubViewportContainer/SubViewport" unique_id=792333186]
+[node name="Node3D2" type="Node3D" parent="Map/Dés/SubViewportContainer/SubViewport" unique_id=792333186]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4, 0, 0)
 
-[node name="D2" parent="Dés/SubViewportContainer/SubViewport/Node3D2" unique_id=552249671 instance=ExtResource("3_g3ehx")]
+[node name="D2" parent="Map/Dés/SubViewportContainer/SubViewport/Node3D2" unique_id=552249671 instance=ExtResource("3_g3ehx")]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
 
-[node name="RollDiceAnimation2" parent="Dés/SubViewportContainer/SubViewport/Node3D2" unique_id=1165671951 instance=ExtResource("7_2jxo5")]
+[node name="RollDiceAnimation2" parent="Map/Dés/SubViewportContainer/SubViewport/Node3D2" unique_id=1165671951 instance=ExtResource("7_2jxo5")]
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="Dés/SubViewportContainer/SubViewport" unique_id=54301494]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Map/Dés/SubViewportContainer/SubViewport" unique_id=54301494]
 environment = SubResource("Environment_l1yxy")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Dés/SubViewportContainer/SubViewport" unique_id=1569754254]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Map/Dés/SubViewportContainer/SubViewport" unique_id=1569754254]
 transform = Transform3D(0.83997047, -0.39022505, -0.3770598, 0, -0.6948718, 0.7191337, -0.54263216, -0.60405105, -0.58367175, 0, 0, 0)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Dés/SubViewportContainer/SubViewport" unique_id=1748908290]
+[node name="StaticBody3D" type="StaticBody3D" parent="Map/Dés/SubViewportContainer/SubViewport" unique_id=1748908290]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Dés/SubViewportContainer/SubViewport/StaticBody3D" unique_id=1183476198]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Map/Dés/SubViewportContainer/SubViewport/StaticBody3D" unique_id=1183476198]
 shape = SubResource("WorldBoundaryShape3D_g3ehx")
 
-[node name="CameraDice" type="Camera3D" parent="Dés/SubViewportContainer/SubViewport" unique_id=782732862]
+[node name="CameraDice" type="Camera3D" parent="Map/Dés/SubViewportContainer/SubViewport" unique_id=782732862]
 transform = Transform3D(1, 0, 0, 0, 0.022006782, 0.9997578, 0, -0.9997578, 0.022006782, 0, 4.867, 0)
 current = true
 
-[node name="RollDiceButton" type="Button" parent="Dés" unique_id=2094645663]
+[node name="RollDiceButton" type="Button" parent="Map/Dés" unique_id=2094645663]
 layout_mode = 0
 offset_left = 39.428528
 offset_top = 13.785715
@@ -262,7 +295,7 @@ theme_override_font_sizes/font_size = 35
 text = "Lancer les dés"
 script = ExtResource("4_6ndk6")
 
-[node name="DiceResultLabel" type="Label" parent="Dés" unique_id=1428810630]
+[node name="DiceResultLabel" type="Label" parent="Map/Dés" unique_id=1428810630]
 layout_mode = 0
 offset_left = 103.42853
 offset_top = 53.785736
@@ -272,16 +305,15 @@ scale = Vector2(0.8377734, 0.8554982)
 theme_override_font_sizes/font_size = 50
 text = "10"
 
-[node name="Restaurant" type="Control" parent="." unique_id=718299353]
-visible = false
+[node name="Restaurant" type="Control" parent="Map" unique_id=718299353]
 anchors_preset = 0
-offset_left = 230.99994
-offset_top = 56.999954
-offset_right = 230.99994
-offset_bottom = 56.999954
+offset_left = 604.9999
+offset_top = 393.9997
+offset_right = 604.9999
+offset_bottom = 393.9997
 scale = Vector2(0.6123316, 0.6123316)
 
-[node name="Panel" type="Panel" parent="Restaurant" unique_id=1705846929]
+[node name="Panel" type="Panel" parent="Map/Restaurant" unique_id=1705846929]
 modulate = Color(0.827451, 0.22745098, 0.40784314, 1)
 layout_mode = 0
 offset_left = 249.0
@@ -289,7 +321,7 @@ offset_top = 69.0
 offset_right = 851.0
 offset_bottom = 567.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Restaurant" unique_id=1441516783]
+[node name="VBoxContainer" type="VBoxContainer" parent="Map/Restaurant" unique_id=1441516783]
 layout_mode = 0
 offset_left = 249.0
 offset_top = 109.0
@@ -297,164 +329,45 @@ offset_right = 852.0
 offset_bottom = 482.0
 theme_override_constants/separation = 29
 
-[node name="Label" type="Label" parent="Restaurant/VBoxContainer" unique_id=555113155]
+[node name="Label" type="Label" parent="Map/Restaurant/VBoxContainer" unique_id=555113155]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 75
 text = "Taverne"
 
-[node name="RestaurantUseCard" type="Button" parent="Restaurant/VBoxContainer" unique_id=1331140267]
+[node name="RestaurantUseCard" type="Button" parent="Map/Restaurant/VBoxContainer" unique_id=1331140267]
 modulate = Color(3.1229057, 3.1229057, 3.1229057, 1)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 30
 text = "Utiliser une carte"
 
-[node name="RestaurantGiveCard" type="Button" parent="Restaurant/VBoxContainer" unique_id=1695504744]
+[node name="RestaurantGiveCard" type="Button" parent="Map/Restaurant/VBoxContainer" unique_id=1695504744]
 modulate = Color(3.1229057, 3.1229057, 3.1229057, 1)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 30
 text = "Donner une carte"
 
-[node name="FoodBuyCard" type="Button" parent="Restaurant/VBoxContainer" unique_id=626690792]
+[node name="HBoxContainer" type="HBoxContainer" parent="Map/Restaurant/VBoxContainer" unique_id=560388059]
+layout_mode = 2
+alignment = 1
+
+[node name="FoodBuyCard" type="Button" parent="Map/Restaurant/VBoxContainer/HBoxContainer" unique_id=626690792]
 modulate = Color(3.1229057, 3.1229057, 3.1229057, 1)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 30
 text = "Acheter une carte"
 
-[node name="Label2" type="Label" parent="Restaurant/VBoxContainer/FoodBuyCard" unique_id=2023448666]
-modulate = Color(0.7581918, 0.7581918, 0.7581917, 1)
-layout_mode = 0
-offset_left = 33.0
-offset_top = 51.0
-offset_right = 234.0
-offset_bottom = 86.0
-size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 20
-text = "À vos risque et périls"
-
-[node name="RestaurantShop" type="Control" parent="." unique_id=253302142]
-visible = false
-anchors_preset = 0
-offset_left = 225.0
-offset_top = 54.0
-offset_right = 225.0
-offset_bottom = 54.0
-scale = Vector2(0.6626349, 0.6626349)
-script = ExtResource("8_0at3r")
-
-[node name="Panel" type="Panel" parent="RestaurantShop" unique_id=996172716]
-modulate = Color(0.8291994, 0.22925165, 0.4097061, 1)
-layout_mode = 0
-offset_left = 249.0
-offset_top = 69.0
-offset_right = 851.0
-offset_bottom = 567.0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="RestaurantShop" unique_id=123672786]
-layout_mode = 0
-offset_left = 249.0
-offset_top = 116.0
-offset_right = 852.0
-offset_bottom = 525.0
-theme_override_constants/separation = 40
-
-[node name="Saloon" type="Label" parent="RestaurantShop/VBoxContainer" unique_id=170875098]
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 75
-text = "Taverne"
-
-[node name="FoodRoller" type="TextureRect" parent="RestaurantShop/VBoxContainer" unique_id=1982238036]
-layout_mode = 2
-size_flags_vertical = 6
-expand_mode = 1
-stretch_mode = 3
-
-[node name="FoodName" type="Label" parent="RestaurantShop/VBoxContainer" unique_id=2133068724]
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 30
-
-[node name="FoodDescription" type="Label" parent="RestaurantShop/VBoxContainer" unique_id=1567450442]
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 20
-
-[node name="Armory" type="Control" parent="." unique_id=1680406120]
-visible = false
-anchors_preset = 0
-offset_left = 1209.9999
-offset_top = 595.0
-offset_right = 1209.9999
-offset_bottom = 595.0
-scale = Vector2(0.4224615, 0.4224615)
-script = ExtResource("8_v2y4t")
-
-[node name="Panel" type="Panel" parent="Armory" unique_id=1663753145]
-modulate = Color(0.8291994, 0.22925165, 0.4097061, 1)
-layout_mode = 0
-offset_left = 214.0
-offset_top = 31.0
-offset_right = 930.0
-offset_bottom = 633.0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Armory" unique_id=297704797]
-layout_mode = 0
-offset_left = 308.0
-offset_top = 63.0
-offset_right = 830.0
-offset_bottom = 578.0
-theme_override_constants/separation = 40
-
-[node name="Titre" type="Label" parent="Armory/VBoxContainer" unique_id=1172683732]
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 75
-text = "Armurerie"
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Armory/VBoxContainer" unique_id=1430104715]
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_constants/separation = 20
-
-[node name="Label" type="Label" parent="Armory/VBoxContainer/HBoxContainer" unique_id=1927451088]
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_constants/outline_size = 1
-theme_override_font_sizes/font_size = 50
-text = "Munitions"
-
-[node name="moins" type="Button" parent="Armory/VBoxContainer/HBoxContainer" unique_id=1757239059]
-modulate = Color(3.1229057, 3.1229057, 3.1229057, 1)
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 30
-text = "  -  "
-
-[node name="Count" type="Label" parent="Armory/VBoxContainer/HBoxContainer" unique_id=918983646]
+[node name="Prix" type="Label" parent="Map/Restaurant/VBoxContainer/HBoxContainer" unique_id=928036117]
+modulate = Color(1, 0.64705884, 0, 1)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 50
 text = "1"
 
-[node name="plus" type="Button" parent="Armory/VBoxContainer/HBoxContainer" unique_id=632050188]
-modulate = Color(3.1229057, 3.1229057, 3.1229057, 1)
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 30
-text = "  +  "
-
-[node name="Prix" type="Label" parent="Armory/VBoxContainer/HBoxContainer" unique_id=318143626]
-modulate = Color(1, 0.64705884, 0, 1)
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 50
-text = "2"
-
-[node name="TextureRect" type="TextureRect" parent="Armory/VBoxContainer/HBoxContainer/Prix" unique_id=1197600260]
+[node name="TextureRect" type="TextureRect" parent="Map/Restaurant/VBoxContainer/HBoxContainer/Prix" unique_id=1100692261]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -468,7 +381,149 @@ scale = Vector2(1.6861517, 1.5967395)
 texture = ExtResource("17_1xbp8")
 expand_mode = 1
 
-[node name="ArmoryBuyCard" type="Button" parent="Armory/VBoxContainer" unique_id=1302460776]
+[node name="Label2" type="Label" parent="Map/Restaurant/VBoxContainer" unique_id=2023448666]
+modulate = Color(0.7581918, 0.7581918, 0.7581917, 1)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 20
+text = "À vos risque et périls"
+
+[node name="RestaurantShop" type="Control" parent="Map" unique_id=253302142]
+anchors_preset = 0
+offset_left = 598.99994
+offset_top = 390.99976
+offset_right = 598.99994
+offset_bottom = 390.99976
+scale = Vector2(0.6626349, 0.6626349)
+script = ExtResource("8_0at3r")
+
+[node name="Panel" type="Panel" parent="Map/RestaurantShop" unique_id=996172716]
+modulate = Color(0.8291994, 0.22925165, 0.4097061, 1)
+layout_mode = 0
+offset_left = 249.0
+offset_top = 69.0
+offset_right = 851.0
+offset_bottom = 567.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Map/RestaurantShop" unique_id=123672786]
+layout_mode = 0
+offset_left = 249.0
+offset_top = 116.0
+offset_right = 852.0
+offset_bottom = 525.0
+theme_override_constants/separation = 40
+
+[node name="Saloon" type="Label" parent="Map/RestaurantShop/VBoxContainer" unique_id=170875098]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 75
+text = "Taverne"
+
+[node name="FoodRoller" type="TextureRect" parent="Map/RestaurantShop/VBoxContainer" unique_id=1982238036]
+layout_mode = 2
+size_flags_vertical = 6
+expand_mode = 1
+stretch_mode = 3
+
+[node name="FoodName" type="Label" parent="Map/RestaurantShop/VBoxContainer" unique_id=2133068724]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 30
+
+[node name="FoodDescription" type="Label" parent="Map/RestaurantShop/VBoxContainer" unique_id=1567450442]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 20
+
+[node name="Timer" type="Timer" parent="Map/RestaurantShop" unique_id=1521784928]
+wait_time = 10.0
+one_shot = true
+
+[node name="Armory" type="Control" parent="Map" unique_id=1680406120]
+anchors_preset = 0
+offset_left = 725.99994
+offset_top = 483.99976
+offset_right = 725.99994
+offset_bottom = 483.99976
+scale = Vector2(0.4224615, 0.4224615)
+script = ExtResource("8_v2y4t")
+
+[node name="Panel" type="Panel" parent="Map/Armory" unique_id=1663753145]
+modulate = Color(0.8291994, 0.22925165, 0.4097061, 1)
+layout_mode = 0
+offset_left = 214.0
+offset_top = 31.0
+offset_right = 930.0
+offset_bottom = 633.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Map/Armory" unique_id=297704797]
+layout_mode = 0
+offset_left = 308.0
+offset_top = 63.0
+offset_right = 830.0
+offset_bottom = 578.0
+theme_override_constants/separation = 40
+
+[node name="Titre" type="Label" parent="Map/Armory/VBoxContainer" unique_id=1172683732]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 75
+text = "Armurerie"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Map/Armory/VBoxContainer" unique_id=1430104715]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="Map/Armory/VBoxContainer/HBoxContainer" unique_id=1927451088]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/outline_size = 1
+theme_override_font_sizes/font_size = 50
+text = "Munitions"
+
+[node name="moins" type="Button" parent="Map/Armory/VBoxContainer/HBoxContainer" unique_id=1757239059]
+modulate = Color(3.1229057, 3.1229057, 3.1229057, 1)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 30
+text = "  -  "
+
+[node name="Count" type="Label" parent="Map/Armory/VBoxContainer/HBoxContainer" unique_id=918983646]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 50
+text = "1"
+
+[node name="plus" type="Button" parent="Map/Armory/VBoxContainer/HBoxContainer" unique_id=632050188]
+modulate = Color(3.1229057, 3.1229057, 3.1229057, 1)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 30
+text = "  +  "
+
+[node name="Prix" type="Label" parent="Map/Armory/VBoxContainer/HBoxContainer" unique_id=318143626]
+modulate = Color(1, 0.64705884, 0, 1)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 50
+text = "2"
+
+[node name="TextureRect" type="TextureRect" parent="Map/Armory/VBoxContainer/HBoxContainer/Prix" unique_id=1197600260]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = 3.9999962
+offset_top = 1.9999999
+offset_right = 44.0
+offset_bottom = 42.0
+grow_horizontal = 0
+scale = Vector2(1.6861517, 1.5967395)
+texture = ExtResource("17_1xbp8")
+expand_mode = 1
+
+[node name="ArmoryBuyCard" type="Button" parent="Map/Armory/VBoxContainer" unique_id=1302460776]
 modulate = Color(3.1229057, 3.1229057, 3.1229057, 1)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -476,32 +531,40 @@ theme_override_colors/font_color = Color(0.875, 0.875, 0.875, 1)
 theme_override_font_sizes/font_size = 38
 text = "Acheter une munition"
 
-[node name="ArmoryUseCard" type="Button" parent="Armory/VBoxContainer" unique_id=1362764953]
+[node name="ArmoryUseCard" type="Button" parent="Map/Armory/VBoxContainer" unique_id=1362764953]
 modulate = Color(3.1229057, 3.1229057, 3.1229057, 1)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 38
 text = "Utiliser une carte armurerie"
 
-[node name="Duel" parent="." unique_id=1497874943 instance=ExtResource("9_v2y4t")]
+[node name="Mine" parent="Map" unique_id=970763158 instance=ExtResource("33_vdtr1")]
+layout_mode = 0
+offset_left = 793.0
+offset_top = 467.9997
+offset_right = 793.0
+offset_bottom = 557.9997
+scale = Vector2(0.6400012, 0.6400012)
+
+[node name="Duel" parent="Map" unique_id=1497874943 instance=ExtResource("9_v2y4t")]
 visible = false
 layout_mode = 1
-offset_left = 217.00002
-offset_top = 560.00006
-offset_right = -1112.4342
-offset_bottom = -253.76807
+offset_left = 702.0
+offset_top = 432.99973
+offset_right = 675.55994
+offset_bottom = 404.1198
 scale = Vector2(0.64000183, 0.64000183)
+mouse_filter = 1
 
-[node name="Saloon" type="Control" parent="." unique_id=2083360927]
-visible = false
+[node name="Saloon" type="Control" parent="Map" unique_id=2083360927]
 anchors_preset = 0
-offset_left = 680.0
-offset_top = -30.0
-offset_right = 680.0
-offset_bottom = -30.0
+offset_left = 608.0
+offset_top = 398.99973
+offset_right = 608.0
+offset_bottom = 398.99973
 scale = Vector2(0.62141335, 0.62141335)
 
-[node name="Panel" type="Panel" parent="Saloon" unique_id=537473098]
+[node name="Panel" type="Panel" parent="Map/Saloon" unique_id=537473098]
 modulate = Color(1, 0.27999997, 0.4960001, 1)
 show_behind_parent = true
 layout_mode = 0
@@ -510,7 +573,7 @@ offset_top = 69.0
 offset_right = 851.0
 offset_bottom = 567.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Saloon" unique_id=1955415373]
+[node name="VBoxContainer" type="VBoxContainer" parent="Map/Saloon" unique_id=1955415373]
 layout_mode = 0
 offset_left = 249.0
 offset_top = 112.0
@@ -518,45 +581,66 @@ offset_right = 852.0
 offset_bottom = 452.0
 theme_override_constants/separation = 29
 
-[node name="Label" type="Label" parent="Saloon/VBoxContainer" unique_id=1252461336]
+[node name="Label" type="Label" parent="Map/Saloon/VBoxContainer" unique_id=1252461336]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 75
 text = "Saloon"
 
-[node name="SaloonUseCard" type="Button" parent="Saloon/VBoxContainer" unique_id=2073720106]
+[node name="SaloonUseCard" type="Button" parent="Map/Saloon/VBoxContainer" unique_id=2073720106]
 modulate = Color(3.1229057, 3.1229057, 3.1229057, 1)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 30
 text = "Utiliser une carte"
 
-[node name="SaloonGiveCard" type="Button" parent="Saloon/VBoxContainer" unique_id=1665502334]
+[node name="SaloonGiveCard" type="Button" parent="Map/Saloon/VBoxContainer" unique_id=1665502334]
 modulate = Color(3.1229057, 3.1229057, 3.1229057, 1)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 30
 text = "Donner une carte"
 
-[node name="DrinkBuyCard" type="Button" parent="Saloon/VBoxContainer" unique_id=1165614999]
+[node name="HBoxContainer" type="HBoxContainer" parent="Map/Saloon/VBoxContainer" unique_id=1540477837]
+layout_mode = 2
+alignment = 1
+
+[node name="DrinkBuyCard" type="Button" parent="Map/Saloon/VBoxContainer/HBoxContainer" unique_id=1165614999]
 modulate = Color(3.1229057, 3.1229057, 3.1229057, 1)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 30
 text = "Acheter une carte"
 
-[node name="Label2" type="Label" parent="Saloon/VBoxContainer/DrinkBuyCard" unique_id=2054022271]
+[node name="Prix" type="Label" parent="Map/Saloon/VBoxContainer/HBoxContainer" unique_id=506808374]
+modulate = Color(1, 0.64705884, 0, 1)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 50
+text = "1"
+
+[node name="TextureRect" type="TextureRect" parent="Map/Saloon/VBoxContainer/HBoxContainer/Prix" unique_id=1157414655]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = 3.9999962
+offset_top = 1.9999999
+offset_right = 44.0
+offset_bottom = 42.0
+grow_horizontal = 0
+scale = Vector2(1.6861517, 1.5967395)
+texture = ExtResource("17_1xbp8")
+expand_mode = 1
+
+[node name="Label2" type="Label" parent="Map/Saloon/VBoxContainer" unique_id=2054022271]
 modulate = Color(0.7581918, 0.7581918, 0.7581917, 1)
-layout_mode = 0
-offset_left = 33.0
-offset_top = 51.0
-offset_right = 234.0
-offset_bottom = 86.0
+layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 20
 text = "À vos risque et périls"
 
-[node name="SaloonShop" type="Control" parent="." unique_id=798128194]
+[node name="SaloonShop" type="Control" parent="Map" unique_id=798128194]
 visible = false
 anchors_preset = 0
 offset_left = 689.0001
@@ -566,7 +650,7 @@ offset_bottom = -29.999939
 scale = Vector2(0.5966584, 0.5966584)
 script = ExtResource("7_l2a8t")
 
-[node name="Panel" type="Panel" parent="SaloonShop" unique_id=644587706]
+[node name="Panel" type="Panel" parent="Map/SaloonShop" unique_id=644587706]
 modulate = Color(0.8291994, 0.22925165, 0.4097061, 1)
 layout_mode = 0
 offset_left = 249.0
@@ -574,7 +658,7 @@ offset_top = 69.0
 offset_right = 851.0
 offset_bottom = 567.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="SaloonShop" unique_id=1527751985]
+[node name="VBoxContainer" type="VBoxContainer" parent="Map/SaloonShop" unique_id=1527751985]
 layout_mode = 0
 offset_left = 249.0
 offset_top = 141.0
@@ -582,47 +666,309 @@ offset_right = 852.0
 offset_bottom = 476.0
 theme_override_constants/separation = 40
 
-[node name="Saloon" type="Label" parent="SaloonShop/VBoxContainer" unique_id=1254304719]
+[node name="Saloon" type="Label" parent="Map/SaloonShop/VBoxContainer" unique_id=1254304719]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 75
 text = "Saloon"
 
-[node name="DrinkRoller" type="TextureRect" parent="SaloonShop/VBoxContainer" unique_id=716934428]
+[node name="DrinkRoller" type="TextureRect" parent="Map/SaloonShop/VBoxContainer" unique_id=716934428]
 layout_mode = 2
 size_flags_vertical = 3
 expand_mode = 1
 stretch_mode = 3
 
-[node name="DrinkName" type="Label" parent="SaloonShop/VBoxContainer" unique_id=1341093189]
+[node name="DrinkName" type="Label" parent="Map/SaloonShop/VBoxContainer" unique_id=1341093189]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 30
 
-[node name="DrinkDescription" type="Label" parent="SaloonShop/VBoxContainer" unique_id=443216180]
+[node name="DrinkDescription" type="Label" parent="Map/SaloonShop/VBoxContainer" unique_id=443216180]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 20
+
+[node name="Timer" type="Timer" parent="Map/SaloonShop" unique_id=1646467522]
+wait_time = 10.0
+one_shot = true
+
+[node name="Bank" parent="Map" unique_id=2118626797 instance=ExtResource("9_ckosc")]
+layout_mode = 0
+offset_left = 680.99994
+offset_top = 435.9997
+offset_right = 680.99994
+offset_bottom = 435.9997
+scale = Vector2(0.48132288, 0.48132288)
+
+[node name="GiveCard" type="Control" parent="Map" unique_id=502793126]
+visible = false
+layout_mode = 1
+anchor_right = 0.661
+anchor_bottom = 0.72200006
+offset_left = 712.00006
+offset_top = 722.0
+offset_right = 685.56006
+offset_bottom = 693.12
+scale = Vector2(0.64000136, 0.64000136)
+script = ExtResource("21_srya7")
+
+[node name="Panel" type="Panel" parent="Map/GiveCard" unique_id=461444429]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(19.383072, 12.068146)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Map/GiveCard" unique_id=222058577]
+layout_mode = 1
+offset_left = 2.0
+offset_top = 21.0
+offset_right = 768.0
+offset_bottom = 462.0
+theme_override_constants/separation = 40
+
+[node name="question" type="Label" parent="Map/GiveCard/VBoxContainer" unique_id=1772955947]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 35
+text = "A quel joueur voulez-vous donner 
+une carte ?"
+horizontal_alignment = 1
+
+[node name="Joueurs" type="Control" parent="Map/GiveCard/VBoxContainer" unique_id=1049432180]
+layout_mode = 2
+
+[node name="Joueurs" type="HBoxContainer" parent="Map/GiveCard/VBoxContainer/Joueurs" unique_id=1055576432]
+layout_mode = 1
+offset_left = 33.0
+offset_top = -20.0
+offset_right = 1798.0027
+offset_bottom = 492.0
+scale = Vector2(0.39999944, 0.39999944)
+theme_override_constants/separation = 85
+
+[node name="Joueur1" type="TextureRect" parent="Map/GiveCard/VBoxContainer/Joueurs/Joueurs" unique_id=1291490256]
+material = SubResource("ShaderMaterial_b72to")
+layout_mode = 2
+texture = ExtResource("10_t8783")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="Nomjoueur1" type="Label" parent="Map/GiveCard/VBoxContainer/Joueurs/Joueurs/Joueur1" unique_id=790908500]
+modulate = Color(18.892157, 18.892157, 18.892157, 1)
+layout_mode = 0
+offset_left = -45.00006
+offset_top = 535.0
+offset_right = 548.99994
+offset_bottom = 598.0
+scale = Vector2(1.0000007, 1)
+theme_override_font_sizes/font_size = 55
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Joueur2" type="TextureRect" parent="Map/GiveCard/VBoxContainer/Joueurs/Joueurs" unique_id=908924591]
+material = SubResource("ShaderMaterial_mgajk")
+layout_mode = 2
+texture = ExtResource("10_t8783")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="Nomjoueur2" type="Label" parent="Map/GiveCard/VBoxContainer/Joueurs/Joueurs/Joueur2" unique_id=686714384]
+modulate = Color(18.892157, 18.892157, 18.892157, 1)
+layout_mode = 0
+offset_left = -34.499237
+offset_top = 535.0
+offset_right = 559.50073
+offset_bottom = 598.0
+scale = Vector2(1.0000015, 1)
+theme_override_font_sizes/font_size = 55
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Joueur3" type="TextureRect" parent="Map/GiveCard/VBoxContainer/Joueurs/Joueurs" unique_id=181278566]
+material = SubResource("ShaderMaterial_7teeq")
+layout_mode = 2
+texture = ExtResource("10_t8783")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="Nomjoueur3" type="Label" parent="Map/GiveCard/VBoxContainer/Joueurs/Joueurs/Joueur3" unique_id=384940154]
+modulate = Color(18.892157, 18.892157, 18.892157, 1)
+layout_mode = 0
+offset_left = -33.998444
+offset_top = 535.0
+offset_right = 560.0016
+offset_bottom = 598.0
+scale = Vector2(1.0000031, 1)
+theme_override_font_sizes/font_size = 55
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GiveCard" type="Button" parent="Map/GiveCard/VBoxContainer" unique_id=636693576]
+modulate = Color(3.1229057, 3.1229057, 3.1229057, 1)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 10
+theme_override_font_sizes/font_size = 30
+text = "Donner une carte"
+
+[node name="Settings" type="Control" parent="Map" unique_id=487688044]
+anchors_preset = 0
+offset_left = 12.999999
+offset_top = 436.0
+offset_right = 12.999999
+offset_bottom = 436.0
+scale = Vector2(0.28937894, 0.2914999)
+script = ExtResource("27_pmure")
+
+[node name="Panel" type="Panel" parent="Map/Settings" unique_id=1936598367]
+layout_mode = 0
+offset_right = 409.512
+offset_bottom = 409.512
+theme_override_styles/panel = SubResource("StyleBoxFlat_kwvs3")
+
+[node name="TextureRect" type="TextureRect" parent="Map/Settings/Panel" unique_id=2131631933]
+layout_mode = 0
+offset_left = 86.74396
+offset_top = 88.115425
+offset_right = 149.1067
+offset_bottom = 151.65482
+scale = Vector2(3.662837, 3.662837)
+texture = ExtResource("28_etfdl")
+
+[node name="Button" type="Button" parent="Map/Settings/Panel" unique_id=1362954412]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_right = 412.53812
+offset_bottom = 412.5404
+
+[node name="Panel2" type="Panel" parent="Map/Settings" unique_id=1971159088]
+visible = false
+layout_mode = 0
+offset_left = 326.80283
+offset_right = 974.35657
+offset_bottom = 409.512
+theme_override_styles/panel = SubResource("StyleBoxFlat_2jao0")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Map/Settings/Panel2" unique_id=1837293605]
+layout_mode = 0
+offset_left = 27.233553
+offset_top = 28.036728
+offset_right = 610.2337
+offset_bottom = 372.48798
+theme_override_constants/separation = 21
+
+[node name="Control2" type="HBoxContainer" parent="Map/Settings/Panel2/VBoxContainer" unique_id=254100862]
+layout_mode = 2
+theme_override_constants/separation = 35
+
+[node name="TextureRect" type="TextureRect" parent="Map/Settings/Panel2/VBoxContainer/Control2" unique_id=1390913507]
+layout_mode = 2
+texture = ExtResource("29_vdtr1")
+expand_mode = 3
+stretch_mode = 6
+
+[node name="Reset" type="Button" parent="Map/Settings/Panel2/VBoxContainer/Control2" unique_id=4634548]
+self_modulate = Color(18.892157, 18.892157, 18.892157, 1)
+layout_mode = 2
+theme_override_font_sizes/font_size = 65
+theme_override_styles/normal = SubResource("StyleBoxEmpty_pmure")
+text = "Rejouer"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Map/Settings/Panel2/VBoxContainer" unique_id=2141601403]
+layout_mode = 2
+theme_override_constants/separation = 35
+
+[node name="TextureRect" type="TextureRect" parent="Map/Settings/Panel2/VBoxContainer/HBoxContainer2" unique_id=238358807]
+layout_mode = 2
+texture = ExtResource("31_nexnj")
+expand_mode = 3
+stretch_mode = 6
+
+[node name="Video" type="Button" parent="Map/Settings/Panel2/VBoxContainer/HBoxContainer2" unique_id=1006213386]
+self_modulate = Color(18.892157, 18.892157, 18.892157, 1)
+layout_mode = 2
+theme_override_font_sizes/font_size = 65
+theme_override_styles/normal = SubResource("StyleBoxEmpty_pmure")
+text = "Vidéo"
+
+[node name="Control" type="Control" parent="Map/Settings/Panel2/VBoxContainer" unique_id=1699113296]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Map/Settings/Panel2/VBoxContainer/Control" unique_id=1406302295]
+layout_mode = 0
+offset_left = 11.095154
+offset_top = 0.12332153
+offset_right = 51.095154
+offset_bottom = 40.12332
+theme_override_constants/separation = 35
+
+[node name="TextureRect" type="TextureRect" parent="Map/Settings/Panel2/VBoxContainer/Control/HBoxContainer" unique_id=659925651]
+layout_mode = 2
+texture = ExtResource("30_yd7e0")
+expand_mode = 3
+stretch_mode = 6
+
+[node name="Volume" type="Label" parent="Map/Settings/Panel2/VBoxContainer/Control/HBoxContainer" unique_id=1808237598]
+layout_mode = 2
+theme_override_font_sizes/font_size = 65
+text = "Volume"
+
+[node name="HSlider" type="HSlider" parent="Map/Settings/Panel2/VBoxContainer/Control" unique_id=654705743]
+layout_mode = 0
+offset_left = 19.176687
+offset_top = 72.43328
+offset_right = 191.32735
+offset_bottom = 99.71531
+scale = Vector2(3.3498602, 3.3498602)
+step = 50.0
+
+[node name="StartAction" parent="Map" unique_id=651877005 instance=ExtResource("32_etfdl")]
+layout_mode = 0
+offset_left = 756.99994
+offset_top = 444.99973
+offset_right = 756.99994
+offset_bottom = 444.99973
+scale = Vector2(0.68, 0.68)
+
+[node name="Manches" parent="." unique_id=1608420756 instance=ExtResource("25_2jxo5")]
+layout_mode = 0
+offset_left = 507.0
+offset_top = 971.0
+offset_right = 507.0
+offset_bottom = 971.0
+scale = Vector2(1.48, 1.48)
+
+[node name="Manches2" parent="." unique_id=1943367806 instance=ExtResource("25_2jxo5")]
+layout_mode = 0
+offset_left = 1419.0
+offset_top = 105.0
+offset_right = 1419.0
+offset_bottom = 105.0
+rotation = 3.1415927
+scale = Vector2(1.48, 1.48)
 
 [node name="Profils" type="Control" parent="." unique_id=42104301]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 2.0
-offset_top = -6.0
-offset_right = 2.0
-offset_bottom = -6.0
+offset_left = 1921.0
+offset_top = 1080.0
+offset_right = 1920.9998
+offset_bottom = 1080.0
 grow_horizontal = 2
 grow_vertical = 2
+rotation = 3.1415927
 mouse_filter = 2
 
 [node name="Profil" type="Control" parent="Profils" unique_id=1965343262]
 anchors_preset = 0
-offset_left = -2.9999995
-offset_top = 793.0
-offset_right = 435.5773
-offset_bottom = 1082.0
+offset_left = 373.46613
+offset_top = 290.29102
+offset_right = 812.04346
+offset_bottom = 579.291
+rotation = 3.1415927
 scale = Vector2(0.99062616, 0.99062616)
 script = ExtResource("11_t8783")
 
@@ -965,6 +1311,7 @@ theme_override_font_sizes/font_size = 35
 horizontal_alignment = 1
 
 [node name="Keypad" parent="Profils/Profil" unique_id=774372980 instance=ExtResource("18_2jxo5")]
+visible = false
 position = Vector2(189, -118.10706)
 scale = Vector2(0.39007133, 0.39007133)
 
@@ -978,10 +1325,11 @@ text = "Terminer le tour"
 
 [node name="Profil2" type="Control" parent="Profils" unique_id=912308252]
 anchors_preset = 0
-offset_left = 1541.0001
-offset_top = 798.0
-offset_right = 1979.5774
-offset_bottom = 1087.0
+offset_left = 1917.4663
+offset_top = 295.29102
+offset_right = 2356.0435
+offset_bottom = 584.291
+rotation = 3.1415927
 scale = Vector2(0.99062616, 0.99062616)
 script = ExtResource("11_t8783")
 
@@ -1324,6 +1672,7 @@ theme_override_font_sizes/font_size = 35
 horizontal_alignment = 1
 
 [node name="Keypad" parent="Profils/Profil2" unique_id=554215312 instance=ExtResource("18_2jxo5")]
+visible = false
 position = Vector2(189, -118.10706)
 scale = Vector2(0.39007133, 0.39007133)
 
@@ -1337,11 +1686,10 @@ text = "Terminer le tour"
 
 [node name="Profil3" type="Control" parent="Profils" unique_id=1643295922]
 anchors_preset = 0
-offset_left = 1919.4661
-offset_top = 295.29095
-offset_right = 2358.0435
-offset_bottom = 584.29095
-rotation = 3.1415927
+offset_left = 1537.5338
+offset_top = 789.70905
+offset_right = 1976.1112
+offset_bottom = 1078.709
 scale = Vector2(0.99062616, 0.99062616)
 script = ExtResource("11_t8783")
 
@@ -1684,6 +2032,7 @@ theme_override_font_sizes/font_size = 35
 horizontal_alignment = 1
 
 [node name="Keypad" parent="Profils/Profil3" unique_id=496744008 instance=ExtResource("18_2jxo5")]
+visible = false
 position = Vector2(189, -118.10706)
 scale = Vector2(0.39007133, 0.39007133)
 
@@ -1697,11 +2046,10 @@ text = "Terminer le tour"
 
 [node name="Profil4" type="Control" parent="Profils" unique_id=808373957]
 anchors_preset = 0
-offset_left = 375.46613
-offset_top = 299.29095
-offset_right = 814.04346
-offset_bottom = 588.29095
-rotation = 3.1415927
+offset_left = -6.4661264
+offset_top = 793.70905
+offset_right = 432.1112
+offset_bottom = 1082.709
 scale = Vector2(0.99062616, 0.99062616)
 script = ExtResource("11_t8783")
 
@@ -2044,6 +2392,7 @@ theme_override_font_sizes/font_size = 35
 horizontal_alignment = 1
 
 [node name="Keypad" parent="Profils/Profil4" unique_id=2074569258 instance=ExtResource("18_2jxo5")]
+visible = false
 position = Vector2(189, -118.10706)
 scale = Vector2(0.39007133, 0.39007133)
 
@@ -2055,150 +2404,27 @@ offset_right = 338.3725
 offset_bottom = 109.02231
 text = "Terminer le tour"
 
-[node name="Bank" parent="." unique_id=2118626797 instance=ExtResource("9_ckosc")]
-visible = false
-layout_mode = 0
-offset_left = 1355.0
-offset_top = 271.0
-offset_right = 1355.0
-offset_bottom = 271.0
-scale = Vector2(0.48132288, 0.48132288)
-
-[node name="GiveCard" type="Control" parent="." unique_id=502793126]
-visible = false
-layout_mode = 1
-anchor_right = 0.661
-anchor_bottom = 0.72200006
-offset_left = 712.00006
-offset_top = 722.0
-offset_right = -623.6836
-offset_bottom = -88.6427
-scale = Vector2(0.64000136, 0.64000136)
-script = ExtResource("21_srya7")
-
-[node name="Panel" type="Panel" parent="GiveCard" unique_id=461444429]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-scale = Vector2(19.383072, 12.068146)
-
-[node name="VBoxContainer" type="VBoxContainer" parent="GiveCard" unique_id=222058577]
-layout_mode = 1
-offset_left = 2.0
-offset_top = 21.0
-offset_right = 768.0
-offset_bottom = 462.0
-theme_override_constants/separation = 40
-
-[node name="question" type="Label" parent="GiveCard/VBoxContainer" unique_id=1772955947]
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 35
-text = "A quel joueur voulez-vous donner 
-une carte ?"
-horizontal_alignment = 1
-
-[node name="Joueurs" type="Control" parent="GiveCard/VBoxContainer" unique_id=1049432180]
-layout_mode = 2
-
-[node name="Joueurs" type="HBoxContainer" parent="GiveCard/VBoxContainer/Joueurs" unique_id=1055576432]
-layout_mode = 1
-offset_left = 33.0
-offset_top = -20.0
-offset_right = 1798.0027
-offset_bottom = 492.0
-scale = Vector2(0.39999944, 0.39999944)
-theme_override_constants/separation = 85
-
-[node name="Joueur1" type="TextureRect" parent="GiveCard/VBoxContainer/Joueurs/Joueurs" unique_id=1291490256]
-material = SubResource("ShaderMaterial_b72to")
-layout_mode = 2
-texture = ExtResource("10_t8783")
-
-[node name="Nomjoueur1" type="Label" parent="GiveCard/VBoxContainer/Joueurs/Joueurs/Joueur1" unique_id=790908500]
-layout_mode = 0
-offset_left = -45.00006
-offset_top = 535.0
-offset_right = 548.99994
-offset_bottom = 598.0
-scale = Vector2(1.0000007, 1)
-theme_override_font_sizes/font_size = 55
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Joueur2" type="TextureRect" parent="GiveCard/VBoxContainer/Joueurs/Joueurs" unique_id=908924591]
-material = SubResource("ShaderMaterial_mgajk")
-layout_mode = 2
-texture = ExtResource("10_t8783")
-
-[node name="Nomjoueur2" type="Label" parent="GiveCard/VBoxContainer/Joueurs/Joueurs/Joueur2" unique_id=686714384]
-layout_mode = 0
-offset_left = -34.499237
-offset_top = 535.0
-offset_right = 559.50073
-offset_bottom = 598.0
-scale = Vector2(1.0000015, 1)
-theme_override_font_sizes/font_size = 55
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Joueur3" type="TextureRect" parent="GiveCard/VBoxContainer/Joueurs/Joueurs" unique_id=181278566]
-material = SubResource("ShaderMaterial_7teeq")
-layout_mode = 2
-texture = ExtResource("10_t8783")
-
-[node name="Nomjoueur3" type="Label" parent="GiveCard/VBoxContainer/Joueurs/Joueurs/Joueur3" unique_id=384940154]
-layout_mode = 0
-offset_left = -33.998444
-offset_top = 535.0
-offset_right = 560.0016
-offset_bottom = 598.0
-scale = Vector2(1.0000031, 1)
-theme_override_font_sizes/font_size = 55
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="GiveCard" type="Button" parent="GiveCard/VBoxContainer" unique_id=636693576]
-modulate = Color(3.1229057, 3.1229057, 3.1229057, 1)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 10
-theme_override_font_sizes/font_size = 30
-text = "Donner une carte"
-
-[node name="Manches" parent="." unique_id=1608420756 instance=ExtResource("25_2jxo5")]
-layout_mode = 0
-offset_left = 507.0
-offset_top = 971.0
-offset_right = 507.0
-offset_bottom = 971.0
-scale = Vector2(1.48, 1.48)
-
-[node name="Manches2" parent="." unique_id=1943367806 instance=ExtResource("25_2jxo5")]
-layout_mode = 0
-offset_left = 1419.0
-offset_top = 105.0
-offset_right = 1419.0
-offset_bottom = 105.0
-rotation = 3.1415927
-scale = Vector2(1.48, 1.48)
-
-[connection signal="pressed" from="Places/Saloon" to="Places" method="_on_saloon_pressed"]
-[connection signal="pressed" from="Places/Restaurant" to="Places" method="_on_restaurant_pressed"]
-[connection signal="pressed" from="Places/Armory" to="Places" method="_on_armory_pressed"]
-[connection signal="pressed" from="Places/Bank" to="Places" method="_on_bank_pressed"]
-[connection signal="pressed" from="Places/Duel" to="." method="_on_duel_pressed"]
-[connection signal="pressed" from="Places/Duel" to="Places" method="_on_duel_pressed"]
-[connection signal="animation_finished" from="Dés/SubViewportContainer/SubViewport/Node3D/RollDiceAnimation" to="Dés/RollDiceButton" method="_on_roll_dice_animation_animation_finished"]
-[connection signal="pressed" from="Dés/RollDiceButton" to="Dés/RollDiceButton" method="roll_dice"]
-[connection signal="pressed" from="Restaurant/VBoxContainer/RestaurantUseCard" to="." method="_on_restaurant_use_card_pressed"]
-[connection signal="pressed" from="Restaurant/VBoxContainer/RestaurantGiveCard" to="." method="_on_restaurant_give_card_pressed"]
-[connection signal="pressed" from="Restaurant/VBoxContainer/FoodBuyCard" to="Places" method="_on_food_buy_card_pressed"]
-[connection signal="pressed" from="Restaurant/VBoxContainer/FoodBuyCard" to="RestaurantShop" method="_on_food_buy_card_pressed"]
-[connection signal="pressed" from="Armory/VBoxContainer/ArmoryBuyCard" to="Armory" method="_on_armory_buy_card_pressed"]
-[connection signal="pressed" from="Armory/VBoxContainer/ArmoryUseCard" to="." method="_on_armory_use_card_pressed"]
-[connection signal="pressed" from="Saloon/VBoxContainer/SaloonUseCard" to="." method="_on_saloon_use_card_pressed"]
-[connection signal="pressed" from="Saloon/VBoxContainer/SaloonGiveCard" to="." method="_on_saloon_give_card_pressed"]
-[connection signal="pressed" from="Saloon/VBoxContainer/DrinkBuyCard" to="Places" method="_on_drink_buy_card_pressed"]
-[connection signal="pressed" from="Saloon/VBoxContainer/DrinkBuyCard" to="SaloonShop" method="_on_drink_buy_card_pressed"]
-[connection signal="pressed" from="GiveCard/VBoxContainer/GiveCard" to="GiveCard" method="_on_give_card_pressed"]
+[connection signal="pressed" from="Map/Places/Saloon" to="Map/Places" method="_on_saloon_pressed"]
+[connection signal="pressed" from="Map/Places/Mine" to="Map/Places" method="_on_mine_pressed"]
+[connection signal="pressed" from="Map/Places/Restaurant" to="Map/Places" method="_on_restaurant_pressed"]
+[connection signal="pressed" from="Map/Places/Armory" to="Map/Places" method="_on_armory_pressed"]
+[connection signal="pressed" from="Map/Places/Bank" to="Map/Places" method="_on_bank_pressed"]
+[connection signal="pressed" from="Map/Places/Duel" to="." method="_on_duel_pressed"]
+[connection signal="pressed" from="Map/Places/Duel" to="Map/Places" method="_on_duel_pressed"]
+[connection signal="animation_finished" from="Map/Dés/SubViewportContainer/SubViewport/Node3D/RollDiceAnimation" to="Map/Dés/RollDiceButton" method="_on_roll_dice_animation_animation_finished"]
+[connection signal="pressed" from="Map/Dés/RollDiceButton" to="Map/Dés/RollDiceButton" method="roll_dice"]
+[connection signal="pressed" from="Map/Restaurant/VBoxContainer/RestaurantUseCard" to="." method="_on_restaurant_use_card_pressed"]
+[connection signal="pressed" from="Map/Restaurant/VBoxContainer/RestaurantGiveCard" to="." method="_on_restaurant_give_card_pressed"]
+[connection signal="pressed" from="Map/Restaurant/VBoxContainer/HBoxContainer/FoodBuyCard" to="Map/Places" method="_on_food_buy_card_pressed"]
+[connection signal="pressed" from="Map/Restaurant/VBoxContainer/HBoxContainer/FoodBuyCard" to="Map/RestaurantShop" method="_on_food_buy_card_pressed"]
+[connection signal="timeout" from="Map/RestaurantShop/Timer" to="Map/RestaurantShop" method="_on_timer_timeout"]
+[connection signal="pressed" from="Map/Armory/VBoxContainer/ArmoryBuyCard" to="Map/Armory" method="_on_armory_buy_card_pressed"]
+[connection signal="pressed" from="Map/Armory/VBoxContainer/ArmoryUseCard" to="." method="_on_armory_use_card_pressed"]
+[connection signal="pressed" from="Map/Saloon/VBoxContainer/SaloonUseCard" to="." method="_on_saloon_use_card_pressed"]
+[connection signal="pressed" from="Map/Saloon/VBoxContainer/SaloonGiveCard" to="." method="_on_saloon_give_card_pressed"]
+[connection signal="pressed" from="Map/Saloon/VBoxContainer/HBoxContainer/DrinkBuyCard" to="Map/Places" method="_on_drink_buy_card_pressed"]
+[connection signal="pressed" from="Map/Saloon/VBoxContainer/HBoxContainer/DrinkBuyCard" to="Map/SaloonShop" method="_on_drink_buy_card_pressed"]
+[connection signal="timeout" from="Map/SaloonShop/Timer" to="Map/SaloonShop" method="_on_timer_timeout"]
+[connection signal="pressed" from="Map/GiveCard/VBoxContainer/GiveCard" to="Map/GiveCard" method="_on_give_card_pressed"]
+[connection signal="pressed" from="Map/Settings/Panel/Button" to="Map/Settings" method="_on_button_pressed"]
+[connection signal="pressed" from="Map/Settings/Panel2/VBoxContainer/Control2/Reset" to="Map/Settings" method="_on_reset_pressed"]

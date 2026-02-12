@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://ckv603t1ewodj"]
+[gd_scene format=3 uid="uid://ckv603t1ewodj"]
 
 [ext_resource type="Script" uid="uid://y7eqjvvm50d" path="res://scripts/duel.gd" id="1_rsfa2"]
 [ext_resource type="Texture2D" uid="uid://b0hrtmg55c17b" path="res://assets/profil/joueur.png" id="2_j65gr"]
@@ -40,7 +40,7 @@ shader_parameter/square_border = false
 shader_parameter/offset = Vector2(0, 0)
 shader_parameter/max_or_add = true
 
-[node name="Duel" type="Control"]
+[node name="Duel" type="Control" unique_id=754705929]
 layout_mode = 3
 anchor_right = 0.661
 anchor_bottom = 0.72200006
@@ -50,44 +50,47 @@ offset_right = -758.47205
 offset_bottom = -464.85605
 script = ExtResource("1_rsfa2")
 
-[node name="Panel" type="Panel" parent="."]
+[node name="Panel" type="Panel" parent="." unique_id=2135885993]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 scale = Vector2(19.383072, 12.068146)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1020383316]
 layout_mode = 1
-offset_left = 67.0
-offset_top = 21.0
-offset_right = 661.0
-offset_bottom = 74.0
+offset_left = 54.0
+offset_top = 19.0
+offset_right = 732.0
+offset_bottom = 446.0
 theme_override_constants/separation = 40
 
-[node name="question" type="Label" parent="VBoxContainer"]
+[node name="question" type="Label" parent="VBoxContainer" unique_id=1739913916]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 35
 text = "Quel joueur voulez vous affronter ?"
 
-[node name="Joueurs" type="Control" parent="VBoxContainer"]
+[node name="Joueurs" type="Control" parent="VBoxContainer" unique_id=1863025687]
 layout_mode = 2
 size_flags_vertical = 4
 
-[node name="Joueurs" type="HBoxContainer" parent="VBoxContainer/Joueurs"]
+[node name="Joueurs" type="HBoxContainer" parent="VBoxContainer/Joueurs" unique_id=2083223428]
 layout_mode = 1
-offset_left = -23.0
-offset_right = 1683.0
+offset_left = -4.0
+offset_right = 1702.0
 offset_bottom = 512.0
 scale = Vector2(0.39999944, 0.39999944)
 theme_override_constants/separation = 85
 
-[node name="Joueur1" type="TextureRect" parent="VBoxContainer/Joueurs/Joueurs"]
+[node name="Joueur1" type="TextureRect" parent="VBoxContainer/Joueurs/Joueurs" unique_id=1320035927]
 material = SubResource("ShaderMaterial_b72to")
 layout_mode = 2
 texture = ExtResource("2_j65gr")
+expand_mode = 2
+stretch_mode = 5
 
-[node name="Nomjoueur1" type="Label" parent="VBoxContainer/Joueurs/Joueurs/Joueur1"]
+[node name="Nomjoueur1" type="Label" parent="VBoxContainer/Joueurs/Joueurs/Joueur1" unique_id=315036285]
+modulate = Color(18.892157, 18.892157, 18.892157, 1)
 layout_mode = 0
 offset_left = -45.00006
 offset_top = 535.0
@@ -98,12 +101,15 @@ theme_override_font_sizes/font_size = 55
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Joueur2" type="TextureRect" parent="VBoxContainer/Joueurs/Joueurs"]
+[node name="Joueur2" type="TextureRect" parent="VBoxContainer/Joueurs/Joueurs" unique_id=1078854099]
 material = SubResource("ShaderMaterial_mgajk")
 layout_mode = 2
 texture = ExtResource("2_j65gr")
+expand_mode = 2
+stretch_mode = 5
 
-[node name="Nomjoueur2" type="Label" parent="VBoxContainer/Joueurs/Joueurs/Joueur2"]
+[node name="Nomjoueur2" type="Label" parent="VBoxContainer/Joueurs/Joueurs/Joueur2" unique_id=1611113971]
+modulate = Color(18.892157, 18.892157, 18.892157, 1)
 layout_mode = 0
 offset_left = -34.499237
 offset_top = 535.0
@@ -114,12 +120,15 @@ theme_override_font_sizes/font_size = 55
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Joueur3" type="TextureRect" parent="VBoxContainer/Joueurs/Joueurs"]
+[node name="Joueur3" type="TextureRect" parent="VBoxContainer/Joueurs/Joueurs" unique_id=645224694]
 material = SubResource("ShaderMaterial_7teeq")
 layout_mode = 2
 texture = ExtResource("2_j65gr")
+expand_mode = 2
+stretch_mode = 5
 
-[node name="Nomjoueur3" type="Label" parent="VBoxContainer/Joueurs/Joueurs/Joueur3"]
+[node name="Nomjoueur3" type="Label" parent="VBoxContainer/Joueurs/Joueurs/Joueur3" unique_id=1513481914]
+modulate = Color(18.892157, 18.892157, 18.892157, 1)
 layout_mode = 0
 offset_left = -33.998444
 offset_top = 535.0
@@ -129,3 +138,13 @@ scale = Vector2(1.0000031, 1)
 theme_override_font_sizes/font_size = 55
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Versus" type="Button" parent="VBoxContainer" unique_id=1466034684]
+modulate = Color(3.1229057, 3.1229057, 3.1229057, 1)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 10
+theme_override_font_sizes/font_size = 30
+text = "Affronter en duel"
+
+[connection signal="pressed" from="VBoxContainer/Versus" to="." method="_on_versus_pressed"]

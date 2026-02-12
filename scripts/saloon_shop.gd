@@ -9,6 +9,8 @@ var drinks = [
 @onready var drink_roller = $VBoxContainer/DrinkRoller
 @onready var drink_name = $VBoxContainer/DrinkName
 @onready var drink_description = $VBoxContainer/DrinkDescription
+@onready var timer: Timer = $Timer
+
 
 var catalogue = {}  
 var current_id = 0  
@@ -42,21 +44,37 @@ func update_drink():
 	if catalogue.has(key):
 		var data = catalogue[key] 
 		var drink_effect = data.get("effet", 0)
-		
-		# Récupération du profil actif au lieu de "0"
 		var id_joueur = DatabaseConfig.current_profil_id
 		
-		print("Achat boisson pour Profil ", id_joueur, " | Effet : ", drink_effect)
+		# On définit le prix ici (1 pièce)
+		var prix_boisson = 1
 		
-		# On envoie l'effet au DatabaseConfig
-		var succes = DatabaseConfig.get_drink(drink_effect, id_joueur) 
+		print("Achat boisson : Essai pour Profil ", id_joueur)
 		
+		# 1. On demande au Singleton de dépenser l'argent
+		var succes = DatabaseConfig.spend_money(prix_boisson, id_joueur)
+
 		if succes:
-			print("Achat validé en base de données.")
+			print("Achat validé. Application de l'effet : ", drink_effect)
+			# 2. Si l'argent est retiré, on donne la boisson
+			DatabaseConfig.get_drink(drink_effect, id_joueur)
+			
+			# 3. On incrémente les actions comme dans la banque
+			timer.start()
+		else:
+			print("Achat échoué : Fonds insuffisants")
 
 func _on_drink_buy_card_pressed() -> void:
 	update_drink()
+	timer.start()
+	#DatabaseConfig.actions_faites += 1
+	## On demande au script principal de vérifier si on doit fermer les places
+	#if DatabaseConfig.script_general:
+		#DatabaseConfig.script_general.verifier_limite_actions()
+		
+
+
+func _on_timer_timeout() -> void:
 	DatabaseConfig.actions_faites += 1
-	# On demande au script principal de vérifier si on doit fermer les places
 	if DatabaseConfig.script_general:
 		DatabaseConfig.script_general.verifier_limite_actions()

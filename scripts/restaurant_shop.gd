@@ -9,6 +9,7 @@ var foods = [
 @onready var food_roller: TextureRect = $VBoxContainer/FoodRoller
 @onready var food_name: Label = $VBoxContainer/FoodName
 @onready var food_description: Label = $VBoxContainer/FoodDescription
+@onready var timer: Timer = $Timer
 
 var catalogue = {}  
 var current_id = 0  
@@ -48,20 +49,40 @@ func update_food():
 	if catalogue.has(key):
 		var data = catalogue[key] 
 		var food_effect = data.get("effet", 0)
-		
-		# On récupère l'ID du joueur actif depuis le Global
 		var id_joueur = DatabaseConfig.current_profil_id
 		
-		print("Achat nourriture pour Profil ", id_joueur, " | Effet : ", food_effect)
+		# On définit le prix (cohérent avec le saloon)
+		var prix_food = 1
 		
-		# On utilise la fonction centralisée de DatabaseConfig
-		var succes = DatabaseConfig.get_food(food_effect, id_joueur) 
+		print("Achat nourriture : Essai pour Profil ", id_joueur)
+		
+		# 1. On tente de retirer l'argent d'abord
+		var succes = DatabaseConfig.spend_money(prix_food, id_joueur)
+
 		if succes:
-			print("Achat nourriture validé.")
+			print("Achat validé. Application de l'effet : ", food_effect)
+			# 2. Si l'argent est débité, on donne la nourriture
+			DatabaseConfig.get_food(food_effect, id_joueur)
+			
+			# 3. ON COMPTE L'ACTION ICI
+			timer.start()
+				
+			# On change de nourriture pour le prochain achat
+			random_food()
+		else:
+			print("Achat échoué : Pas assez d'argent")
 
 func _on_food_buy_card_pressed() -> void:
 	update_food()
+	timer.start()
+	#DatabaseConfig.actions_faites += 1
+	## On demande au script principal de vérifier si on doit fermer les places
+	#if DatabaseConfig.script_general:
+		#DatabaseConfig.script_general.verifier_limite_actions()
+		
+
+
+func _on_timer_timeout() -> void:
 	DatabaseConfig.actions_faites += 1
-	# On demande au script principal de vérifier si on doit fermer les places
 	if DatabaseConfig.script_general:
 		DatabaseConfig.script_general.verifier_limite_actions()
