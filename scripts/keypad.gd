@@ -146,6 +146,7 @@ func apply_card(category: String, effet_valeur, id_carte: String):
 	var id_joueur = DatabaseConfig.current_profil_id
 	var effet = int(effet_valeur)
 	var id_final = DatabaseConfig.cible_don_id if DatabaseConfig.cible_don_id != "" else id_joueur
+
 	
 	match category:
 		"MiniJeux": DatabaseConfig.play_minijeux(id_carte)

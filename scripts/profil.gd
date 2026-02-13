@@ -121,12 +121,3 @@ func _on_keypad_open_pressed() -> void:
 	# On inverse la visibilité
 	keypad.visible = !keypad.visible
 	
-	# Si on vient de l'ouvrir, on s'assure qu'il est propre et sur le bon joueur
-	if keypad.visible:
-		var mon_id = name.replace("ID", "") 
-		DatabaseConfig.current_profil_id = mon_id
-		
-		if keypad.has_method("reset_keypad"):
-			keypad.reset_keypad()
-		
-		print("[PROFIL] Keypad ouvert pour : ", mon_id)

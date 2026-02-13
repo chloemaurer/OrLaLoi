@@ -198,13 +198,14 @@ func _synchroniser_stats_vers_global(index: int):
 		_synchroniser_stats_vers_global(index) # On recommence
 		return # On arrête l'exécution ici pour ne pas lire la suite
 
-	# Si on arrive ici, c'est que get_life EXISTE forcément
+
 	DatabaseConfig.life_local = cible.get_life()
 	DatabaseConfig.food_local = cible.get_food()
 	DatabaseConfig.drink_local = cible.get_drink()
 	DatabaseConfig.money_local = cible.get_money()
 	DatabaseConfig.munition_local = cible.get_munition()
 	DatabaseConfig.actual_Gun = cible.get_gun()
+	
 	
 #---- Tour -------------------------------------------------------------------------
 func verifier_limite_actions():

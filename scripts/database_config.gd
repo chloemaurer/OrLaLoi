@@ -216,6 +216,26 @@ func disable_card(id_carte: String):
 	var chemin = "cartes/" + id_carte
 	Firebase.Database.get_database_reference(chemin).update("", {"disponible": false})
 
+func winner_money(montant: int, profil_id: String):
+	# 1. On récupère le nœud du profil cible (ID0, ID1, etc.)
+	var index = int(profil_id)
+	if script_general and script_general.profils_noeuds.size() > index:
+		var cible_node = script_general.profils_noeuds[index]
+		
+		# 2. On récupère l'argent ACTUEL de ce joueur précis
+		var argent_actuel_cible = cible_node.get_money()
+		
+		# 3. On calcule le nouveau total
+		var nouveau_total = argent_actuel_cible + montant
+		
+		# 4. On met à jour Firebase
+		Firebase.Database.get_database_reference("profils/ID" + profil_id).update("", {"Argent": nouveau_total})
+		
+		print("[DB] Argent ajouté à ID", profil_id, " : ", argent_actuel_cible, " -> ", nouveau_total)
+	else:
+		print("ERREUR : Impossible de trouver le profil pour ajouter l'argent")
+		
+		
 #---- Mini jeux ----------------------------
 func play_minijeux(id_minijeux: String):
 	recompenses_distribuees = false
@@ -240,60 +260,71 @@ func play_minijeux(id_minijeux: String):
 func _verifier_scores_minijeux(data):
 	if typeof(data) != TYPE_DICTIONARY: return
 	
-	# 1. Mise à jour de la mémoire locale
+	# 1. Mise à jour de la mémoire locale (Lecture profonde)
 	for i in range(4):
 		var key = "ID" + str(i)
-		if data.has(key) and data[key] != null:
-			# On convertit en String puis en float pour éviter le crash de constructeur
-			var value_as_string = str(data[key])
-			scores_accumules[str(i)] = value_as_string.to_float()
-	
+		print("Mini jeu :" ,key)
+		# Cas A : La mise à jour contient l'ID (ex: data["ID0"])
+		if data.has(key):
+			var player_data = data[key]
+			if typeof(player_data) == TYPE_DICTIONARY and player_data.has("temps"):
+				scores_accumules[str(i)] = float(player_data["temps"])
+			elif typeof(player_data) == TYPE_FLOAT or typeof(player_data) == TYPE_INT:
+				scores_accumules[str(i)] = float(player_data)
+		
+		# Cas B : La mise à jour est DIRECTEMENT à l'intérieur d'un ID (ex: chemin était "mini_jeu/ID0")
+		# Si data contient directement la clé "temps"
+		elif data.has("temps") and current_profil_id != "": 
+			# Attention : cette partie dépend de comment Firebase envoie le patch.
+			# Pour être sûr, on vérifie si les 4 scores sont dans scores_accumules
+			pass
+
 	# 2. Vérification des scores
 	var resultats_temp = []
 	var joueurs_termines = 0
 	
 	for id_key in scores_accumules.keys():
 		var temps = scores_accumules[id_key]
-		if temps > 0.0:
+		# On ne compte que si le temps est strictement supérieur à 0
+		if temps > 0.001: 
 			joueurs_termines += 1
 			resultats_temp.append({"id": id_key, "temps": temps})
 	
+	print("[DEBUG] Joueurs ayant fini : ", joueurs_termines, "/4")
+
 	# 3. Podium
 	if joueurs_termines == 4 and not recompenses_distribuees:
 		recompenses_distribuees = true
-		print("[SYSTÈME] Les 4 scores sont là : ", scores_accumules)
+		print("[SYSTÈME] Les 4 scores sont validés : ", scores_accumules)
 		winner_miniJeux(resultats_temp)
 
 func winner_miniJeux(resultats: Array):
-	# 1. On trie le tableau du plus petit temps au plus grand
-	# (Le plus rapide gagne)
 	resultats.sort_custom(func(a, b): return a["temps"] < b["temps"])
 	
 	print("--- RÉSULTATS DU MINI-JEU ---")
 	
 	for i in range(resultats.size()):
-		var id_joueur = resultats[i]["id"]
+		var id_joueur = resultats[i]["id"] # C'est déjà "0", "1", "2" ou "3"
 		var temps = resultats[i]["temps"]
-		var nom_joueur = "Joueur " + str(int(id_joueur) + 1) # Pour l'affichage
+		var nom_joueur = "Joueur " + str(int(id_joueur) + 1)
 		
 		match i:
 			0: # PREMIER
-				print("1er: ", nom_joueur, " (", temps, "s) -> +5 pièces")
-				get_money(5, id_joueur)
+				print("1er: ", nom_joueur, " -> +5 pièces")
+				get_money(5, id_joueur) # UTILISE winner_money ICI
 				
 			1: # DEUXIÈME
-				print("2ème: ", nom_joueur, " (", temps, "s) -> +3 pièces")
-				get_money(3, id_joueur)
+				print("2ème: ", nom_joueur, " -> +3 pièces")
+				get_money(3, id_joueur) # ET ICI
 				
 			2: # TROISIÈME
-				print("3ème: ", nom_joueur, " (", temps, "s) -> +2 pièces")
-				get_money(2, id_joueur)
+				print("3ème: ", nom_joueur, " -> +2 pièces")
+				get_money(2, id_joueur) # ET ICI
 				
-			3: # DERNIER (Quatrième)
-				# On récupère le nom du premier pour le print spécial
+			3: # DERNIER
 				var nom_premier = "Joueur " + str(int(resultats[0]["id"]) + 1)
-				print("Dernier: ", nom_joueur, ". Action: Donner deux cartes à ", nom_premier)
-
+				print("Dernier: ", nom_joueur)
+				
 #---- Duel ----------------------------
 func duel_versus(id_attaquant: String, id_cible: String):
 	# On définit les chemins pour les deux joueurs dans le dossier MiniJeux
@@ -327,6 +358,14 @@ func reset_game_start():
 		script_general.revive_player()
 	
 	_reset_all_cards()
+	var updates = {
+		"ID0/temps": 0,
+		"ID1/temps": 0,
+		"ID2/temps": 0,
+		"ID3/temps": 0
+	}
+	
+	Firebase.Database.get_database_reference("mini_jeu").update("", updates)
 	
 	manches = 0
 	if script_general:
