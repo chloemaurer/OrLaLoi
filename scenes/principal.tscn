@@ -2429,3 +2429,6 @@ text = "Terminer le tour"
 [connection signal="pressed" from="Map/Settings/Panel/Button" to="Map/Settings" method="_on_button_pressed"]
 [connection signal="pressed" from="Map/Settings/Panel2/VBoxContainer/Control2/Reset" to="Map/Settings" method="_on_reset_pressed"]
 [connection signal="pressed" from="Profils/Profil/Items/Items/KeypadIcon/KeypadOpen" to="Profils/Profil" method="_on_keypad_open_pressed"]
+[connection signal="pressed" from="Profils/Profil2/Items/Items/KeypadIcon/KeypadOpen" to="Profils/Profil2" method="_on_keypad_open_pressed"]
+[connection signal="pressed" from="Profils/Profil3/Items/Items/KeypadIcon/KeypadOpen" to="Profils/Profil3" method="_on_keypad_open_pressed"]
+[connection signal="pressed" from="Profils/Profil4/Items/Items/KeypadIcon/KeypadOpen" to="Profils/Profil4" method="_on_keypad_open_pressed"]

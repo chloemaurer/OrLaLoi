@@ -219,16 +219,24 @@ func disable_card(id_carte: String):
 #---- Mini jeux ----------------------------
 func play_minijeux(id_minijeux: String):
 	recompenses_distribuees = false
-	scores_accumules = {"0": 0.0, "1": 0.0, "2": 0.0, "3": 0.0} # RESET LOCAL
-	# Le chemin sera "cartes/ID58"
-	var chemin = "MiniJeux/" + id_minijeux
-	Firebase.Database.get_database_reference(chemin).update("", {"play": true})
-	var reset_scores = {
-		"ID0": 0, "ID1": 0, "ID2": 0, "ID3": 0
-	}
-	Firebase.Database.get_database_reference("mini_jeu").update("", reset_scores)
+	scores_accumules = {"0": 0.0, "1": 0.0, "2": 0.0, "3": 0.0}
 	
-	print("[DB] Mini-jeu ", id_minijeux, " activé. Scores réinitialisés.")
+	# 1. Activer le mini-jeu
+	var chemin_jeu = "MiniJeux/" + id_minijeux
+	Firebase.Database.get_database_reference(chemin_jeu).update("", {"play": true})
+	
+	# 2. Reset UNIQUEMENT les scores sans supprimer le "status" ou les "autres trucs"
+	# On crée un dictionnaire de chemins précis
+	var updates = {
+		"ID0/temps": 0,
+		"ID1/temps": 0,
+		"ID2/temps": 0,
+		"ID3/temps": 0
+	}
+	
+	Firebase.Database.get_database_reference("mini_jeu").update("", updates)
+	print("[DB] Mini-jeu ", id_minijeux, " activé. Seuls les temps ont été réinitialisés.")
+
 
 func _verifier_scores_minijeux(data):
 	if typeof(data) != TYPE_DICTIONARY: return
@@ -256,6 +264,7 @@ func _verifier_scores_minijeux(data):
 		recompenses_distribuees = true
 		print("[SYSTÈME] Les 4 scores sont là : ", scores_accumules)
 		winner_miniJeux(resultats_temp)
+
 func winner_miniJeux(resultats: Array):
 	# 1. On trie le tableau du plus petit temps au plus grand
 	# (Le plus rapide gagne)
