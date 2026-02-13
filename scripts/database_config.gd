@@ -222,9 +222,8 @@ func play_minijeux(id_minijeux: String):
 	scores_accumules = {"0": 0.0, "1": 0.0, "2": 0.0, "3": 0.0}
 	
 	# 1. Activer le mini-jeu
-	var chemin_jeu = "MiniJeux/" + id_minijeux
-	Firebase.Database.get_database_reference(chemin_jeu).update("", {"play": true})
-	
+	var chemin = "MiniJeux/" + id_minijeux
+	Firebase.Database.get_database_reference(chemin).update("", {"play": true})
 	# 2. Reset UNIQUEMENT les scores sans supprimer le "status" ou les "autres trucs"
 	# On crée un dictionnaire de chemins précis
 	var updates = {
