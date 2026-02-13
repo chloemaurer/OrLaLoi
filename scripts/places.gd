@@ -34,6 +34,7 @@ func close_all():
 	duel.hide()
 	mine.hide()
 # Cache tous les boutons de lieux sur la carte
+
 func close_place():
 	saloon_button.hide()
 	mine_button.hide()

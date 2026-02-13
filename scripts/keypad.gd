@@ -94,7 +94,7 @@ func check_code():
 	if is_zone_valid(carte_trouvee["categorie"]):
 		print("✅ SUCCÈS.")
 		if mode_mine:
-			# --- LOGIQUE MINE (Pas de consommation d'action) ---
+			# --- LOGIQUE MINE ---
 			compteur_mines += 1
 			DatabaseConfig.disable_card(id_a_desactiver)
 			reset_keypad()
@@ -102,10 +102,7 @@ func check_code():
 			if compteur_mines >= 2:
 				print("🎉 SURVIE : 2 cartes Mines données.")
 				_finaliser_mine_reussie()
-			else:
-				print("⏳ Encore une carte Mine nécessaire...")
-			
-			return # <--- TRÈS IMPORTANT : On sort de la fonction ici !
+			return 
 			
 		else:
 			# --- LOGIQUE NORMALE ---
@@ -113,7 +110,8 @@ func check_code():
 			DatabaseConfig.disable_card(id_a_desactiver)
 			_consommer_action_et_quitter()
 	else:
-		print("🚫 MAUVAISE ZONE.")
+		print("🚫 MAUVAISE ZONE : ", carte_trouvee["categorie"], " ne marche pas ici (", DatabaseConfig.zone, ")")
+		reset_keypad()
 
 
 func _consommer_action_et_quitter():
@@ -123,6 +121,8 @@ func _consommer_action_et_quitter():
 	_finaliser_utilisation_keypad()
 
 func _finaliser_utilisation_keypad():
+	mode_mine = false
+	compteur_mines = 0
 	DatabaseConfig.zone = "" 
 	DatabaseConfig.cible_don_id = "" 
 	close_button.hide()
@@ -133,6 +133,8 @@ func _finaliser_utilisation_keypad():
 func is_zone_valid(category: String) -> bool:
 	if category in ["vie", "argent", "MiniJeux"]: return true
 	var player_zone = DatabaseConfig.zone
+	if player_zone == "": 
+		return true
 	match category:
 		"Mine": return player_zone == "mine"
 		"saloon": return player_zone == "saloon"

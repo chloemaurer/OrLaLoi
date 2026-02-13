@@ -1237,10 +1237,10 @@ stretch_mode = 5
 [node name="KeypadOpen" type="Button" parent="Profils/Profil/Items/Items/KeypadIcon" unique_id=387620019]
 modulate = Color(0.02745098, 0.02745098, 0.02745098, 0)
 layout_mode = 0
-offset_left = 28.238892
-offset_top = -4.863562
-offset_right = 36.23889
-offset_bottom = 3.136438
+offset_left = 18.324741
+offset_top = -4.498038
+offset_right = 26.324741
+offset_bottom = 3.5019622
 scale = Vector2(8.067134, 7.890571)
 
 [node name="Money" type="Label" parent="Profils/Profil/Items/Items" unique_id=1703040666]
@@ -1598,10 +1598,10 @@ stretch_mode = 5
 [node name="KeypadOpen" type="Button" parent="Profils/Profil2/Items/Items/KeypadIcon" unique_id=2136546563]
 modulate = Color(0.02745098, 0.02745098, 0.02745098, 0)
 layout_mode = 0
-offset_left = 28.238892
-offset_top = -4.863562
-offset_right = 36.23889
-offset_bottom = 3.136438
+offset_left = 14.368583
+offset_top = -4.497893
+offset_right = 22.368584
+offset_bottom = 3.5021071
 scale = Vector2(8.067134, 7.890571)
 
 [node name="Money" type="Label" parent="Profils/Profil2/Items/Items" unique_id=344063615]
@@ -1958,10 +1958,10 @@ stretch_mode = 5
 [node name="KeypadOpen" type="Button" parent="Profils/Profil3/Items/Items/KeypadIcon" unique_id=1352125697]
 modulate = Color(0.02745098, 0.02745098, 0.02745098, 0)
 layout_mode = 0
-offset_left = 28.238892
-offset_top = -4.863562
-offset_right = 36.23889
-offset_bottom = 3.136438
+offset_left = 18.324982
+offset_top = -4.4982185
+offset_right = 26.324982
+offset_bottom = 3.5017815
 scale = Vector2(8.067134, 7.890571)
 
 [node name="Money" type="Label" parent="Profils/Profil3/Items/Items" unique_id=97365489]
@@ -2318,10 +2318,10 @@ stretch_mode = 5
 [node name="KeypadOpen" type="Button" parent="Profils/Profil4/Items/Items/KeypadIcon" unique_id=1400776485]
 modulate = Color(0.02745098, 0.02745098, 0.02745098, 0)
 layout_mode = 0
-offset_left = 28.238892
-offset_top = -4.863562
-offset_right = 36.23889
-offset_bottom = 3.136438
+offset_left = 19.64376
+offset_top = -4.4980745
+offset_right = 27.64376
+offset_bottom = 3.5019255
 scale = Vector2(8.067134, 7.890571)
 
 [node name="Money" type="Label" parent="Profils/Profil4/Items/Items" unique_id=392453831]
@@ -2428,3 +2428,4 @@ text = "Terminer le tour"
 [connection signal="pressed" from="Map/GiveCard/VBoxContainer/GiveCard" to="Map/GiveCard" method="_on_give_card_pressed"]
 [connection signal="pressed" from="Map/Settings/Panel/Button" to="Map/Settings" method="_on_button_pressed"]
 [connection signal="pressed" from="Map/Settings/Panel2/VBoxContainer/Control2/Reset" to="Map/Settings" method="_on_reset_pressed"]
+[connection signal="pressed" from="Profils/Profil/Items/Items/KeypadIcon/KeypadOpen" to="Profils/Profil" method="_on_keypad_open_pressed"]
