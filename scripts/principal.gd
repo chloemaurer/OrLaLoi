@@ -312,3 +312,8 @@ func _on_restaurant_give_card_pressed() -> void:
 	
 	
 #--------------------------------------------------------------------------------
+
+
+func _on_button_pressed() -> void:
+	# On appelle la fonction de distribution manuelle
+	DatabaseConfig.valider_et_distribuer()

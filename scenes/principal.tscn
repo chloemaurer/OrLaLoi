@@ -2404,6 +2404,14 @@ offset_right = 338.3725
 offset_bottom = 109.02231
 text = "Terminer le tour"
 
+[node name="Button" type="Button" parent="." unique_id=414758974]
+layout_mode = 0
+offset_left = 450.0
+offset_top = 592.0
+offset_right = 774.0
+offset_bottom = 725.0
+text = "Fin mini jeu"
+
 [connection signal="pressed" from="Map/Places/Saloon" to="Map/Places" method="_on_saloon_pressed"]
 [connection signal="pressed" from="Map/Places/Mine" to="Map/Places" method="_on_mine_pressed"]
 [connection signal="pressed" from="Map/Places/Restaurant" to="Map/Places" method="_on_restaurant_pressed"]
@@ -2432,3 +2440,4 @@ text = "Terminer le tour"
 [connection signal="pressed" from="Profils/Profil2/Items/Items/KeypadIcon/KeypadOpen" to="Profils/Profil2" method="_on_keypad_open_pressed"]
 [connection signal="pressed" from="Profils/Profil3/Items/Items/KeypadIcon/KeypadOpen" to="Profils/Profil3" method="_on_keypad_open_pressed"]
 [connection signal="pressed" from="Profils/Profil4/Items/Items/KeypadIcon/KeypadOpen" to="Profils/Profil4" method="_on_keypad_open_pressed"]
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
