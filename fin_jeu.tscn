@@ -1,0 +1,56 @@
+[gd_scene format=3 uid="uid://bxmsp1r2b3b05"]
+
+[ext_resource type="Script" uid="uid://batuf2brsbccs" path="res://fin_jeu.gd" id="1_swnjf"]
+[ext_resource type="Texture2D" uid="uid://cipx6kvt7xgce" path="res://assets/icone/reset.webp" id="2_abtai"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_aehw3"]
+
+[node name="FinJeu" type="Control" unique_id=91722483]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_swnjf")
+
+[node name="Panel" type="Panel" parent="." unique_id=167627949]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+
+[node name="Titre" type="Label" parent="." unique_id=270463387]
+layout_mode = 0
+offset_left = 649.0
+offset_top = 77.0
+offset_right = 1246.0
+offset_bottom = 242.0
+theme_override_font_sizes/font_size = 120
+text = "Fin du jeu "
+
+[node name="MessageFin" type="Label" parent="." unique_id=733235102]
+layout_mode = 0
+offset_left = 251.0
+offset_top = 340.0
+offset_right = 1665.0
+offset_bottom = 777.0
+theme_override_font_sizes/font_size = 85
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Control" type="HBoxContainer" parent="." unique_id=2029716570]
+layout_mode = 0
+offset_left = 781.0
+offset_top = 877.0
+offset_right = 1138.0
+offset_bottom = 967.0
+theme_override_constants/separation = 35
+
+[node name="TextureRect" type="TextureRect" parent="Control" unique_id=321193246]
+layout_mode = 2
+texture = ExtResource("2_abtai")
+expand_mode = 3
+stretch_mode = 6
+
+[node name="Reset" type="Button" parent="Control" unique_id=1541984390]
+self_modulate = Color(18.892157, 18.892157, 18.892157, 1)
+layout_mode = 2
+theme_override_font_sizes/font_size = 65
+theme_override_styles/normal = SubResource("StyleBoxEmpty_aehw3")
+text = "Rejouer"

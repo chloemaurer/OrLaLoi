@@ -2,6 +2,7 @@ extends Control
 
 var joueur_actuel := 0
 @onready var dés: Control = $"../Dés"
+@onready var fin_jeu: Control = $"../../FinJeu"
 
 
 func lancer_evenement_mine():
@@ -10,38 +11,64 @@ func lancer_evenement_mine():
 	_passer_au_joueur_suivant()
 
 func _passer_au_joueur_suivant():
+	# 1. Vérifier si on a dépassé le nombre de joueurs
 	if joueur_actuel >= 4:
-		print("[MINE] Tous les joueurs ont passé l'épreuve.")
+		print("[MINE] Tous les survivants ont passé l'épreuve.")
 		DatabaseConfig.zone = "" # On libère la zone
+		var survivants = 0
+		for p in DatabaseConfig.script_general.profils_noeuds:
+			if p.get_life() > 0:
+				survivants += 1
+		
+		# Si au moins un joueur est vivant à la fin de la mine
+		if survivants > 0:
+			fin_jeu.afficher_resultat(true)
+		else:
+			fin_jeu.afficher_resultat(false)
 		return
 
-	# 1. On définit l'ID pour la base de données
+	# 2. Récupérer le profil
+	var profil_du_joueur = DatabaseConfig.script_general.profils_noeuds[joueur_actuel]
+
+	# 3. LOGIQUE DES MORTS : Si le joueur est mort, on l'ignore et on passe au suivant
+	if profil_du_joueur.get_life() <= 0:
+		print("[MINE] Joueur ID", joueur_actuel, " est mort, on saute.")
+		joueur_actuel += 1
+		_passer_au_joueur_suivant()
+		return
+
+	# 4. GESTION VISUELLE : On active ce profil et on grise les autres
+	_actualiser_visuel_profils(joueur_actuel)
+
+	# 5. CONFIGURATION DU KEYPAD
 	DatabaseConfig.current_profil_id = str(joueur_actuel)
 	DatabaseConfig.zone = "mine"
 	
-	# 2. On va chercher le noeud du profil (ID0, ID1, etc.) dans script_general
-	# On suppose que script_general.profils_noeuds contient les instances de Profil.gd
-	if DatabaseConfig.script_general and DatabaseConfig.script_general.profils_noeuds.size() > joueur_actuel:
-		var profil_du_joueur = DatabaseConfig.script_general.profils_noeuds[joueur_actuel]
+	var keypad_local = profil_du_joueur.keypad
+	if is_instance_valid(keypad_local):
+		if not keypad_local.mine_terminee.is_connected(_on_joueur_a_fini):
+			keypad_local.mine_terminee.connect(_on_joueur_a_fini)
 		
-		# 3. On récupère le keypad qui est DANS ce profil
-		var keypad_local = profil_du_joueur.keypad
-		
-		if is_instance_valid(keypad_local):
-			# On connecte le signal pour passer au suivant
-			if not keypad_local.mine_terminee.is_connected(_on_joueur_a_fini):
-				keypad_local.mine_terminee.connect(_on_joueur_a_fini)
-			
-			# On l'ouvre !
-			print("[MINE] Ouverture du Keypad pour ID", joueur_actuel)
-			keypad_local.preparer_pour_mine()
-		else:
-			print("ERREUR : Keypad introuvable pour le joueur ", joueur_actuel)
+		print("[MINE] Ouverture du Keypad pour ID", joueur_actuel)
+		keypad_local.preparer_pour_mine()
 	else:
-		print("ERREUR : Impossible de trouver le profil du joueur ", joueur_actuel)
+		print("ERREUR : Keypad introuvable pour le joueur ", joueur_actuel)
+
+func _actualiser_visuel_profils(id_actif: int):
+	# On parcourt tous les profils pour les griser, sauf celui qui doit jouer
+	for i in range(4):
+		var p = DatabaseConfig.script_general.profils_noeuds[i]
+		if i == id_actif:
+			p.modulate = Color(1, 1, 1, 1) # Allumé
+		else:
+			# On le grise (plus sombre s'il est mort, un peu moins s'il attend juste son tour)
+			if p.get_life() <= 0:
+				p.modulate = Color(0.2, 0.2, 0.2, 0.8) # Mort
+			else:
+				p.modulate = Color(0.3, 0.3, 0.3, 1) # En attente
 
 func _on_joueur_a_fini():
-	# On déconnecte le signal de l'ancien keypad pour éviter les bugs au prochain tour
+	# déconnexion signal ancien joueur
 	var profil_precedent = DatabaseConfig.script_general.profils_noeuds[joueur_actuel]
 	if profil_precedent.keypad.mine_terminee.is_connected(_on_joueur_a_fini):
 		profil_precedent.keypad.mine_terminee.disconnect(_on_joueur_a_fini)

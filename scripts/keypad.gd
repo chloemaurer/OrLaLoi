@@ -131,7 +131,11 @@ func _finaliser_utilisation_keypad():
 	print("[Keypad] Clavier fermé et zones reset.")
 
 func is_zone_valid(category: String) -> bool:
-	if category in ["vie", "argent", "MiniJeux"]: return true
+	if category in ["vie", "argent", "MiniJeux"]: 
+		DatabaseConfig.actions_faites += 1
+		if DatabaseConfig.script_general:
+			DatabaseConfig.script_general.verifier_limite_actions()
+		return true
 	var player_zone = DatabaseConfig.zone
 	if player_zone == "": 
 		return true

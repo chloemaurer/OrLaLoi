@@ -254,7 +254,9 @@ func disable_card(id_carte: String):
 		
 		
 #---- Mini jeux ----------------------------
+@onready var fin_mini_jeu: Button = $Map/FinMiniJeu
 func play_minijeux(id_minijeux: String):
+	fin_mini_jeu.show()
 	recompenses_distribuees = false
 	scores_accumules = {"0": 0.0, "1": 0.0, "2": 0.0, "3": 0.0}
 	
@@ -294,7 +296,7 @@ func winner_miniJeux(resultats: Array):
 	resultats.sort_custom(func(a, b): return a["temps"] < b["temps"])
 	
 	print("--- ATTRIBUTION DES RÉCOMPENSES ---")
-	
+	fin_mini_jeu.hide()
 	for i in range(resultats.size()):
 		var id_joueur = resultats[i]["id"] # "0", "1", etc.
 		
@@ -385,7 +387,11 @@ func reset_game_start():
 
 		if m1: m1.fill_wagon() # Va maintenant remettre les textures vides
 		if m2: m2.fill_wagon()
-			
+		
+	await get_tree().create_timer(1.0).timeout
+	get_tree().reload_current_scene()
+
+	
 func _reset_all_cards():
 	for i in range(100): 
 		var id_carte = "ID" + str(i)

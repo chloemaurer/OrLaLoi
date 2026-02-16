@@ -33,6 +33,7 @@
 [ext_resource type="Texture2D" uid="uid://b2sbq33egsir7" path="res://assets/icone/video.webp" id="31_nexnj"]
 [ext_resource type="PackedScene" uid="uid://c6oiyw3qtp8i" path="res://scenes/start_action.tscn" id="32_etfdl"]
 [ext_resource type="PackedScene" uid="uid://cvjvuytfbacf8" path="res://scenes/mine.tscn" id="33_vdtr1"]
+[ext_resource type="PackedScene" uid="uid://bxmsp1r2b3b05" path="res://fin_jeu.tscn" id="34_yd7e0"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_g3ehx"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -701,14 +702,13 @@ offset_bottom = 435.9997
 scale = Vector2(0.48132288, 0.48132288)
 
 [node name="GiveCard" type="Control" parent="Map" unique_id=502793126]
-visible = false
 layout_mode = 1
 anchor_right = 0.661
 anchor_bottom = 0.72200006
-offset_left = 712.00006
-offset_top = 722.0
-offset_right = 685.56006
-offset_bottom = 693.12
+offset_left = 728.9999
+offset_top = 451.9998
+offset_right = 702.5598
+offset_bottom = 423.11957
 scale = Vector2(0.64000136, 0.64000136)
 script = ExtResource("21_srya7")
 
@@ -930,6 +930,15 @@ offset_top = 444.99973
 offset_right = 756.99994
 offset_bottom = 444.99973
 scale = Vector2(0.68, 0.68)
+
+[node name="FinMiniJeu" type="Button" parent="Map" unique_id=414758974]
+visible = false
+layout_mode = 0
+offset_left = 809.0
+offset_top = 551.99976
+offset_right = 1133.0
+offset_bottom = 684.99976
+text = "Fin mini jeu"
 
 [node name="Manches" parent="." unique_id=1608420756 instance=ExtResource("25_2jxo5")]
 layout_mode = 0
@@ -2404,13 +2413,11 @@ offset_right = 338.3725
 offset_bottom = 109.02231
 text = "Terminer le tour"
 
-[node name="Button" type="Button" parent="." unique_id=414758974]
+[node name="FinJeu" parent="." unique_id=91722483 instance=ExtResource("34_yd7e0")]
+visible = false
 layout_mode = 0
-offset_left = 450.0
-offset_top = 592.0
-offset_right = 774.0
-offset_bottom = 725.0
-text = "Fin mini jeu"
+offset_top = -2.9999695
+offset_bottom = -2.9999695
 
 [connection signal="pressed" from="Map/Places/Saloon" to="Map/Places" method="_on_saloon_pressed"]
 [connection signal="pressed" from="Map/Places/Mine" to="Map/Places" method="_on_mine_pressed"]
@@ -2436,8 +2443,8 @@ text = "Fin mini jeu"
 [connection signal="pressed" from="Map/GiveCard/VBoxContainer/GiveCard" to="Map/GiveCard" method="_on_give_card_pressed"]
 [connection signal="pressed" from="Map/Settings/Panel/Button" to="Map/Settings" method="_on_button_pressed"]
 [connection signal="pressed" from="Map/Settings/Panel2/VBoxContainer/Control2/Reset" to="Map/Settings" method="_on_reset_pressed"]
+[connection signal="pressed" from="Map/FinMiniJeu" to="." method="_on_fin_mini_jeu_pressed"]
 [connection signal="pressed" from="Profils/Profil/Items/Items/KeypadIcon/KeypadOpen" to="Profils/Profil" method="_on_keypad_open_pressed"]
 [connection signal="pressed" from="Profils/Profil2/Items/Items/KeypadIcon/KeypadOpen" to="Profils/Profil2" method="_on_keypad_open_pressed"]
 [connection signal="pressed" from="Profils/Profil3/Items/Items/KeypadIcon/KeypadOpen" to="Profils/Profil3" method="_on_keypad_open_pressed"]
 [connection signal="pressed" from="Profils/Profil4/Items/Items/KeypadIcon/KeypadOpen" to="Profils/Profil4" method="_on_keypad_open_pressed"]
-[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

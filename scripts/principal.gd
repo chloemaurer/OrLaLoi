@@ -127,31 +127,34 @@ func selectionner_profil(index_choisi: int):
 		
 func _on_end_turn_pressed(index_actuel: int):
 	check_resources(index_actuel)
-	var prochain_profil = (index_actuel + 1) % profils_noeuds.size()
 	
+	var prochain_profil = (index_actuel + 1) % profils_noeuds.size()
 	var tentative = 0
+
 	while profils_noeuds[prochain_profil].get_life() <= 0 and tentative < profils_noeuds.size():
-		print("Joueur ID", prochain_profil, " est mort, on passe au suivant...")
+		print("Joueur ID", prochain_profil, " est mort, on saute...")
 		prochain_profil = (prochain_profil + 1) % profils_noeuds.size()
 		tentative += 1
+
+	if prochain_profil <= index_actuel:
 		DatabaseConfig.manches += 1
 		print("--- TOUS LES JOUEURS ONT JOUÉ ---")
 		print("DÉBUT DE LA MANCHE : ", DatabaseConfig.manches)
-		$Manches.fill_wagon()
-		$Manches2.fill_wagon()
 		
-	if prochain_profil == 0:
-		DatabaseConfig.manches += 1
-		print("--- TOUS LES JOUEURS ONT JOUÉ ---")
-		print("DÉBUT DE LA MANCHE : ", DatabaseConfig.manches)
-		$Manches.fill_wagon()
-		$Manches2.fill_wagon()
-		
+		# Mise à jour visuelle des wagons de manche
+		if has_node("Manches"): $Manches.fill_wagon()
+		if has_node("Manches2"): $Manches2.fill_wagon()
+
+	# 4. On active le nouveau joueur
 	selectionner_profil(prochain_profil)
+	
+	# 5. Reset de l'interface pour le nouveau tour
 	places.show()
 	places.close_all()
-	restaurant_shop.random_food()
-	saloon_shop.random_drink()
+	
+	# On change les menus des boutiques pour le nouveau joueur
+	if restaurant_shop: restaurant_shop.random_food()
+	if saloon_shop: saloon_shop.random_drink()
 
 func check_resources(index_actuel: int):
 	var joueur = profils_noeuds[index_actuel]
@@ -313,7 +316,6 @@ func _on_restaurant_give_card_pressed() -> void:
 	
 #--------------------------------------------------------------------------------
 
-
-func _on_button_pressed() -> void:
+func _on_fin_mini_jeu_pressed() -> void:
 	# On appelle la fonction de distribution manuelle
 	DatabaseConfig.valider_et_distribuer()
