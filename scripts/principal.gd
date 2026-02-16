@@ -180,7 +180,7 @@ func Kill_player(index: int):
 	print("Le joueur ", index, " est éliminé.")
 	var cible = profils_noeuds[index]
 	cible.modulate = Color(0.2, 0.2, 0.2, 0.8) # Le gris
-	
+	DatabaseConfig.players_alive -= 1
 	# Optionnel : On cache son bouton pour qu'il ne puisse plus cliquer
 	boutons_fin_tour[index].hide()
 

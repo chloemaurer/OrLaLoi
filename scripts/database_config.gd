@@ -19,6 +19,7 @@ var cible_duel_id : String = ""
 var mini_jeu_en_cours = ""
 var recompenses_distribuees = false
 var scores_accumules = {"0": 0.0, "1": 0.0, "2": 0.0, "3": 0.0}
+var players_alive : int = 4
 # --- RÉFÉRENCES DES SCRIPTS (Assignées par le Main/Général) ---
 var script_general = null 
 var script_saloon = null 
@@ -102,9 +103,19 @@ func _on_db_data_update(resource: FirebaseResource):
 			
 	#---- 2. Mini jeux-------------------------------
 	if chemin.begins_with("mini_jeu"):
+		# Si le chemin est "mini_jeu/ID0", on extrait "ID0"
+		var parties = chemin.split("/")
+		if parties.size() > 1:
+			var player_id_key = parties[1] # "ID0", "ID1", etc.
+			if player_id_key.begins_with("ID"):
+				if typeof(data) == TYPE_DICTIONARY and data.has("temps"):
+					scores_accumules[player_id_key.replace("ID","")] = float(data["temps"])
+					print("[DB] Score direct pour ", player_id_key, " : ", data["temps"])
+		
+		# On appelle quand même la vérification globale pour les dictionnaires complets
 		_verifier_scores_minijeux(data)
 		
-# --- LOGIQUE DE TRIAGE DES VARIABLES ----------------------------------
+	print (resource, chemin, data)# --- LOGIQUE DE TRIAGE DES VARIABLES ----------------------------------
 
 func _trier_donnees_locales(chemin: String, data):
 	var tag_actif = "ID" + current_profil_id
@@ -275,22 +286,42 @@ func play_minijeux(id_minijeux: String):
 	Firebase.Database.get_database_reference("mini_jeu").update("", updates)
 	print("[DB] Mini-jeu ", id_minijeux, " activé. Seuls les temps ont été réinitialisés.")
 
-
 func _verifier_scores_minijeux(data):
 	if typeof(data) != TYPE_DICTIONARY: return
 	
-	# Cette partie remplit ton dictionnaire au fur et à mesure que les joueurs finissent
+	# Log pour déboguer le format exact
+	print("[DEBUG MINI-JEU] Data reçue : ", data)
+	
+	# Cas 1 : Firebase envoie un changement sur UN seul joueur (ex: mini_jeu/ID0)
+	# Dans ce cas, 'data' est le contenu de l'ID (ex: {"temps": 2.1})
+	if data.has("temps"):
+		# On a besoin de savoir quel ID a envoyé ça. 
+		# Si ton dispatcher envoie le chemin "mini_jeu/ID0", il faut extraire l'ID.
+		# Mais plus simplement, on peut scanner si la clé est dans un sous-dossier
+		pass 
+
+	# Cas 2 (Le plus probable selon tes logs) :
+	# On boucle pour voir si les clés ID0, ID1... sont PRÉSENTES dans le dictionnaire
 	for i in range(4):
 		var key = "ID" + str(i)
+		
+		# Si la mise à jour contient l'ID
 		if data.has(key):
-			var player_data = data[key]
-			if typeof(player_data) == TYPE_DICTIONARY and player_data.has("temps"):
-				scores_accumules[str(i)] = float(player_data["temps"])
-				print("Score reçu pour ", key, " : ", scores_accumules[str(i)])
-			elif typeof(player_data) == TYPE_FLOAT or typeof(player_data) == TYPE_INT:
-				scores_accumules[str(i)] = float(player_data)
-				print("Score reçu pour ", key, " : ", scores_accumules[str(i)])
-
+			var p_data = data[key]
+			if typeof(p_data) == TYPE_DICTIONARY and p_data.has("temps"):
+				var t = float(p_data["temps"])
+				if t > 0:
+					scores_accumules[str(i)] = t
+					print("-> Score mis en mémoire pour ID", i, " : ", t)
+		
+		# NOUVEAU : Si la data est DIRECTEMENT le dictionnaire d'un ID 
+		# (C'est ce qui arrive quand le chemin est "mini_jeu/ID0")
+		elif data.has("temps") and not data.has("ID0"): 
+			# On ne peut pas savoir l'ID juste avec 'data', 
+			# il faut regarder le 'chemin' passé au dispatcher !
+			pass
+				
+				
 func winner_miniJeux(resultats: Array):
 	# Tri du plus rapide au plus lent
 	resultats.sort_custom(func(a, b): return a["temps"] < b["temps"])
@@ -311,30 +342,28 @@ func winner_miniJeux(resultats: Array):
 
 func valider_et_distribuer():
 	var resultats_temp = []
-	
-	# On vérifie ce qu'on a en mémoire locale
-	for id_key in scores_accumules.keys():
-		var t = float(scores_accumules[id_key])
-		if t > 0:
-			resultats_temp.append({"id": id_key, "temps": t})
-	
-	print("Tentative de distribution... Joueurs prêts : ", resultats_temp.size(), "/4")
+	var survivants_ids = []
 
-	if resultats_temp.size() >= 4:
-		# On trie (le plus rapide gagne)
-		resultats_temp.sort_custom(func(a, b): return a["temps"] < b["temps"])
-		
-		# On distribue les récompenses
+	# 1. Identifier qui est encore en vie
+	for i in range(4):
+		if script_general.profils_noeuds[i].get_life() > 0:
+			survivants_ids.append(str(i))
+
+	# 2. Récupérer les scores de ces survivants
+	for id_key in survivants_ids:
+		if scores_accumules.has(id_key):
+			var t = float(scores_accumules[id_key])
+			if t > 0:
+				resultats_temp.append({"id": id_key, "temps": t})
+
+	print("Scores reçus: ", resultats_temp.size(), " / Attendus (survivants): ", survivants_ids.size())
+
+	# 3. On distribue si tous les survivants ont fini
+	if resultats_temp.size() >= survivants_ids.size() and survivants_ids.size() > 0:
 		winner_miniJeux(resultats_temp)
-		
-		# TRÈS IMPORTANT : On force la mise à jour visuelle pour ne pas avoir à RELOAD
-		for i in range(4):
-			var node = script_general.profils_noeuds[i]
-			node.update_visuel("Argent", node.get_money())
-			
-		print("Distribution terminée avec succès !")
+		print("Distribution terminée !")
 	else:
-		print("Impossible de distribuer : il manque encore des scores en base de données.")
+		print("Manque encore des joueurs : ", resultats_temp.size(), "/", survivants_ids.size())
 		
 						
 #---- Duel ----------------------------
@@ -350,45 +379,31 @@ func duel_versus(id_attaquant: String, id_cible: String):
 	
 #---- Reset ----------------------------
 var etait_en_reset : bool = false # AJOUTÉ : Pour automatiser le redémarrage
+# --- RESET ET RELOAD ---
 func reset_game_start():
-	print("[DB] Réinitialisation complète de la partie...")
-	etait_en_reset = true # On marque qu'on est en train de resetter
-	
-	# 1. On réinitialise les 4 profils
+	print("[DB] Lancement du Reset complet...")
+	etait_en_reset = true
 	for i in range(4):
-		var id_str = "ID" + str(i)
-		var path = "profils/" + id_str
-		var reset_data = {"Vie": 5, "Boisson": 5, "Nourriture": 5, "Munition": 0, "Argent": 10, "Arme": 1}
-		Firebase.Database.get_database_reference(path).update("", reset_data)
-		# Pas besoin de revive_player ici car le reload va recréer les objets
+		var path = "profils/ID" + str(i)
+		var data = {"Vie": 5, "Boisson": 5, "Nourriture": 5, "Munition": 0, "Argent": 10, "Arme": 1}
+		Firebase.Database.get_database_reference(path).update("", data)
 	
 	_reset_all_cards()
+	Firebase.Database.get_database_reference("mini_jeu").update("", {"ID0/temps":0,"ID1/temps":0,"ID2/temps":0,"ID3/temps":0})
 	
-	var updates = {"ID0/temps": 0, "ID1/temps": 0, "ID2/temps": 0, "ID3/temps": 0}
-	Firebase.Database.get_database_reference("mini_jeu").update("", updates)
-	
-	# RESET DES VARIABLES LOCALES DU SINGLETON
 	manches = 0
 	actions_faites = 0
 	current_profil_id = "0"
-	scores_accumules = {"0": 0.0, "1": 0.0, "2": 0.0, "3": 0.0}
 	
-	# NETTOYAGE DES RÉFÉRENCES AVANT RELOAD
 	script_general = null
 	script_saloon = null
 	script_restaurant = null
-	script_bank = null
-	script_armory = null
 	
-	print("[DB] Reset envoyé. Reload imminent...")
-	await get_tree().create_timer(1.2).timeout
+	await get_tree().create_timer(1.5).timeout
 	get_tree().reload_current_scene()
 
-	
 func _reset_all_cards():
-	for i in range(100): 
-		var id_carte = "ID" + str(i)
-		Firebase.Database.get_database_reference("cartes/" + id_carte).update("", {"disponible": true})
-	
-	print("[DB] 100 Cartes réinitialisées à 'disponible: true'.")
+	var big_update = {}
+	for i in range(100): big_update["ID" + str(i) + "/disponible"] = true
+	Firebase.Database.get_database_reference("cartes").update("", big_update)
 	
