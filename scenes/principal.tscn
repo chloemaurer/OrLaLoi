@@ -2450,6 +2450,8 @@ offset_bottom = -2.9999695
 [connection signal="pressed" from="Map/Restaurant/VBoxContainer/HBoxContainer/FoodBuyCard" to="Map/Places" method="_on_food_buy_card_pressed"]
 [connection signal="pressed" from="Map/Restaurant/VBoxContainer/HBoxContainer/FoodBuyCard" to="Map/RestaurantShop" method="_on_food_buy_card_pressed"]
 [connection signal="timeout" from="Map/RestaurantShop/Timer" to="Map/RestaurantShop" method="_on_timer_timeout"]
+[connection signal="pressed" from="Map/Armory/VBoxContainer/HBoxContainer/moins" to="Map/Armory" method="_on_moins_pressed"]
+[connection signal="pressed" from="Map/Armory/VBoxContainer/HBoxContainer/plus" to="Map/Armory" method="_on_plus_pressed"]
 [connection signal="pressed" from="Map/Armory/VBoxContainer/ArmoryBuyCard" to="Map/Armory" method="_on_armory_buy_card_pressed"]
 [connection signal="pressed" from="Map/Armory/VBoxContainer/ArmoryUseCard" to="." method="_on_armory_use_card_pressed"]
 [connection signal="pressed" from="Map/Saloon/VBoxContainer/SaloonUseCard" to="." method="_on_saloon_use_card_pressed"]

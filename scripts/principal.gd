@@ -322,3 +322,7 @@ func _on_fin_mini_jeu_pressed() -> void:
 	# On appelle la fonction de distribution manuelle
 	DatabaseConfig.valider_et_distribuer()
 	fin_mini_jeu.hide()
+
+
+func _on_plus_pressed() -> void:
+	pass # Replace with function body.
