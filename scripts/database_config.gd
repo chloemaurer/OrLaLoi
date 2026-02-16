@@ -350,45 +350,39 @@ func duel_versus(id_attaquant: String, id_cible: String):
 	print("[DB] Duel activé pour ID", id_attaquant, " et ID", id_cible)
 	
 #---- Reset ----------------------------
+var etait_en_reset : bool = false # AJOUTÉ : Pour automatiser le redémarrage
 func reset_game_start():
 	print("[DB] Réinitialisation complète de la partie...")
+	etait_en_reset = true # On marque qu'on est en train de resetter
 	
-	# 1. On réinitialise les 4 profils (ID0 à ID3)
+	# 1. On réinitialise les 4 profils
 	for i in range(4):
 		var id_str = "ID" + str(i)
 		var path = "profils/" + id_str
-		
-		var reset_data = {
-			"Vie": 5,
-			"Boisson": 5,
-			"Nourriture": 5,
-			"Munition": 0,
-			"Argent": 10, 
-			"Arme": 1
-		}
-		
+		var reset_data = {"Vie": 5, "Boisson": 5, "Nourriture": 5, "Munition": 0, "Argent": 10, "Arme": 1}
 		Firebase.Database.get_database_reference(path).update("", reset_data)
-		script_general.revive_player()
+		# Pas besoin de revive_player ici car le reload va recréer les objets
 	
 	_reset_all_cards()
-	var updates = {
-		"ID0/temps": 0,
-		"ID1/temps": 0,
-		"ID2/temps": 0,
-		"ID3/temps": 0
-	}
 	
+	var updates = {"ID0/temps": 0, "ID1/temps": 0, "ID2/temps": 0, "ID3/temps": 0}
 	Firebase.Database.get_database_reference("mini_jeu").update("", updates)
 	
+	# RESET DES VARIABLES LOCALES DU SINGLETON
 	manches = 0
-	if script_general:
-		var m1 = script_general.get_node_or_null("Manches")
-		var m2 = script_general.get_node_or_null("Manches2")
-
-		if m1: m1.fill_wagon() # Va maintenant remettre les textures vides
-		if m2: m2.fill_wagon()
-		
-	await get_tree().create_timer(1.0).timeout
+	actions_faites = 0
+	current_profil_id = "0"
+	scores_accumules = {"0": 0.0, "1": 0.0, "2": 0.0, "3": 0.0}
+	
+	# NETTOYAGE DES RÉFÉRENCES AVANT RELOAD
+	script_general = null
+	script_saloon = null
+	script_restaurant = null
+	script_bank = null
+	script_armory = null
+	
+	print("[DB] Reset envoyé. Reload imminent...")
+	await get_tree().create_timer(1.2).timeout
 	get_tree().reload_current_scene()
 
 	

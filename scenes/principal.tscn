@@ -842,7 +842,6 @@ offset_right = 412.53812
 offset_bottom = 412.5404
 
 [node name="Panel2" type="Panel" parent="Map/Settings" unique_id=1971159088]
-visible = false
 layout_mode = 0
 offset_left = 326.80283
 offset_right = 974.35657
@@ -851,44 +850,62 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_2jao0")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Map/Settings/Panel2" unique_id=1837293605]
 layout_mode = 0
-offset_left = 27.233553
-offset_top = 28.036728
-offset_right = 610.2337
-offset_bottom = 372.48798
+offset_left = 25.676027
+offset_top = 10.290989
+offset_right = 608.67615
+offset_bottom = 354.74222
 theme_override_constants/separation = 21
 
-[node name="Control2" type="HBoxContainer" parent="Map/Settings/Panel2/VBoxContainer" unique_id=254100862]
+[node name="Reset" type="Button" parent="Map/Settings/Panel2/VBoxContainer" unique_id=4634548]
+self_modulate = Color(18.892157, 18.892157, 18.892157, 1)
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 65
+theme_override_styles/normal = SubResource("StyleBoxEmpty_pmure")
+
+[node name="Control2" type="HBoxContainer" parent="Map/Settings/Panel2/VBoxContainer/Reset" unique_id=254100862]
+layout_mode = 0
+offset_top = 21.0
+offset_right = 583.0
+offset_bottom = 111.0
 theme_override_constants/separation = 35
 
-[node name="TextureRect" type="TextureRect" parent="Map/Settings/Panel2/VBoxContainer/Control2" unique_id=1390913507]
+[node name="TextureRect" type="TextureRect" parent="Map/Settings/Panel2/VBoxContainer/Reset/Control2" unique_id=1390913507]
 layout_mode = 2
 texture = ExtResource("29_vdtr1")
 expand_mode = 3
 stretch_mode = 6
 
-[node name="Reset" type="Button" parent="Map/Settings/Panel2/VBoxContainer/Control2" unique_id=4634548]
-self_modulate = Color(18.892157, 18.892157, 18.892157, 1)
+[node name="Label" type="Label" parent="Map/Settings/Panel2/VBoxContainer/Reset/Control2" unique_id=324807996]
 layout_mode = 2
 theme_override_font_sizes/font_size = 65
-theme_override_styles/normal = SubResource("StyleBoxEmpty_pmure")
 text = "Rejouer"
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="Map/Settings/Panel2/VBoxContainer" unique_id=2141601403]
+[node name="Video" type="Button" parent="Map/Settings/Panel2/VBoxContainer" unique_id=1006213386]
+self_modulate = Color(18.892157, 18.892157, 18.892157, 1)
 layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 65
+theme_override_styles/normal = SubResource("StyleBoxEmpty_pmure")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Map/Settings/Panel2/VBoxContainer/Video" unique_id=2141601403]
+layout_mode = 0
+offset_left = -1.5574874
+offset_top = 8.767242
+offset_right = 581.4425
+offset_bottom = 98.76724
 theme_override_constants/separation = 35
 
-[node name="TextureRect" type="TextureRect" parent="Map/Settings/Panel2/VBoxContainer/HBoxContainer2" unique_id=238358807]
+[node name="TextureRect" type="TextureRect" parent="Map/Settings/Panel2/VBoxContainer/Video/HBoxContainer2" unique_id=238358807]
 layout_mode = 2
 texture = ExtResource("31_nexnj")
 expand_mode = 3
 stretch_mode = 6
 
-[node name="Video" type="Button" parent="Map/Settings/Panel2/VBoxContainer/HBoxContainer2" unique_id=1006213386]
-self_modulate = Color(18.892157, 18.892157, 18.892157, 1)
+[node name="Label" type="Label" parent="Map/Settings/Panel2/VBoxContainer/Video/HBoxContainer2" unique_id=49502136]
 layout_mode = 2
 theme_override_font_sizes/font_size = 65
-theme_override_styles/normal = SubResource("StyleBoxEmpty_pmure")
 text = "Vidéo"
 
 [node name="Control" type="Control" parent="Map/Settings/Panel2/VBoxContainer" unique_id=1699113296]
@@ -897,10 +914,10 @@ size_flags_vertical = 3
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Map/Settings/Panel2/VBoxContainer/Control" unique_id=1406302295]
 layout_mode = 0
-offset_left = 11.095154
-offset_top = 0.12332153
-offset_right = 51.095154
-offset_bottom = 40.12332
+offset_left = 1.8982172
+offset_top = -0.025338858
+offset_right = 391.89822
+offset_bottom = 89.97466
 theme_override_constants/separation = 35
 
 [node name="TextureRect" type="TextureRect" parent="Map/Settings/Panel2/VBoxContainer/Control/HBoxContainer" unique_id=659925651]
@@ -2442,7 +2459,7 @@ offset_bottom = -2.9999695
 [connection signal="timeout" from="Map/SaloonShop/Timer" to="Map/SaloonShop" method="_on_timer_timeout"]
 [connection signal="pressed" from="Map/GiveCard/VBoxContainer/GiveCard" to="Map/GiveCard" method="_on_give_card_pressed"]
 [connection signal="pressed" from="Map/Settings/Panel/Button" to="Map/Settings" method="_on_button_pressed"]
-[connection signal="pressed" from="Map/Settings/Panel2/VBoxContainer/Control2/Reset" to="Map/Settings" method="_on_reset_pressed"]
+[connection signal="pressed" from="Map/Settings/Panel2/VBoxContainer/Reset" to="Map/Settings" method="_on_reset_pressed"]
 [connection signal="pressed" from="Map/FinMiniJeu" to="." method="_on_fin_mini_jeu_pressed"]
 [connection signal="pressed" from="Profils/Profil/Items/Items/KeypadIcon/KeypadOpen" to="Profils/Profil" method="_on_keypad_open_pressed"]
 [connection signal="pressed" from="Profils/Profil2/Items/Items/KeypadIcon/KeypadOpen" to="Profils/Profil2" method="_on_keypad_open_pressed"]

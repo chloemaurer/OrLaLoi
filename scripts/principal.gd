@@ -60,6 +60,7 @@ func _ready() -> void:
 	# 5. Initialisation Firebase
 	if DatabaseConfig.is_ready:
 		_initialisation_depart()
+		
 	else:
 		DatabaseConfig.db_ready.connect(_initialisation_depart)
 
