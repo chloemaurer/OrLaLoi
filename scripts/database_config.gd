@@ -254,9 +254,9 @@ func disable_card(id_carte: String):
 		
 		
 #---- Mini jeux ----------------------------
-@onready var fin_mini_jeu: Button = $Map/FinMiniJeu
+
 func play_minijeux(id_minijeux: String):
-	fin_mini_jeu.show()
+	
 	recompenses_distribuees = false
 	scores_accumules = {"0": 0.0, "1": 0.0, "2": 0.0, "3": 0.0}
 	
@@ -296,7 +296,6 @@ func winner_miniJeux(resultats: Array):
 	resultats.sort_custom(func(a, b): return a["temps"] < b["temps"])
 	
 	print("--- ATTRIBUTION DES RÉCOMPENSES ---")
-	fin_mini_jeu.hide()
 	for i in range(resultats.size()):
 		var id_joueur = resultats[i]["id"] # "0", "1", etc.
 		

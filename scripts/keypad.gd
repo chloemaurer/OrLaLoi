@@ -8,6 +8,7 @@ preload("uid://by34fmmkfdae3"),preload("uid://civ1gsrq8j33m"),preload("uid://du7
 @onready var code: Node2D = $Code
 @onready var back: Button = $Actions/Back
 @onready var close_button: TextureButton = $CloseButton
+@onready var fin_mini_jeu: Button = $"../../../Map/FinMiniJeu"
 
 var current_index := 0
 var input_code := "" 
@@ -153,7 +154,9 @@ func apply_card(category: String, effet_valeur, id_carte: String):
 
 	
 	match category:
-		"MiniJeux": DatabaseConfig.play_minijeux(id_carte)
+		"MiniJeux": 
+			DatabaseConfig.play_minijeux(id_carte)
+			fin_mini_jeu.show()
 		"saloon": DatabaseConfig.get_drink(effet, id_final)
 		"restaurant": DatabaseConfig.get_food(effet, id_final)
 		"vie": DatabaseConfig.get_life(effet, id_final)
