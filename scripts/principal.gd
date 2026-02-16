@@ -127,7 +127,7 @@ func selectionner_profil(index_choisi: int):
 
 		
 func _on_end_turn_pressed(index_actuel: int):
-	check_resources(index_actuel)
+	check_resources_globale()
 	
 	var prochain_profil = (index_actuel + 1) % profils_noeuds.size()
 	var tentative = 0
@@ -139,6 +139,7 @@ func _on_end_turn_pressed(index_actuel: int):
 
 	if prochain_profil <= index_actuel:
 		DatabaseConfig.manches += 1
+		_consommer_ressources_manche()
 		print("--- TOUS LES JOUEURS ONT JOUÉ ---")
 		print("DÉBUT DE LA MANCHE : ", DatabaseConfig.manches)
 		
@@ -157,29 +158,53 @@ func _on_end_turn_pressed(index_actuel: int):
 	if restaurant_shop: restaurant_shop.random_food()
 	if saloon_shop: saloon_shop.random_drink()
 
-func check_resources(index_actuel: int):
-	var joueur = profils_noeuds[index_actuel]
-	var id_str = str(index_actuel)
-	
-	var boisson = joueur.get_drink()
-	var nourriture = joueur.get_food()
+func check_resources_globale():
+	print("[Système] Vérification des ressources de tous les joueurs...")
+	for i in range(profils_noeuds.size()):
+		var joueur = profils_noeuds[i]
+		# On ne vérifie que les joueurs qui ne sont pas déjà morts
+		if joueur.get_life() > 0:
+			var boisson = joueur.get_drink()
+			var nourriture = joueur.get_food()
+			var id_str = str(i)
 
-	# Si l'un ou l'autre manque, le joueur perd 1 PV
-	if boisson <= 0 or nourriture <= 0:
-		var raison = "soif" if boisson <= 0 else "faim"
-		if boisson <= 0 and nourriture <= 0: raison = "faim et soif"
-		
-		print("Ressources épuisées (", raison, ") pour ID", id_str, " ! -1 PV")
-		DatabaseConfig.lose_life(1, id_str)
-		
-	if joueur.get_life() <= 0:
-		Kill_player(index_actuel)
+			# Vérification faim/soif (uniquement pour le joueur qui vient de finir son tour ?)
+			# Note : Traditionnellement, on ne fait payer la faim qu'à celui qui finit son tour
+			if i == int(DatabaseConfig.current_profil_id):
+				if boisson <= 0 or nourriture <= 0:
+					print("Faim/Soif pour ID", id_str, " ! -1 PV")
+					DatabaseConfig.lose_life(1, id_str)
+					if boisson <= 0: DatabaseConfig.get_drink(2, id_str)
+					if nourriture <= 0: DatabaseConfig.get_food(2, id_str)
+			
+			# Vérification de sécurité pour tout le monde (mort subite par carte/duel)
+			if joueur.get_life() <= 0:
+				Kill_player(i)
 
 # Cette fonction gère l'apparence
+func _consommer_ressources_manche():
+	for i in range(profils_noeuds.size()):
+		var joueur = profils_noeuds[i]
+		var id_str = str(i)
+		
+		# On ne traite que les survivants
+		if joueur.get_life() > 0:
+			var faim = joueur.get_food()
+			var soif = joueur.get_drink()
+			
+
+			DatabaseConfig.get_food(-1, id_str)
+			DatabaseConfig.get_drink(-1, id_str)
+			
+
+			if joueur.get_food() <= 0 or joueur.get_drink() <= 0:
+				print("ID", id_str, " n'a plus de ressources pour finir la manche ! -1 PV")
+				DatabaseConfig.lose_life(1, id_str)
+				
 func Kill_player(index: int):
 	print("Le joueur ", index, " est éliminé.")
 	var cible = profils_noeuds[index]
-	cible.modulate = Color(0.2, 0.2, 0.2, 0.8) # Le gris
+	cible.modulate = Color(0.831, 0.2, 0.2, 0.8) # Le gris
 	DatabaseConfig.players_alive -= 1
 	# Optionnel : On cache son bouton pour qu'il ne puisse plus cliquer
 	boutons_fin_tour[index].hide()

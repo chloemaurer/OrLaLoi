@@ -62,6 +62,7 @@ func _on_check_pressed() -> void:
 
 # Appelé par le script de Don pour afficher la croix
 func preparer_clavier_pour_don():
+	self.show()
 	close_button.show()
 	print("[Keypad] Mode DON détecté : Bouton Close affiché.")
 
@@ -114,7 +115,7 @@ func check_code():
 		print("🚫 MAUVAISE ZONE : ", carte_trouvee["categorie"], " ne marche pas ici (", DatabaseConfig.zone, ")")
 		reset_keypad()
 
-
+	
 func _consommer_action_et_quitter():
 	DatabaseConfig.actions_faites += 1
 	if DatabaseConfig.script_general:

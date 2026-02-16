@@ -1,14 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://dxvc5gry51wxq"]
+[gd_scene format=3 uid="uid://dxvc5gry51wxq"]
 
 [ext_resource type="Script" uid="uid://dvvlcehf8ykx7" path="res://scripts/bank.gd" id="1_070a6"]
 [ext_resource type="Texture2D" uid="uid://vcohqkjwjaaf" path="res://assets/profil/or.webp" id="2_v0kt3"]
 
-[node name="Bank" type="Control"]
+[node name="Bank" type="Control" unique_id=1553416461]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_070a6")
 
-[node name="Panel" type="Panel" parent="."]
+[node name="Panel" type="Panel" parent="." unique_id=397503944]
 modulate = Color(0.8291994, 0.22925165, 0.4097061, 1)
 layout_mode = 0
 offset_left = 214.0
@@ -16,33 +16,25 @@ offset_top = -1.0
 offset_right = 930.0
 offset_bottom = 646.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=46939612]
 layout_mode = 0
 offset_left = 308.0
-offset_top = 11.0
+offset_top = 42.0
 offset_right = 830.0
-offset_bottom = 579.0
+offset_bottom = 509.0
 theme_override_constants/separation = 40
 
-[node name="Titre" type="Label" parent="VBoxContainer"]
+[node name="Titre" type="Label" parent="VBoxContainer" unique_id=852431072]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 75
 text = "Banque"
 
-[node name="GiveCard" type="Button" parent="VBoxContainer"]
-modulate = Color(3.1229057, 3.1229057, 3.1229057, 1)
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_colors/font_color = Color(0.875, 0.875, 0.875, 1)
-theme_override_font_sizes/font_size = 38
-text = "Donner une carte"
-
-[node name="Control" type="Control" parent="VBoxContainer"]
+[node name="Control" type="Control" parent="VBoxContainer" unique_id=1211529413]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Control"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Control" unique_id=1365463581]
 layout_mode = 0
 offset_left = 90.0
 offset_top = 12.0
@@ -51,41 +43,41 @@ offset_bottom = 81.0
 size_flags_horizontal = 4
 theme_override_constants/separation = 20
 
-[node name="Label" type="Label" parent="VBoxContainer/Control/HBoxContainer"]
+[node name="Label" type="Label" parent="VBoxContainer/Control/HBoxContainer" unique_id=1740738739]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/outline_size = 1
 theme_override_font_sizes/font_size = 50
 text = "Vie"
 
-[node name="moins" type="Button" parent="VBoxContainer/Control/HBoxContainer"]
+[node name="moins" type="Button" parent="VBoxContainer/Control/HBoxContainer" unique_id=1438290950]
 modulate = Color(3.1229057, 3.1229057, 3.1229057, 1)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 30
 text = "  -  "
 
-[node name="Count" type="Label" parent="VBoxContainer/Control/HBoxContainer"]
+[node name="Count" type="Label" parent="VBoxContainer/Control/HBoxContainer" unique_id=597573427]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 50
 text = "1"
 
-[node name="plus" type="Button" parent="VBoxContainer/Control/HBoxContainer"]
+[node name="plus" type="Button" parent="VBoxContainer/Control/HBoxContainer" unique_id=947792033]
 modulate = Color(3.1229057, 3.1229057, 3.1229057, 1)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 30
 text = "  +  "
 
-[node name="Prix" type="Label" parent="VBoxContainer/Control/HBoxContainer"]
+[node name="Prix" type="Label" parent="VBoxContainer/Control/HBoxContainer" unique_id=111727295]
 modulate = Color(1, 0.64705884, 0, 1)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 50
 text = "2"
 
-[node name="TextureRect" type="TextureRect" parent="VBoxContainer/Control/HBoxContainer/Prix"]
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/Control/HBoxContainer/Prix" unique_id=1001070463]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -99,7 +91,7 @@ scale = Vector2(1.6861517, 1.5967395)
 texture = ExtResource("2_v0kt3")
 expand_mode = 1
 
-[node name="BankBuyCard" type="Button" parent="VBoxContainer/Control"]
+[node name="BankBuyCard" type="Button" parent="VBoxContainer/Control" unique_id=1461232523]
 modulate = Color(3.1229057, 3.1229057, 3.1229057, 1)
 layout_mode = 0
 offset_left = 85.0
@@ -109,13 +101,13 @@ offset_bottom = 163.0
 size_flags_horizontal = 4
 theme_override_colors/font_color = Color(0.875, 0.875, 0.875, 1)
 theme_override_font_sizes/font_size = 38
-text = "Acheter une ration"
+text = "Acheter une vie"
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer" unique_id=1654016954]
 layout_mode = 2
 theme_override_constants/separation = 45
 
-[node name="GetCard" type="Button" parent="VBoxContainer/HBoxContainer2"]
+[node name="GetCard" type="Button" parent="VBoxContainer/HBoxContainer2" unique_id=1648664265]
 modulate = Color(3.1229057, 3.1229057, 3.1229057, 1)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -123,7 +115,7 @@ theme_override_font_sizes/font_size = 38
 text = "Acheter deux cartes 
 de la pioche"
 
-[node name="aide" type="Label" parent="VBoxContainer/HBoxContainer2/GetCard"]
+[node name="aide" type="Label" parent="VBoxContainer/HBoxContainer2/GetCard" unique_id=1658681730]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.791
@@ -140,14 +132,14 @@ size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 20
 text = "vous pouvez utiliser la carte piocher diretement"
 
-[node name="Prix" type="Label" parent="VBoxContainer/HBoxContainer2"]
+[node name="Prix" type="Label" parent="VBoxContainer/HBoxContainer2" unique_id=59943307]
 modulate = Color(1, 0.64705884, 0, 1)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 50
 text = "3"
 
-[node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer2/Prix"]
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer2/Prix" unique_id=799341397]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0

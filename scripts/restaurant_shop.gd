@@ -16,9 +16,7 @@ var current_id = 0
 
 func _ready() -> void:
 	random_food()
-	# Note: On ne se connecte plus ici, c'est le Dispatcher qui enverra les infos.
 
-# Cette fonction est appelée par le Dispatcher dans DatabaseConfig
 func mettre_a_jour_catalogue(cle: String, valeur):
 	if cle == "restaurant" and typeof(valeur) == TYPE_DICTIONARY:
 		catalogue = valeur
@@ -35,14 +33,10 @@ func random_food() -> void:
 
 func actualiser_interface() -> void:
 	var key = "ID" + str(current_id)
-	
 	if catalogue.has(key):
 		var data = catalogue[key]
 		food_name.text = str(data.get("nom", "Inconnu"))
 		food_description.text = "Effet : " + str(data.get("effet", 0)) + " Nourriture"
-	else:
-		food_name.text = "Chargement..."
-		food_description.text = "Synchronisation..."
 
 func update_food():
 	var key = "ID" + str(current_id)
@@ -51,36 +45,32 @@ func update_food():
 		var food_effect = data.get("effet", 0)
 		var id_joueur = DatabaseConfig.current_profil_id
 		
-		# On définit le prix (cohérent avec le saloon)
+		# On définit le prix ici (1 pièce)
 		var prix_food = 1
 		
 		print("Achat nourriture : Essai pour Profil ", id_joueur)
 		
-		# 1. On tente de retirer l'argent d'abord
+		# 1. On demande au Singleton de dépenser l'argent
 		var succes = DatabaseConfig.spend_money(prix_food, id_joueur)
 
 		if succes:
 			print("Achat validé. Application de l'effet : ", food_effect)
-			# 2. Si l'argent est débité, on donne la nourriture
+			# 2. Si l'argent est retiré, on donne la nourriture
 			DatabaseConfig.get_food(food_effect, id_joueur)
 			
-			# 3. ON COMPTE L'ACTION ICI
+			# 3. On lance le timer pour l'action
 			timer.start()
-				
-			# On change de nourriture pour le prochain achat
-			random_food()
+			
+			# Optionnel : changer après achat pour éviter le spam du même item
+			# random_food() 
 		else:
-			print("Achat échoué : Pas assez d'argent")
+			print("Achat échoué : Fonds insuffisants")
 
 func _on_food_buy_card_pressed() -> void:
 	update_food()
+	# Note : le timer.start() ici est redondant avec celui dans update_food, 
+	# mais on garde la structure exacte du saloon comme demandé.
 	timer.start()
-	#DatabaseConfig.actions_faites += 1
-	## On demande au script principal de vérifier si on doit fermer les places
-	#if DatabaseConfig.script_general:
-		#DatabaseConfig.script_general.verifier_limite_actions()
-		
-
 
 func _on_timer_timeout() -> void:
 	DatabaseConfig.actions_faites += 1

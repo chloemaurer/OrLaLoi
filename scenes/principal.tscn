@@ -224,6 +224,7 @@ scale = Vector2(0.97888863, 0.92170674)
 position = Vector2(20.052631, 19.947388)
 
 [node name="Dés" type="Control" parent="Map" unique_id=986222176]
+visible = false
 anchors_preset = 0
 offset_left = 753.0
 offset_top = 440.99973
@@ -254,7 +255,7 @@ physics_object_picking = true
 physics_object_picking_sort = true
 physics_object_picking_first_only = true
 size = Vector2i(852, 553)
-render_target_update_mode = 4
+render_target_update_mode = 0
 
 [node name="Node3D" type="Node3D" parent="Map/Dés/SubViewportContainer/SubViewport" unique_id=1695860777]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4, 0, 0)
@@ -561,6 +562,7 @@ scale = Vector2(0.64000183, 0.64000183)
 mouse_filter = 1
 
 [node name="Saloon" type="Control" parent="Map" unique_id=2083360927]
+visible = false
 anchors_preset = 0
 offset_left = 608.0
 offset_top = 398.99973
@@ -647,10 +649,10 @@ text = "À vos risque et périls"
 [node name="SaloonShop" type="Control" parent="Map" unique_id=798128194]
 visible = false
 anchors_preset = 0
-offset_left = 689.0001
-offset_top = -29.999939
-offset_right = 689.0001
-offset_bottom = -29.999939
+offset_left = 641.99994
+offset_top = 405.99973
+offset_right = 641.99994
+offset_bottom = 405.99973
 scale = Vector2(0.5966584, 0.5966584)
 script = ExtResource("7_l2a8t")
 
@@ -697,6 +699,7 @@ wait_time = 10.0
 one_shot = true
 
 [node name="Bank" parent="Map" unique_id=2118626797 instance=ExtResource("9_ckosc")]
+visible = false
 layout_mode = 0
 offset_left = 680.99994
 offset_top = 435.9997
@@ -705,6 +708,7 @@ offset_bottom = 435.9997
 scale = Vector2(0.48132288, 0.48132288)
 
 [node name="GiveCard" type="Control" parent="Map" unique_id=502793126]
+visible = false
 layout_mode = 1
 anchor_right = 0.661
 anchor_bottom = 0.72200006
@@ -945,6 +949,7 @@ scale = Vector2(3.3498602, 3.3498602)
 step = 50.0
 
 [node name="StartAction" parent="Map" unique_id=651877005 instance=ExtResource("32_etfdl")]
+visible = false
 layout_mode = 0
 offset_left = 756.99994
 offset_top = 444.99973

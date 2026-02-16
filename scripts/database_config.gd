@@ -115,7 +115,7 @@ func _on_db_data_update(resource: FirebaseResource):
 		# On appelle quand même la vérification globale pour les dictionnaires complets
 		_verifier_scores_minijeux(data)
 		
-	print (resource, chemin, data)# --- LOGIQUE DE TRIAGE DES VARIABLES ----------------------------------
+# --- LOGIQUE DE TRIAGE DES VARIABLES ----------------------------------
 
 func _trier_donnees_locales(chemin: String, data):
 	var tag_actif = "ID" + current_profil_id
