@@ -33,6 +33,7 @@ var cible_duel_id : String = ""
 @onready var give_card: Control = $Map/GiveCard
 @onready var map: Control = $Map
 @onready var start_action: Control = $Map/StartAction
+@onready var mine: Control = $Map/Mine
 
 
 
@@ -46,6 +47,7 @@ func _ready() -> void:
 	DatabaseConfig.script_armory = $Map/Armory
 	DatabaseConfig.script_duel = $Map/Duel
 	DatabaseConfig.script_don = $Map/GiveCard
+	
 	give_card.hide()
 	
 	if DatabaseConfig.cache_cartes != null:
@@ -140,6 +142,10 @@ func _on_end_turn_pressed(index_actuel: int):
 	if prochain_profil <= index_actuel:
 		DatabaseConfig.manches += 1
 		_consommer_ressources_manche()
+		if DatabaseConfig.manches < 10 :
+			mine.show()
+			places.close_all()
+			
 		print("--- TOUS LES JOUEURS ONT JOUÉ ---")
 		print("DÉBUT DE LA MANCHE : ", DatabaseConfig.manches)
 		
