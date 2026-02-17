@@ -2478,7 +2478,6 @@ offset_top = -2.9999695
 offset_bottom = -2.9999695
 
 [node name="BeginScene" parent="." unique_id=1431948896 instance=ExtResource("36_rrv1i")]
-visible = false
 layout_mode = 1
 offset_right = -1280.2561
 offset_bottom = -720.14404

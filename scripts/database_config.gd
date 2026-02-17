@@ -108,12 +108,16 @@ func _on_db_data_update(resource: FirebaseResource):
 	if chemin.begins_with("mini_jeu"):
 		_extraire_score(chemin, data)
 		
-		# SI on a une cible de duel, on ne traite que le duel
-		if cible_duel_id != "":
+		# On regarde si la data contient le flag "duel"
+		var est_un_duel = false
+		if typeof(data) == TYPE_DICTIONARY and data.get("duel") == true:
+			est_un_duel = true
+
+		if cible_duel_id != "" or est_un_duel:
 			if verifier_pret_pour_duel():
 				terminer_le_duel()
 		else:
-			# Sinon, c'est le mode mini-jeu classique (récompenses $)
+			# On ne distribue l'argent QUE si ce n'est pas un duel
 			valider_et_distribuer()
 
 # --- HELPER SCORES ---
@@ -122,8 +126,12 @@ func _extraire_score(chemin: String, data):
 	var parties = chemin.split("/")
 	if parties.size() > 1:
 		var id_key = parties[1].replace("ID","")
-		if typeof(data) == TYPE_DICTIONARY and data.has("temps"):
-			scores_accumules[id_key] = float(data["temps"])
+		if typeof(data) == TYPE_DICTIONARY:
+			# On check temps (mini-jeu) ou temps_duel (duel)
+			if data.has("temps_duel"):
+				scores_accumules[id_key] = float(data["temps_duel"])
+			elif data.has("temps"):
+				scores_accumules[id_key] = float(data["temps"])
 		elif typeof(data) in [TYPE_INT, TYPE_FLOAT]:
 			scores_accumules[id_key] = float(data)
 			
@@ -349,8 +357,13 @@ func winner_miniJeux(resultats: Array):
 				get_money(2, id_joueur)
 			3: # 4ème
 				print("Joueur ", id_joueur, " est dernier. Pas de pièces.")
+				
+var peut_distribuer_recompenses : bool = false
 
 func valider_et_distribuer():
+	if not peut_distribuer_recompenses:
+		print("[INFO] Scores reçus, mais j'attends le clic sur le bouton pour payer.")
+		return
 	var resultats_temp = []
 	var survivants_ids = []
 
@@ -370,10 +383,17 @@ func valider_et_distribuer():
 
 	# 3. On distribue si tous les survivants ont fini
 	if resultats_temp.size() >= survivants_ids.size() and survivants_ids.size() > 0:
-		winner_miniJeux(resultats_temp)
-		print("Distribution terminée !")
+		print("[DISTRIBUTION] Tout le monde a fini. Calcul des prix...")
+		
+		# ON VIDE LES SCORES LOCAUX AVANT DE DISTRIBUER
+		# Cela empêche le dispatcher de boucler si Firebase répond trop vite
+		var copie_resultats = resultats_temp.duplicate()
+		scores_accumules = {"0": 0.0, "1": 0.0, "2": 0.0, "3": 0.0} 
+		
+		winner_miniJeux(copie_resultats)
+		
 	else:
-		print("Manque encore des joueurs : ", resultats_temp.size(), "/", survivants_ids.size())
+		print("Attente des joueurs : ", resultats_temp.size(), "/", survivants_ids.size())
 		
 						
 #---- Duel ----------------------------
@@ -474,14 +494,14 @@ func terminer_le_duel():
 	# APPLICATION DES DEGATS
 	lose_life(degats, perdant)
 	
-	var updates = {
-	"ID0/duel": false,
-	"ID1/duel": false,
-	"ID2/duel": false,
-	"ID3/duel": false
-	}
+	var updates = {}
+	for i in range(4):
+		updates["ID" + str(i) + "/duel"] = false
+		updates["ID" + str(i) + "/temps_duel"] = 0
+	
 	Firebase.Database.get_database_reference("mini_jeu").update("", updates)
-
+	scores_accumules = {"0": 0.0, "1": 0.0, "2": 0.0, "3": 0.0}
+	cible_duel_id = ""
 
 	## NETTOYAGE (Reset des flags duel pour libérer le dispatcher)
 	#_nettoyer_duel(id_a)

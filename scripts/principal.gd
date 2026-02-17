@@ -357,6 +357,7 @@ func _on_restaurant_give_card_pressed() -> void:
 func _on_fin_mini_jeu_pressed() -> void:
 	# On appelle la fonction de distribution manuelle
 	DatabaseConfig.valider_et_distribuer()
+	DatabaseConfig.peut_distribuer_recompenses = true
 	fin_mini_jeu.hide()
 
 
