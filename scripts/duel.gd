@@ -97,6 +97,6 @@ func _on_versus_pressed() -> void:
 	
 	# On active le duel uniquement pour ces deux IDs dans la DB
 	DatabaseConfig.duel_versus(mon_id, cible_choisie_id)
-	fin_duel.show()
+	#fin_duel.show()
 	self.hide()
 	

@@ -473,6 +473,15 @@ func terminer_le_duel():
 	
 	# APPLICATION DES DEGATS
 	lose_life(degats, perdant)
+	
+	var updates = {
+	"ID0/duel": false,
+	"ID1/duel": false,
+	"ID2/duel": false,
+	"ID3/duel": false
+	}
+	Firebase.Database.get_database_reference("mini_jeu").update("", updates)
+
 
 	## NETTOYAGE (Reset des flags duel pour libérer le dispatcher)
 	#_nettoyer_duel(id_a)
