@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://hhxtjw1cuhpp"]
+
+[ext_resource type="Script" uid="uid://cerafsbvs8675" path="res://scripts/begin_scene.gd" id="1_nqbx0"]
+[ext_resource type="Texture2D" uid="uid://dw1c1ox4dnyw7" path="res://assets/acueil.webp" id="2_u0j4m"]
+
+[node name="BeginScene" type="Control" unique_id=1431948896]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_nqbx0")
+
+[node name="Panel" type="Panel" parent="." unique_id=252108773]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=14684447]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_u0j4m")
+
+[node name="StartGame" type="Button" parent="." unique_id=1742458958]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 582.0
+offset_top = 921.0
+offset_right = 1339.0
+offset_bottom = 1026.0
+
+[connection signal="pressed" from="StartGame" to="." method="_on_start_game_pressed"]

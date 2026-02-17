@@ -18,14 +18,13 @@ func _passer_au_joueur_suivant():
 		DatabaseConfig.zone = "" # On libère la zone
 		var survivants = 0
 		for p in DatabaseConfig.script_general.profils_noeuds:
-			if p.get_life() > 0:
+			if p.get_life() > 2 && p.get_drink() > 1 && p.get_food() > 1:
 				survivants += 1
 		
 		# Si au moins un joueur est vivant à la fin de la mine
-		if survivants > 0:
+		if survivants == 4:
 			fin_jeu.afficher_resultat(true)
-		else:
-			fin_jeu.afficher_resultat(false)
+			
 		return
 
 	# 2. Récupérer le profil

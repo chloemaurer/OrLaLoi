@@ -9,7 +9,7 @@ var foods = [
 @onready var food_roller: TextureRect = $VBoxContainer/FoodRoller
 @onready var food_name: Label = $VBoxContainer/FoodName
 @onready var food_description: Label = $VBoxContainer/FoodDescription
-@onready var timer: Timer = $Timer
+@onready var restaurant: Control = $"../Restaurant"
 
 var catalogue = {}  
 var current_id = 0  
@@ -57,22 +57,20 @@ func update_food():
 			print("Achat validé. Application de l'effet : ", food_effect)
 			# 2. Si l'argent est retiré, on donne la nourriture
 			DatabaseConfig.get_food(food_effect, id_joueur)
-			
-			# 3. On lance le timer pour l'action
-			timer.start()
-			
-			# Optionnel : changer après achat pour éviter le spam du même item
-			# random_food() 
+
 		else:
 			print("Achat échoué : Fonds insuffisants")
 
 func _on_food_buy_card_pressed() -> void:
 	update_food()
-	# Note : le timer.start() ici est redondant avec celui dans update_food, 
-	# mais on garde la structure exacte du saloon comme demandé.
-	timer.start()
 
-func _on_timer_timeout() -> void:
+
+
+func _on_get_food_receive_pressed() -> void:
 	DatabaseConfig.actions_faites += 1
+	self.hide()
+	random_food()
 	if DatabaseConfig.script_general:
 		DatabaseConfig.script_general.verifier_limite_actions()
+	if DatabaseConfig.actions_faites < 2:
+		restaurant.show()

@@ -6,10 +6,10 @@ var drinks = [
 	preload("uid://yntx2g58parc"), preload("uid://djpm3liihmd0r")
 ]
 
+@onready var saloon: Control = $"../Saloon"
 @onready var drink_roller = $VBoxContainer/DrinkRoller
 @onready var drink_name = $VBoxContainer/DrinkName
 @onready var drink_description = $VBoxContainer/DrinkDescription
-@onready var timer: Timer = $Timer
 
 
 var catalogue = {}  
@@ -59,22 +59,19 @@ func update_drink():
 			# 2. Si l'argent est retiré, on donne la boisson
 			DatabaseConfig.get_drink(drink_effect, id_joueur)
 			
-			# 3. On incrémente les actions comme dans la banque
-			timer.start()
 		else:
 			print("Achat échoué : Fonds insuffisants")
 
 func _on_drink_buy_card_pressed() -> void:
 	update_drink()
-	timer.start()
-	#DatabaseConfig.actions_faites += 1
-	## On demande au script principal de vérifier si on doit fermer les places
-	#if DatabaseConfig.script_general:
-		#DatabaseConfig.script_general.verifier_limite_actions()
+
 		
 
-
-func _on_timer_timeout() -> void:
+func _on_get_drink_receive_pressed() -> void:
 	DatabaseConfig.actions_faites += 1
+	self.hide()
+	random_drink()
 	if DatabaseConfig.script_general:
 		DatabaseConfig.script_general.verifier_limite_actions()
+	if DatabaseConfig.actions_faites < 2:
+		saloon.show()
