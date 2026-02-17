@@ -311,6 +311,7 @@ theme_override_font_sizes/font_size = 50
 text = "10"
 
 [node name="Restaurant" type="Control" parent="Map" unique_id=718299353]
+visible = false
 anchors_preset = 0
 offset_left = 604.9999
 offset_top = 393.9997
@@ -394,6 +395,7 @@ theme_override_font_sizes/font_size = 20
 text = "À vos risque et périls"
 
 [node name="RestaurantShop" type="Control" parent="Map" unique_id=253302142]
+visible = false
 anchors_preset = 0
 offset_left = 598.99994
 offset_top = 390.99976
@@ -445,6 +447,7 @@ wait_time = 10.0
 one_shot = true
 
 [node name="Armory" type="Control" parent="Map" unique_id=1680406120]
+visible = false
 anchors_preset = 0
 offset_left = 725.99994
 offset_top = 483.99976
@@ -544,6 +547,7 @@ theme_override_font_sizes/font_size = 38
 text = "Utiliser une carte armurerie"
 
 [node name="Mine" parent="Map" unique_id=970763158 instance=ExtResource("33_vdtr1")]
+visible = false
 layout_mode = 0
 offset_left = 793.0
 offset_top = 467.9997
@@ -850,6 +854,7 @@ offset_right = 412.53812
 offset_bottom = 412.5404
 
 [node name="Panel2" type="Panel" parent="Map/Settings" unique_id=1971159088]
+visible = false
 layout_mode = 0
 offset_left = 326.80283
 offset_right = 974.35657
@@ -956,6 +961,15 @@ offset_top = 444.99973
 offset_right = 756.99994
 offset_bottom = 444.99973
 scale = Vector2(0.68, 0.68)
+
+[node name="FinDuel" type="Button" parent="Map" unique_id=1624768277]
+visible = false
+layout_mode = 0
+offset_left = 753.0
+offset_top = 569.99976
+offset_right = 1077.0
+offset_bottom = 702.99976
+text = "Fin Duel"
 
 [node name="FinMiniJeu" type="Button" parent="Map" unique_id=414758974]
 visible = false
@@ -2471,6 +2485,7 @@ offset_bottom = -2.9999695
 [connection signal="pressed" from="Map/GiveCard/VBoxContainer/GiveCard" to="Map/GiveCard" method="_on_give_card_pressed"]
 [connection signal="pressed" from="Map/Settings/Panel/Button" to="Map/Settings" method="_on_button_pressed"]
 [connection signal="pressed" from="Map/Settings/Panel2/VBoxContainer/Reset" to="Map/Settings" method="_on_reset_pressed"]
+[connection signal="pressed" from="Map/FinDuel" to="." method="_on_fin_duel_pressed"]
 [connection signal="pressed" from="Map/FinMiniJeu" to="." method="_on_fin_mini_jeu_pressed"]
 [connection signal="pressed" from="Profils/Profil/Items/Items/KeypadIcon/KeypadOpen" to="Profils/Profil" method="_on_keypad_open_pressed"]
 [connection signal="pressed" from="Profils/Profil2/Items/Items/KeypadIcon/KeypadOpen" to="Profils/Profil2" method="_on_keypad_open_pressed"]

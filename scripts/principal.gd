@@ -342,6 +342,7 @@ func _on_restaurant_give_card_pressed() -> void:
 	
 #--------------------------------------------------------------------------------
 @onready var fin_mini_jeu: Button = $Map/FinMiniJeu
+@onready var fin_duel: Button = $Map/FinDuel
 
 func _on_fin_mini_jeu_pressed() -> void:
 	# On appelle la fonction de distribution manuelle
@@ -349,5 +350,7 @@ func _on_fin_mini_jeu_pressed() -> void:
 	fin_mini_jeu.hide()
 
 
-func _on_plus_pressed() -> void:
-	pass # Replace with function body.
+
+func _on_fin_duel_pressed() -> void:
+	DatabaseConfig.terminer_le_duel()
+	fin_duel.hide()

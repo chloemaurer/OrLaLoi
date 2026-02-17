@@ -81,6 +81,7 @@ func _on_db_data_update(resource: FirebaseResource):
 			script_restaurant.mettre_a_jour_catalogue(sub_key, data)
 		else:
 			print("Erreur : script_restaurant n'est pas un nœud valide !")
+			
 #----- 4. CARTES -----------
 	if chemin.begins_with("cartes"):
 		cache_cartes = data # On garde une copie pour le Main
@@ -101,20 +102,31 @@ func _on_db_data_update(resource: FirebaseResource):
 		else:
 			print("[DB] En attente du script_general pour envoyer les cartes.")
 			
-	#---- 2. Mini jeux-------------------------------
+
+	#---- 2. Mini jeux & Duel -------------------------------
+	# 2. MINI JEUX & DUEL
 	if chemin.begins_with("mini_jeu"):
-		# Si le chemin est "mini_jeu/ID0", on extrait "ID0"
-		var parties = chemin.split("/")
-		if parties.size() > 1:
-			var player_id_key = parties[1] # "ID0", "ID1", etc.
-			if player_id_key.begins_with("ID"):
-				if typeof(data) == TYPE_DICTIONARY and data.has("temps"):
-					scores_accumules[player_id_key.replace("ID","")] = float(data["temps"])
-					print("[DB] Score direct pour ", player_id_key, " : ", data["temps"])
+		_extraire_score(chemin, data)
 		
-		# On appelle quand même la vérification globale pour les dictionnaires complets
-		_verifier_scores_minijeux(data)
-		
+		# SI on a une cible de duel, on ne traite que le duel
+		if cible_duel_id != "":
+			if verifier_pret_pour_duel():
+				terminer_le_duel()
+		else:
+			# Sinon, c'est le mode mini-jeu classique (récompenses $)
+			valider_et_distribuer()
+
+# --- HELPER SCORES ---
+
+func _extraire_score(chemin: String, data):
+	var parties = chemin.split("/")
+	if parties.size() > 1:
+		var id_key = parties[1].replace("ID","")
+		if typeof(data) == TYPE_DICTIONARY and data.has("temps"):
+			scores_accumules[id_key] = float(data["temps"])
+		elif typeof(data) in [TYPE_INT, TYPE_FLOAT]:
+			scores_accumules[id_key] = float(data)
+			
 # --- LOGIQUE DE TRIAGE DES VARIABLES ----------------------------------
 
 func _trier_donnees_locales(chemin: String, data):
@@ -192,8 +204,6 @@ func get_money(montant: int, profil_id: String):
 		# 4. On envoie à Firebase (pour que les autres joueurs reçoivent l'info)
 		Firebase.Database.get_database_reference("profils/ID" + profil_id).update("", {"Argent": nouveau_total})
 		print("[SUCCÈS] ID", profil_id, " gagne ", montant, ". Nouveau total affiché: ", nouveau_total)
-		
-		
 		
 func get_life(montant: int, profil_id: String):
 	var nouveau_total = clampi(life_local + montant, 0, 5)
@@ -371,7 +381,18 @@ func duel_versus(id_attaquant: String, id_cible: String):
 	# On définit les chemins pour les deux joueurs dans le dossier MiniJeux
 	var chemin_attaquant = "mini_jeu/ID" + id_attaquant
 	var chemin_cible = "mini_jeu/ID" + id_cible
-	
+	var updates = {
+	"ID0/temps": 0,
+	"ID1/temps": 0,
+	"ID2/temps": 0,
+	"ID3/temps": 0
+	}
+	if current_profil_id == id_attaquant:
+		cible_duel_id = id_cible
+	elif current_profil_id == id_cible:
+		cible_duel_id = id_attaquant
+		
+	Firebase.Database.get_database_reference("mini_jeu").update("", updates)
 	Firebase.Database.get_database_reference(chemin_attaquant).update("", {"duel": true})
 	Firebase.Database.get_database_reference(chemin_cible).update("", {"duel": true})
 	
@@ -407,3 +428,57 @@ func _reset_all_cards():
 	for i in range(100): big_update["ID" + str(i) + "/disponible"] = true
 	Firebase.Database.get_database_reference("cartes").update("", big_update)
 	
+
+# --- LOGIQUE DUEL ---
+
+func verifier_pret_pour_duel() -> bool:
+	if cible_duel_id == "": return false
+	
+	# Sécurité : on s'assure que les clés existent
+	if not scores_accumules.has(current_profil_id) or not scores_accumules.has(cible_duel_id):
+		return false
+		
+	var t_attaquant = float(scores_accumules[current_profil_id])
+	var t_cible = float(scores_accumules[cible_duel_id])
+	
+	# Debug pour voir les valeurs en temps réel
+	print("[CHECK] Moi(ID", current_profil_id, "): ", t_attaquant, " | Lui(ID", cible_duel_id, "): ", t_cible)
+	
+	return t_attaquant > 0.001 and t_cible > 0.001
+	
+
+func terminer_le_duel():
+	var id_a = current_profil_id
+	var id_b = cible_duel_id
+	
+	# Utilisation de .get() pour éviter les erreurs si la clé manque
+	var t_a = float(scores_accumules.get(id_a, 0))
+	var t_b = float(scores_accumules.get(id_b, 0))
+
+	if t_a <= 0 or t_b <= 0:
+		print("[ERREUR] Duel incomplet : t_a=", t_a, " t_b=", t_b)
+		return
+
+	# La logique de victoire
+	var gagnant = id_a if t_a < t_b else id_b
+	var perdant = id_b if t_a < t_b else id_a
+	
+	var degats = 1
+	var idx_gagnant = int(gagnant)
+	if script_general and script_general.profils_noeuds.size() > idx_gagnant:
+		# On récupère le niveau de l'arme (1, 2 ou 3)
+		degats = script_general.profils_noeuds[idx_gagnant].get_gun()
+
+	print("[VICTOIRE] ID", gagnant, " gagne le duel contre ID", perdant)
+	
+	# APPLICATION DES DEGATS
+	lose_life(degats, perdant)
+
+	## NETTOYAGE (Reset des flags duel pour libérer le dispatcher)
+	#_nettoyer_duel(id_a)
+	#_nettoyer_duel(id_b)
+	#cible_duel_id = ""
+
+func _nettoyer_duel(id_joueur: String):
+	scores_accumules[id_joueur] = 0.0
+	Firebase.Database.get_database_reference("mini_jeu/ID" + id_joueur).update("", {"duel": false, "temps": 0})

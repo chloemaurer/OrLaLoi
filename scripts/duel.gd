@@ -87,7 +87,7 @@ func _on_adversaire_clique(event: InputEvent, index: int) -> void:
 		else:
 			print("[Duel] ERREUR : Le Slot ", index, " n'a pas de Meta joueur_id au moment du clic !")
 
-
+@onready var fin_duel: Button = $"../FinDuel"
 func _on_versus_pressed() -> void:
 	if cible_choisie_id == "":
 		print("Erreur : Aucune cible sélectionnée !")
@@ -97,6 +97,6 @@ func _on_versus_pressed() -> void:
 	
 	# On active le duel uniquement pour ces deux IDs dans la DB
 	DatabaseConfig.duel_versus(mon_id, cible_choisie_id)
-	
+	fin_duel.show()
 	self.hide()
 	
