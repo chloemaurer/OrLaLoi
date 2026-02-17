@@ -153,6 +153,7 @@ func _on_end_turn_pressed(index_actuel: int):
 	# 5. Reset de l'interface pour le nouveau tour
 	places.show()
 	places.close_all()
+	places.close_place()
 	
 	# On change les menus des boutiques pour le nouveau joueur
 	if restaurant_shop: restaurant_shop.random_food()
