@@ -40,4 +40,14 @@ offset_right = 424.0
 offset_bottom = 306.0
 text = "Rentrer dans la mine"
 
+[node name="Passturn" type="Button" parent="." unique_id=69858661]
+visible = false
+layout_mode = 0
+offset_left = 85.0
+offset_top = 318.0
+offset_right = 432.0
+offset_bottom = 378.0
+text = "Passer mon tour"
+
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Passturn" to="." method="_on_passturn_pressed"]

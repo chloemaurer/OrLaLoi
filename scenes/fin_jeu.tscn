@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bxmsp1r2b3b05"]
 
-[ext_resource type="Script" uid="uid://batuf2brsbccs" path="res://fin_jeu.gd" id="1_swnjf"]
+[ext_resource type="Script" uid="uid://batuf2brsbccs" path="res://scripts/fin_jeu.gd" id="1_swnjf"]
 [ext_resource type="Texture2D" uid="uid://cipx6kvt7xgce" path="res://assets/icone/reset.webp" id="2_abtai"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_aehw3"]

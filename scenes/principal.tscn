@@ -26,6 +26,7 @@
 [ext_resource type="Script" uid="uid://dic10dttg35st" path="res://scripts/giveCard.gd" id="21_srya7"]
 [ext_resource type="Shader" uid="uid://6bmmgs1kn515" path="res://ennemyselect.gdshader" id="22_dynj2"]
 [ext_resource type="PackedScene" uid="uid://b3xr1tqch4x8m" path="res://scenes/manches.tscn" id="25_2jxo5"]
+[ext_resource type="VideoStream" uid="uid://d8e8bwbm3nh6" path="res://animation/Manche.ogv" id="25_nexnj"]
 [ext_resource type="Script" uid="uid://bkh7kd8symyl6" path="res://scripts/settings.gd" id="27_pmure"]
 [ext_resource type="Texture2D" uid="uid://vg54pksbl74s" path="res://assets/icone/parametre.webp" id="28_etfdl"]
 [ext_resource type="Texture2D" uid="uid://cipx6kvt7xgce" path="res://assets/icone/reset.webp" id="29_vdtr1"]
@@ -33,7 +34,7 @@
 [ext_resource type="Texture2D" uid="uid://b2sbq33egsir7" path="res://assets/icone/video.webp" id="31_nexnj"]
 [ext_resource type="PackedScene" uid="uid://c6oiyw3qtp8i" path="res://scenes/start_action.tscn" id="32_etfdl"]
 [ext_resource type="PackedScene" uid="uid://cvjvuytfbacf8" path="res://scenes/mine.tscn" id="33_vdtr1"]
-[ext_resource type="PackedScene" uid="uid://bxmsp1r2b3b05" path="res://fin_jeu.tscn" id="34_yd7e0"]
+[ext_resource type="PackedScene" uid="uid://bxmsp1r2b3b05" path="res://scenes/fin_jeu.tscn" id="34_yd7e0"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_g3ehx"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -980,6 +981,13 @@ offset_right = 1133.0
 offset_bottom = 684.99976
 text = "Fin mini jeu"
 
+[node name="MancheTransition" type="VideoStreamPlayer" parent="Map" unique_id=1730284145]
+visible = false
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+stream = ExtResource("25_nexnj")
+
 [node name="Manches" parent="." unique_id=1608420756 instance=ExtResource("25_2jxo5")]
 layout_mode = 0
 offset_left = 507.0
@@ -1366,11 +1374,11 @@ scale = Vector2(0.39007133, 0.39007133)
 
 [node name="EndTurn1" type="Button" parent="Profils/Profil" unique_id=1152333479]
 layout_mode = 0
-offset_left = 202.902
-offset_top = 76.71916
-offset_right = 337.90204
-offset_bottom = 107.71916
-text = "Terminer le tour"
+offset_left = 182.09442
+offset_top = 76.42584
+offset_right = 354.09442
+offset_bottom = 107.42584
+text = "Terminer ma journée"
 
 [node name="Profil2" type="Control" parent="Profils" unique_id=912308252]
 anchors_preset = 0
@@ -1727,11 +1735,11 @@ scale = Vector2(0.39007133, 0.39007133)
 
 [node name="EndTurn2" type="Button" parent="Profils/Profil2" unique_id=274533568]
 layout_mode = 0
-offset_left = 208.95862
-offset_top = 76.71912
-offset_right = 343.95862
-offset_bottom = 107.71912
-text = "Terminer le tour"
+offset_left = 188.15106
+offset_top = 76.4258
+offset_right = 360.15106
+offset_bottom = 107.4258
+text = "Terminer ma journée"
 
 [node name="Profil3" type="Control" parent="Profils" unique_id=1643295922]
 anchors_preset = 0
@@ -2087,11 +2095,11 @@ scale = Vector2(0.39007133, 0.39007133)
 
 [node name="EndTurn3" type="Button" parent="Profils/Profil3" unique_id=909946187]
 layout_mode = 0
-offset_left = 200.34409
-offset_top = 80.041245
-offset_right = 335.3441
-offset_bottom = 111.041245
-text = "Terminer le tour"
+offset_left = 185.82047
+offset_top = 80.33455
+offset_right = 357.82047
+offset_bottom = 111.33455
+text = "Terminer ma journée"
 
 [node name="Profil4" type="Control" parent="Profils" unique_id=808373957]
 anchors_preset = 0
@@ -2447,11 +2455,11 @@ scale = Vector2(0.39007133, 0.39007133)
 
 [node name="EndTurn4" type="Button" parent="Profils/Profil4" unique_id=1678085941]
 layout_mode = 0
-offset_left = 203.3725
-offset_top = 78.02231
-offset_right = 338.3725
-offset_bottom = 109.02231
-text = "Terminer le tour"
+offset_left = 188.84888
+offset_top = 78.31561
+offset_right = 360.84888
+offset_bottom = 109.31561
+text = "Terminer ma journée"
 
 [node name="FinJeu" parent="." unique_id=91722483 instance=ExtResource("34_yd7e0")]
 visible = false
@@ -2487,6 +2495,7 @@ offset_bottom = -2.9999695
 [connection signal="pressed" from="Map/Settings/Panel2/VBoxContainer/Reset" to="Map/Settings" method="_on_reset_pressed"]
 [connection signal="pressed" from="Map/FinDuel" to="." method="_on_fin_duel_pressed"]
 [connection signal="pressed" from="Map/FinMiniJeu" to="." method="_on_fin_mini_jeu_pressed"]
+[connection signal="finished" from="Map/MancheTransition" to="." method="_on_manche_transition_finished"]
 [connection signal="pressed" from="Profils/Profil/Items/Items/KeypadIcon/KeypadOpen" to="Profils/Profil" method="_on_keypad_open_pressed"]
 [connection signal="pressed" from="Profils/Profil2/Items/Items/KeypadIcon/KeypadOpen" to="Profils/Profil2" method="_on_keypad_open_pressed"]
 [connection signal="pressed" from="Profils/Profil3/Items/Items/KeypadIcon/KeypadOpen" to="Profils/Profil3" method="_on_keypad_open_pressed"]

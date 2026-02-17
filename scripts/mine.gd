@@ -3,6 +3,7 @@ extends Control
 var joueur_actuel := 0
 @onready var dés: Control = $"../Dés"
 @onready var fin_jeu: Control = $"../../FinJeu"
+@onready var passturn: Button = $Passturn
 
 
 func lancer_evenement_mine():
@@ -79,3 +80,10 @@ func _on_joueur_a_fini():
 func _on_button_pressed() -> void:
 	dés.hide()
 	lancer_evenement_mine()
+	passturn.show()
+	
+	
+
+
+func _on_passturn_pressed() -> void:
+	fin_jeu.afficher_resultat(false)

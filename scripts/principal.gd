@@ -34,6 +34,7 @@ var cible_duel_id : String = ""
 @onready var map: Control = $Map
 @onready var start_action: Control = $Map/StartAction
 @onready var mine: Control = $Map/Mine
+@onready var manche_transition: VideoStreamPlayer = $Map/MancheTransition
 
 
 
@@ -141,10 +142,12 @@ func _on_end_turn_pressed(index_actuel: int):
 
 	if prochain_profil <= index_actuel:
 		DatabaseConfig.manches += 1
+		manche_transition.show()
+		manche_transition.play()
 		_consommer_ressources_manche()
-		if DatabaseConfig.manches < 10 :
+		if DatabaseConfig.manches > 9 :
+			start_action.hide()
 			mine.show()
-			places.close_all()
 			
 		print("--- TOUS LES JOUEURS ONT JOUÉ ---")
 		print("DÉBUT DE LA MANCHE : ", DatabaseConfig.manches)
@@ -152,7 +155,7 @@ func _on_end_turn_pressed(index_actuel: int):
 		# Mise à jour visuelle des wagons de manche
 		if has_node("Manches"): $Manches.fill_wagon()
 		if has_node("Manches2"): $Manches2.fill_wagon()
-
+		
 	# 4. On active le nouveau joueur
 	selectionner_profil(prochain_profil)
 	
@@ -361,3 +364,7 @@ func _on_fin_mini_jeu_pressed() -> void:
 func _on_fin_duel_pressed() -> void:
 	DatabaseConfig.terminer_le_duel()
 	fin_duel.hide()
+
+
+func _on_manche_transition_finished() -> void:
+	manche_transition.hide()
