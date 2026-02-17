@@ -309,13 +309,9 @@ func _verifier_scores_minijeux(data):
 	
 	# Log pour déboguer le format exact
 	print("[DEBUG MINI-JEU] Data reçue : ", data)
-	
-	# Cas 1 : Firebase envoie un changement sur UN seul joueur (ex: mini_jeu/ID0)
-	# Dans ce cas, 'data' est le contenu de l'ID (ex: {"temps": 2.1})
+
 	if data.has("temps"):
-		# On a besoin de savoir quel ID a envoyé ça. 
-		# Si ton dispatcher envoie le chemin "mini_jeu/ID0", il faut extraire l'ID.
-		# Mais plus simplement, on peut scanner si la clé est dans un sous-dossier
+
 		pass 
 
 	# Cas 2 (Le plus probable selon tes logs) :
@@ -471,42 +467,54 @@ func terminer_le_duel():
 	var id_a = current_profil_id
 	var id_b = cible_duel_id
 	
-	# Utilisation de .get() pour éviter les erreurs si la clé manque
 	var t_a = float(scores_accumules.get(id_a, 0))
 	var t_b = float(scores_accumules.get(id_b, 0))
 
 	if t_a <= 0 or t_b <= 0:
-		print("[ERREUR] Duel incomplet : t_a=", t_a, " t_b=", t_b)
+		print("[ERREUR] Duel incomplet")
 		return
 
-	# La logique de victoire
-	var gagnant = id_a if t_a < t_b else id_b
-	var perdant = id_b if t_a < t_b else id_a
+	# 1. On récupère les munitions actuelles des deux duellistes
+	var m_a = script_general.profils_noeuds[int(id_a)].get_munition()
+	var m_b = script_general.profils_noeuds[int(id_b)].get_munition()
 	
-	var degats = 1
-	var idx_gagnant = int(gagnant)
-	if script_general and script_general.profils_noeuds.size() > idx_gagnant:
-		# On récupère le niveau de l'arme (1, 2 ou 3)
-		degats = script_general.profils_noeuds[idx_gagnant].get_gun()
+	# 2. Déterminer le gagnant "théorique" (le plus rapide)
+	var rapide = id_a if t_a < t_b else id_b
+	var lent = id_b if t_a < t_b else id_a
+	
+	var gagnant_final = ""
+	var perdant_final = ""
+	
+	# 3. LOGIQUE DES MUNITIONS
+	# Si le plus rapide a des munitions, il gagne normalement
+	if (rapide == id_a and m_a > 0) or (rapide == id_b and m_b > 0):
+		gagnant_final = rapide
+		perdant_final = lent
+		print("[DUEL] Le plus rapide (ID", rapide, ") a tiré !")
+	# Si le plus rapide n'a PAS de munitions mais que le plus lent en a
+	elif (rapide == id_a and m_a <= 0 and m_b > 0) or (rapide == id_b and m_b <= 0 and m_a > 0):
+		gagnant_final = lent
+		perdant_final = rapide
+		print("[DUEL] ID", rapide, " était plus rapide mais n'avait pas de balles ! ID", lent, " riposte !")
+	else:
+		print("[DUEL] Personne n'a de munitions... Match nul !")
+		return
 
-	print("[VICTOIRE] ID", gagnant, " gagne le duel contre ID", perdant)
+	# 4. Consommation d'une munition pour le gagnant
+	get_munition(-1, gagnant_final)
+	get_munition(-1, perdant_final)
+
+	# 5. Calcul des dégâts selon l'arme du gagnant
+	var degats = script_general.profils_noeuds[int(gagnant_final)].get_gun()
+
+	print("[VICTOIRE FINALE] ID", gagnant_final, " inflige ", degats, " dégâts à ID", perdant_final)
 	
-	# APPLICATION DES DEGATS
-	lose_life(degats, perdant)
+	# 6. Application des dégâts
+	lose_life(degats, perdant_final)
 	
-	var updates = {}
-	for i in range(4):
-		updates["ID" + str(i) + "/duel"] = false
-		updates["ID" + str(i) + "/temps_duel"] = 0
-	
-	Firebase.Database.get_database_reference("mini_jeu").update("", updates)
 	scores_accumules = {"0": 0.0, "1": 0.0, "2": 0.0, "3": 0.0}
 	cible_duel_id = ""
 
-	## NETTOYAGE (Reset des flags duel pour libérer le dispatcher)
-	#_nettoyer_duel(id_a)
-	#_nettoyer_duel(id_b)
-	#cible_duel_id = ""
 
 func _nettoyer_duel(id_joueur: String):
 	scores_accumules[id_joueur] = 0.0
