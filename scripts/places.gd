@@ -74,12 +74,23 @@ func _on_armory_pressed() -> void:
 	dés.hide()
 	
 func _on_duel_pressed() -> void:
-	close_all()
-	close_place()
-	duel_button.show()
-	duel.show()
-	dés.hide()
+	check_munition()
+
+func check_munition():
+	var munitions = DatabaseConfig.munition_local
+	if munitions > 0:
+		print("[OK] Munitions détectées : ", munitions)
+		close_all()
+		close_place()
+		duel_button.show()
+		duel.show()
+		dés.hide()
+	else:
+		print("[REFUS] Pas de munitions ! Le joueur ne peut pas lancer de duel.")
+		duel.hide() 
+		
 	
+		
 func _on_mine_pressed() -> void:
 	close_all()
 	close_place()

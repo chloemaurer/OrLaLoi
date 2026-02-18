@@ -189,7 +189,8 @@ func spend_money(montant: int, profil_id: String) -> bool:
 	return false
 
 func get_munition(montant_a_ajouter: int, profil_id: String):
-	munition_local += montant_a_ajouter
+	var nouveau_montant = max(0, munition_local + montant_a_ajouter)
+	munition_local = nouveau_montant
 	Firebase.Database.get_database_reference("profils/ID" + profil_id).update("", {"Munition": munition_local})
 
 func get_money(montant: int, profil_id: String):
