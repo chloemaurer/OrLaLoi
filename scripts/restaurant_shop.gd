@@ -59,6 +59,7 @@ func update_food():
 			DatabaseConfig.get_food(food_effect, id_joueur)
 
 		else:
+			DatabaseConfig.notifier_erreur("Achat échoué : Pas assez d'argent")
 			print("Achat échoué : Fonds insuffisants")
 
 func _on_food_buy_card_pressed() -> void:

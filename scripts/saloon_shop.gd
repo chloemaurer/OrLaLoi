@@ -60,6 +60,7 @@ func update_drink():
 			DatabaseConfig.get_drink(drink_effect, id_joueur)
 			
 		else:
+			DatabaseConfig.notifier_erreur("Achat échoué : Pas assez d'argent")
 			print("Achat échoué : Fonds insuffisants")
 
 func _on_drink_buy_card_pressed() -> void:

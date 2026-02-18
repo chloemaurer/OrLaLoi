@@ -1,0 +1,133 @@
+[gd_scene format=3 uid="uid://bxqn50l366o2q"]
+
+[ext_resource type="Script" uid="uid://1yptq7msbhxp" path="res://result.gd" id="1_1xs4h"]
+[ext_resource type="Texture2D" uid="uid://b0hrtmg55c17b" path="res://assets/profil/joueur.png" id="2_55jci"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mk788"]
+bg_color = Color(0.1764706, 0.09411765, 0.050980393, 1)
+
+[node name="Result" type="Control" unique_id=1012725942]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_1xs4h")
+
+[node name="Panel" type="Panel" parent="." unique_id=971310284]
+layout_mode = 0
+offset_right = 1135.0
+offset_bottom = 1017.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_mk788")
+
+[node name="Label" type="Label" parent="." unique_id=660370046]
+layout_mode = 0
+offset_left = 407.0
+offset_top = 26.0
+offset_right = 743.0
+offset_bottom = 129.0
+theme_override_font_sizes/font_size = 75
+text = "Résultats"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=899204135]
+layout_mode = 0
+offset_top = 145.0
+offset_right = 1132.0
+offset_bottom = 895.0
+theme_override_constants/separation = 20
+
+[node name="1er" type="HBoxContainer" parent="VBoxContainer" unique_id=1314634993]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 95
+
+[node name="Rank" type="TextureRect" parent="VBoxContainer/1er" unique_id=796609406]
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="VBoxContainer/1er" unique_id=451943839]
+layout_mode = 2
+texture = ExtResource("2_55jci")
+expand_mode = 3
+stretch_mode = 6
+
+[node name="Time" type="Label" parent="VBoxContainer/1er" unique_id=1698171616]
+layout_mode = 2
+theme_override_font_sizes/font_size = 60
+text = "12.66s"
+
+[node name="Gain" type="Label" parent="VBoxContainer/1er" unique_id=1908086794]
+layout_mode = 2
+theme_override_font_sizes/font_size = 60
+text = "+5"
+
+[node name="2eme" type="HBoxContainer" parent="VBoxContainer" unique_id=486098587]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 95
+
+[node name="Rank" type="TextureRect" parent="VBoxContainer/2eme" unique_id=989484964]
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="VBoxContainer/2eme" unique_id=1139795419]
+layout_mode = 2
+texture = ExtResource("2_55jci")
+expand_mode = 3
+stretch_mode = 6
+
+[node name="Time" type="Label" parent="VBoxContainer/2eme" unique_id=70537055]
+layout_mode = 2
+theme_override_font_sizes/font_size = 60
+text = "12.66s"
+
+[node name="Gain" type="Label" parent="VBoxContainer/2eme" unique_id=327032391]
+layout_mode = 2
+theme_override_font_sizes/font_size = 60
+text = "+3"
+
+[node name="3eme" type="HBoxContainer" parent="VBoxContainer" unique_id=10127562]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 95
+
+[node name="Rank" type="TextureRect" parent="VBoxContainer/3eme" unique_id=435842685]
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="VBoxContainer/3eme" unique_id=1454376114]
+layout_mode = 2
+texture = ExtResource("2_55jci")
+expand_mode = 3
+stretch_mode = 6
+
+[node name="Time" type="Label" parent="VBoxContainer/3eme" unique_id=63308159]
+layout_mode = 2
+theme_override_font_sizes/font_size = 60
+text = "12.66s"
+
+[node name="Gain" type="Label" parent="VBoxContainer/3eme" unique_id=1811257558]
+layout_mode = 2
+theme_override_font_sizes/font_size = 60
+text = "+2"
+
+[node name="4eme" type="HBoxContainer" parent="VBoxContainer" unique_id=2018726911]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 95
+
+[node name="Rank" type="TextureRect" parent="VBoxContainer/4eme" unique_id=497789310]
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="VBoxContainer/4eme" unique_id=117735027]
+layout_mode = 2
+texture = ExtResource("2_55jci")
+expand_mode = 3
+stretch_mode = 6
+
+[node name="Time" type="Label" parent="VBoxContainer/4eme" unique_id=392968805]
+layout_mode = 2
+theme_override_font_sizes/font_size = 60
+text = "12.66s"
+
+[node name="Gain" type="Label" parent="VBoxContainer/4eme" unique_id=1285784419]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Donne 2 
+cartes 
+au 1er"
+horizontal_alignment = 1

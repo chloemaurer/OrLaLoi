@@ -20,6 +20,12 @@ extends Control
 	$Profils/Profil3/Keypad,
 	$Profils/Profil4/Keypad
 ]
+@onready var labels_start = [
+	$Profils/Profil/StartProfil1,
+	$Profils/Profil2/StartProfil2,
+	$Profils/Profil3/StartProfil3,
+	$Profils/Profil4/StartProfil4
+]
 
 var joueurs_prets = [false, false, false, false]
 var jeu_demarre = false
@@ -59,7 +65,7 @@ func _ready() -> void:
 	for i in range(profils_noeuds.size()):
 		profils_noeuds[i].gui_input.connect(_on_profil_clique.bind(i))
 		boutons_fin_tour[i].pressed.connect(_on_end_turn_pressed.bind(i))
-
+		boutons_fin_tour[i].hide()
 	# 5. Initialisation Firebase
 	if DatabaseConfig.is_ready:
 		_initialisation_depart()
@@ -71,9 +77,12 @@ func _initialisation_depart():
 	print("En attente des joueurs... Cliquez sur vos profils pour commencer.")
 	places.hide()
 	start_action.hide()
-	for p in profils_noeuds:
-		p.modulate = Color(0.2, 0.2, 0.2, 1)
-
+	for i in range(profils_noeuds.size()):
+		# CORRECTION : On met 0.5 au lieu de 0.2 pour qu'ils soient visibles !
+		profils_noeuds[i].modulate = Color(0.5, 0.5, 0.5, 1) 
+		if is_instance_valid(labels_start[i]):
+			labels_start[i].show()
+		
 func distribuer_donnees(chemin: String, data):
 	if chemin == "profils" and typeof(data) == TYPE_DICTIONARY:
 		for profil_id in data.keys(): # profil_id sera "ID0", "ID1", etc.
@@ -106,20 +115,21 @@ func selectionner_profil(index_choisi: int):
 	print("Passage au profil : ", index_choisi)
 	start_action.show()
 	DatabaseConfig.current_profil_id = str(index_choisi)
-	DatabaseConfig.actions_faites = 0 # On remet le compteur à zéro pour le nouveau joueur
-	print("Nouveau tour pour ID", index_choisi, ". Actions : 0/2")
+	DatabaseConfig.actions_faites = 0 
 	
-	# Si c'est le tour du joueur 3 (index 2) ou joueur 4 (index 3)
 	if index_choisi == 2 or index_choisi == 3:
 		map.rotation_degrees = 180
 	else:
 		map.rotation_degrees = 0
 		
-	# On force la mise à jour des variables globales pour le nouveau profil
 	_synchroniser_stats_vers_global(index_choisi)
 	
 	for i in range(profils_noeuds.size()):
-		if i == index_choisi:
+		# CORRECTION : On vérifie si le mec est mort AVANT de changer sa couleur
+		if profils_noeuds[i].get_life() <= 0:
+			profils_noeuds[i].modulate.a = 0.3 # Il reste transparent
+			boutons_fin_tour[i].hide()
+		elif i == index_choisi:
 			profils_noeuds[i].modulate = Color(1, 1, 1, 1) 
 			boutons_fin_tour[i].disabled = false
 			boutons_fin_tour[i].show()
@@ -127,7 +137,6 @@ func selectionner_profil(index_choisi: int):
 			profils_noeuds[i].modulate = Color(0.3, 0.3, 0.3, 1)
 			boutons_fin_tour[i].disabled = true
 			boutons_fin_tour[i].hide()
-
 		
 func _on_end_turn_pressed(index_actuel: int):
 	check_resources_globale()
@@ -169,25 +178,20 @@ func _on_end_turn_pressed(index_actuel: int):
 	if saloon_shop: saloon_shop.random_drink()
 
 func check_resources_globale():
-	print("[Système] Vérification des ressources de tous les joueurs...")
 	for i in range(profils_noeuds.size()):
 		var joueur = profils_noeuds[i]
-		# On ne vérifie que les joueurs qui ne sont pas déjà morts
 		if joueur.get_life() > 0:
-			var boisson = joueur.get_drink()
-			var nourriture = joueur.get_food()
 			var id_str = str(i)
 
-			# Vérification faim/soif (uniquement pour le joueur qui vient de finir son tour ?)
-			# Note : Traditionnellement, on ne fait payer la faim qu'à celui qui finit son tour
 			if i == int(DatabaseConfig.current_profil_id):
-				if boisson <= 0 or nourriture <= 0:
-					print("Faim/Soif pour ID", id_str, " ! -1 PV")
+				if joueur.get_drink() <= 0 or joueur.get_food() <= 0:
+					# CORRECTION : On donne les ressources AVANT de retirer la vie
+					# Comme ça le dernier ID ne meurt pas en boucle
+					if joueur.get_drink() <= 0: DatabaseConfig.get_drink(2, id_str)
+					if joueur.get_food() <= 0: DatabaseConfig.get_food(2, id_str)
+					
 					DatabaseConfig.lose_life(1, id_str)
-					if boisson <= 0: DatabaseConfig.get_drink(2, id_str)
-					if nourriture <= 0: DatabaseConfig.get_food(2, id_str)
 			
-			# Vérification de sécurité pour tout le monde (mort subite par carte/duel)
 			if joueur.get_life() <= 0:
 				Kill_player(i)
 
@@ -199,10 +203,6 @@ func _consommer_ressources_manche():
 		
 		# On ne traite que les survivants
 		if joueur.get_life() > 0:
-			var faim = joueur.get_food()
-			var soif = joueur.get_drink()
-			
-
 			DatabaseConfig.get_food(-1, id_str)
 			DatabaseConfig.get_drink(-1, id_str)
 			
@@ -214,7 +214,10 @@ func _consommer_ressources_manche():
 func Kill_player(index: int):
 	print("Le joueur ", index, " est éliminé.")
 	var cible = profils_noeuds[index]
-	cible.modulate = Color(0.831, 0.2, 0.2, 0.8) # Le gris
+	var id_str = str(index)
+	cible.modulate.a = 0.5
+	DatabaseConfig.get_food(-5,id_str) 
+	DatabaseConfig.get_drink(-5,id_str)
 	DatabaseConfig.players_alive -= 1
 	# Optionnel : On cache son bouton pour qu'il ne puisse plus cliquer
 	boutons_fin_tour[index].hide()
@@ -249,6 +252,7 @@ func _synchroniser_stats_vers_global(index: int):
 #---- Tour -------------------------------------------------------------------------
 func verifier_limite_actions():
 	if DatabaseConfig.actions_faites >= 2:
+		DatabaseConfig.notifier_erreur("Limite d'action atteinte pour votre tour")
 		print("[Tour] Limite atteinte, fermeture des lieux.")
 		places.close_all() # Ferme visuellement les accès aux boutiques
 		places.hide()
@@ -256,19 +260,25 @@ func verifier_limite_actions():
 		
 #----------------------------------------
 
+
 func _on_profil_clique(event: InputEvent, index: int):
-	# Si le jeu est déjà lancé, on ignore les clics sur les profils
+
+# Si le jeu est déjà lancé, on ignore les clics sur les profils
+
 	if jeu_demarre:
+
 		return
 
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+
 		if not joueurs_prets[index]:
 			joueurs_prets[index] = true
 			profils_noeuds[index].modulate = Color(1, 1, 1, 1) # On allume le profil
+			if is_instance_valid(labels_start[index]):
+					labels_start[index].hide()
 			print("Joueur ", index, " est prêt !")
-			
-			# On vérifie si tout le monde est prêt
-			verifier_tous_les_joueurs_prets()
+
+	verifier_tous_les_joueurs_prets()
 
 func verifier_tous_les_joueurs_prets():
 	if not joueurs_prets.has(false): # Si plus aucun 'false' dans le tableau

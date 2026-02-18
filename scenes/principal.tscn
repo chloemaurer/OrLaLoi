@@ -27,6 +27,7 @@
 [ext_resource type="Shader" uid="uid://6bmmgs1kn515" path="res://ennemyselect.gdshader" id="22_dynj2"]
 [ext_resource type="PackedScene" uid="uid://b3xr1tqch4x8m" path="res://scenes/manches.tscn" id="25_2jxo5"]
 [ext_resource type="VideoStream" uid="uid://d8e8bwbm3nh6" path="res://animation/Manche.ogv" id="25_nexnj"]
+[ext_resource type="Script" uid="uid://ceid58oyvrvkr" path="res://scenes/error.gd" id="26_dyk5w"]
 [ext_resource type="Script" uid="uid://bkh7kd8symyl6" path="res://scripts/settings.gd" id="27_pmure"]
 [ext_resource type="Texture2D" uid="uid://vg54pksbl74s" path="res://assets/icone/parametre.webp" id="28_etfdl"]
 [ext_resource type="Texture2D" uid="uid://cipx6kvt7xgce" path="res://assets/icone/reset.webp" id="29_vdtr1"]
@@ -36,6 +37,7 @@
 [ext_resource type="PackedScene" uid="uid://cvjvuytfbacf8" path="res://scenes/mine.tscn" id="33_vdtr1"]
 [ext_resource type="PackedScene" uid="uid://bxmsp1r2b3b05" path="res://scenes/fin_jeu.tscn" id="34_yd7e0"]
 [ext_resource type="PackedScene" uid="uid://hhxtjw1cuhpp" path="res://scenes/begin_scene.tscn" id="36_rrv1i"]
+[ext_resource type="PackedScene" uid="uid://bxqn50l366o2q" path="res://result.tscn" id="38_dwjdh"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_g3ehx"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -106,6 +108,14 @@ corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pmure"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qu1kw"]
+bg_color = Color(0.48829013, 0.28945515, 0.118414946, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+shadow_offset = Vector2(5, 5)
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_0ah0u"]
 blend_mode = 2
@@ -397,6 +407,7 @@ theme_override_font_sizes/font_size = 20
 text = "À vos risque et périls"
 
 [node name="RestaurantShop" type="Control" parent="Map" unique_id=253302142]
+visible = false
 anchors_preset = 0
 offset_left = 598.99994
 offset_top = 390.99976
@@ -850,6 +861,7 @@ offset_bottom = 409.512
 theme_override_styles/panel = SubResource("StyleBoxFlat_kwvs3")
 
 [node name="TextureRect" type="TextureRect" parent="Map/Settings/Panel" unique_id=2131631933]
+modulate = Color(0.95686275, 0.8901961, 0.7647059, 1)
 layout_mode = 0
 offset_left = 86.74396
 offset_top = 88.115425
@@ -896,6 +908,7 @@ offset_bottom = 111.0
 theme_override_constants/separation = 35
 
 [node name="TextureRect" type="TextureRect" parent="Map/Settings/Panel2/VBoxContainer/Reset/Control2" unique_id=1390913507]
+modulate = Color(0.95686275, 0.8901961, 0.7647059, 1)
 layout_mode = 2
 texture = ExtResource("29_vdtr1")
 expand_mode = 3
@@ -922,6 +935,7 @@ offset_bottom = 98.76724
 theme_override_constants/separation = 35
 
 [node name="TextureRect" type="TextureRect" parent="Map/Settings/Panel2/VBoxContainer/Video/HBoxContainer2" unique_id=238358807]
+modulate = Color(0.95686275, 0.8901961, 0.7647059, 1)
 layout_mode = 2
 texture = ExtResource("31_nexnj")
 expand_mode = 3
@@ -945,6 +959,7 @@ offset_bottom = 89.97466
 theme_override_constants/separation = 35
 
 [node name="TextureRect" type="TextureRect" parent="Map/Settings/Panel2/VBoxContainer/Control/HBoxContainer" unique_id=659925651]
+modulate = Color(0.95686275, 0.8901961, 0.7647059, 1)
 layout_mode = 2
 texture = ExtResource("30_yd7e0")
 expand_mode = 3
@@ -997,6 +1012,49 @@ layout_mode = 0
 offset_right = 1920.0
 offset_bottom = 1080.0
 stream = ExtResource("25_nexnj")
+
+[node name="Error" type="Control" parent="Map" unique_id=654894452]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 661.9999
+offset_top = 118.99974
+offset_right = 133.81958
+offset_bottom = -677.9867
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.44000304, 0.44000304)
+script = ExtResource("26_dyk5w")
+
+[node name="Panel" type="Panel" parent="Map/Error" unique_id=296940741]
+layout_mode = 0
+offset_right = 1386.0
+offset_bottom = 274.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_qu1kw")
+
+[node name="ErrorText" type="Label" parent="Map/Error" unique_id=491574813]
+layout_mode = 0
+offset_left = 52.0
+offset_top = 29.0
+offset_right = 1327.0
+offset_bottom = 245.0
+theme_override_colors/font_color = Color(0.9566836, 0.8767748, 0.73369735, 1)
+theme_override_font_sizes/font_size = 45
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Timer" type="Timer" parent="Map/Error" unique_id=488250601]
+wait_time = 2.0
+
+[node name="Result" parent="Map" unique_id=1012725942 instance=ExtResource("38_dwjdh")]
+layout_mode = 0
+offset_left = 547.9999
+offset_top = 118.999756
+offset_right = 547.9999
+offset_bottom = 118.999756
+scale = Vector2(0.7599994, 0.7599994)
 
 [node name="Manches" parent="." unique_id=1608420756 instance=ExtResource("25_2jxo5")]
 layout_mode = 0
@@ -1390,6 +1448,19 @@ offset_right = 354.09442
 offset_bottom = 107.42584
 text = "Terminer ma journée"
 
+[node name="StartProfil1" type="Label" parent="Profils/Profil" unique_id=1332349012]
+visible = false
+layout_mode = 0
+offset_left = 1.4799893
+offset_top = -42.103653
+offset_right = 376.7058
+offset_bottom = 110.89635
+theme_override_font_sizes/font_size = 112
+text = "Prêt"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
 [node name="Profil2" type="Control" parent="Profils" unique_id=912308252]
 anchors_preset = 0
 offset_left = 1921.0
@@ -1751,6 +1822,19 @@ offset_right = 360.15106
 offset_bottom = 107.4258
 text = "Terminer ma journée"
 
+[node name="StartProfil2" type="Label" parent="Profils/Profil2" unique_id=1528351081]
+visible = false
+layout_mode = 0
+offset_left = -2.0187988
+offset_top = -43.40683
+offset_right = 373.20703
+offset_bottom = 109.59317
+theme_override_font_sizes/font_size = 112
+text = "Prêt"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
 [node name="Profil3" type="Control" parent="Profils" unique_id=1643295922]
 anchors_preset = 0
 offset_left = 1545.0001
@@ -2110,6 +2194,19 @@ offset_top = 80.33455
 offset_right = 357.82047
 offset_bottom = 111.33455
 text = "Terminer ma journée"
+
+[node name="StartProfil3" type="Label" parent="Profils/Profil3" unique_id=255677289]
+visible = false
+layout_mode = 0
+offset_left = 5.047304
+offset_top = -46.435364
+offset_right = 380.27313
+offset_bottom = 106.56464
+theme_override_font_sizes/font_size = 112
+text = "Prêt"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
 
 [node name="Profil4" type="Control" parent="Profils" unique_id=808373957]
 anchors_preset = 0
@@ -2471,6 +2568,19 @@ offset_right = 360.84888
 offset_bottom = 109.31561
 text = "Terminer ma journée"
 
+[node name="StartProfil4" type="Label" parent="Profils/Profil4" unique_id=1817477944]
+visible = false
+layout_mode = 0
+offset_left = 8.546273
+offset_top = -47.15104
+offset_right = 383.7721
+offset_bottom = 105.84896
+theme_override_font_sizes/font_size = 112
+text = "Prêt"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
 [node name="FinJeu" parent="." unique_id=91722483 instance=ExtResource("34_yd7e0")]
 visible = false
 layout_mode = 0
@@ -2478,6 +2588,7 @@ offset_top = -2.9999695
 offset_bottom = -2.9999695
 
 [node name="BeginScene" parent="." unique_id=1431948896 instance=ExtResource("36_rrv1i")]
+visible = false
 layout_mode = 1
 offset_right = -1280.2561
 offset_bottom = -720.14404
@@ -2511,6 +2622,7 @@ offset_bottom = -720.14404
 [connection signal="pressed" from="Map/FinDuel" to="." method="_on_fin_duel_pressed"]
 [connection signal="pressed" from="Map/FinMiniJeu" to="." method="_on_fin_mini_jeu_pressed"]
 [connection signal="finished" from="Map/MancheTransition" to="." method="_on_manche_transition_finished"]
+[connection signal="timeout" from="Map/Error/Timer" to="Map/Error" method="_on_timer_timeout"]
 [connection signal="pressed" from="Profils/Profil/Items/Items/KeypadIcon/KeypadOpen" to="Profils/Profil" method="_on_keypad_open_pressed"]
 [connection signal="pressed" from="Profils/Profil2/Items/Items/KeypadIcon/KeypadOpen" to="Profils/Profil2" method="_on_keypad_open_pressed"]
 [connection signal="pressed" from="Profils/Profil3/Items/Items/KeypadIcon/KeypadOpen" to="Profils/Profil3" method="_on_keypad_open_pressed"]

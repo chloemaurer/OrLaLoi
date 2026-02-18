@@ -1,5 +1,6 @@
 extends Node
 
+signal demande_affichage_erreur
 signal db_ready
 var db_ref : FirebaseDatabaseReference = null
 var is_ready : bool = false
@@ -20,6 +21,7 @@ var mini_jeu_en_cours = ""
 var recompenses_distribuees = false
 var scores_accumules = {"0": 0.0, "1": 0.0, "2": 0.0, "3": 0.0}
 var players_alive : int = 4
+var error_message= ""
 # --- RÉFÉRENCES DES SCRIPTS (Assignées par le Main/Général) ---
 var script_general = null 
 var script_saloon = null 
@@ -385,6 +387,13 @@ func valider_et_distribuer():
 		# ON VIDE LES SCORES LOCAUX AVANT DE DISTRIBUER
 		# Cela empêche le dispatcher de boucler si Firebase répond trop vite
 		var copie_resultats = resultats_temp.duplicate()
+		
+		# --- AJOUT DU TABLEAU DES RÉSULTATS ---
+		var popup_resultats = script_general.get_node("Map/MenuResultats")
+		if is_instance_valid(popup_resultats):
+			popup_resultats.afficher_resultats(copie_resultats)
+		# --------------------------------------
+		
 		scores_accumules = {"0": 0.0, "1": 0.0, "2": 0.0, "3": 0.0} 
 		
 		winner_miniJeux(copie_resultats)
@@ -491,11 +500,13 @@ func terminer_le_duel():
 	if (rapide == id_a and m_a > 0) or (rapide == id_b and m_b > 0):
 		gagnant_final = rapide
 		perdant_final = lent
+		DatabaseConfig.notifier_erreur("Le plus rapide gagne")
 		print("[DUEL] Le plus rapide (ID", rapide, ") a tiré !")
 	# Si le plus rapide n'a PAS de munitions mais que le plus lent en a
 	elif (rapide == id_a and m_a <= 0 and m_b > 0) or (rapide == id_b and m_b <= 0 and m_a > 0):
 		gagnant_final = lent
 		perdant_final = rapide
+		DatabaseConfig.notifier_erreur("Pas de balle pour le gagnant, riposte de l'adversaire")
 		print("[DUEL] ID", rapide, " était plus rapide mais n'avait pas de balles ! ID", lent, " riposte !")
 	else:
 		print("[DUEL] Personne n'a de munitions... Match nul !")
@@ -520,3 +531,8 @@ func terminer_le_duel():
 func _nettoyer_duel(id_joueur: String):
 	scores_accumules[id_joueur] = 0.0
 	Firebase.Database.get_database_reference("mini_jeu/ID" + id_joueur).update("", {"duel": false, "temps": 0})
+
+
+func notifier_erreur(msg: String):
+	error_message = msg
+	demande_affichage_erreur.emit() # On tire la sonnette d'alarme

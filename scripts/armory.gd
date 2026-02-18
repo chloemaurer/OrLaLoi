@@ -48,3 +48,5 @@ func _on_armory_buy_card_pressed() -> void:
 	# On demande au script principal de vérifier si on doit fermer les places
 		if DatabaseConfig.script_general:
 			DatabaseConfig.script_general.verifier_limite_actions()
+	else :
+		DatabaseConfig.notifier_erreur("Achat échoué : Pas assez d'argent")

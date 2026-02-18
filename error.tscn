@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://bxa0sp4a5wc0o"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qu1kw"]
+bg_color = Color(0.48829013, 0.28945515, 0.118414946, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+shadow_offset = Vector2(5, 5)
+
+[node name="Error" type="Control" unique_id=654894452]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -528.0
+offset_bottom = -797.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="." unique_id=296940741]
+layout_mode = 0
+offset_right = 1386.0
+offset_bottom = 274.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_qu1kw")
+
+[node name="ErrorText" type="Label" parent="." unique_id=491574813]
+layout_mode = 0
+offset_left = 52.0
+offset_top = 38.0
+offset_right = 1327.0
+offset_bottom = 245.0
+theme_override_colors/font_color = Color(0.9566836, 0.8767748, 0.73369735, 1)
+theme_override_font_sizes/font_size = 70
+horizontal_alignment = 1
+vertical_alignment = 1

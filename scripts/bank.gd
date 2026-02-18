@@ -51,6 +51,7 @@ func _on_bank_buy_card_pressed() -> void:
 			DatabaseConfig.script_general.verifier_limite_actions()
 
 	else:
+		DatabaseConfig.notifier_erreur("Achat échoué : Pas assez d'argent")
 		print("Banque : Échec de l'achat (fonds insuffisants)")
 		prix.modulate = Color.RED
 

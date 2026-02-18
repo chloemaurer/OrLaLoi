@@ -86,6 +86,7 @@ func check_munition():
 		duel.show()
 		dés.hide()
 	else:
+		DatabaseConfig.notifier_erreur("Pas de munitions ! Vous ne pouvez pas lancer le duel")
 		print("[REFUS] Pas de munitions ! Le joueur ne peut pas lancer de duel.")
 		duel.hide() 
 		

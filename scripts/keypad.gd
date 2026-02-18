@@ -83,11 +83,13 @@ func check_code():
 			break
 
 	if not carte_trouvee:
+		DatabaseConfig.notifier_erreur("Vous vous êtes trompé de code")
 		print("❌ ÉCHEC : Code inconnu.")
 		reset_keypad()
 		return
 		
 	if carte_trouvee.get("disponible", true) == false:
+		DatabaseConfig.notifier_erreur("La carte a déjà été utilisé")
 		print("🚫 ÉCHEC : Déjà utilisée.")
 		_finaliser_utilisation_keypad()
 		return
@@ -112,6 +114,7 @@ func check_code():
 			DatabaseConfig.disable_card(id_a_desactiver)
 			_consommer_action_et_quitter()
 	else:
+		DatabaseConfig.notifier_erreur("Mauvaise zone la carte ne fonctionne pas ici ")
 		print("🚫 MAUVAISE ZONE : ", carte_trouvee["categorie"], " ne marche pas ici (", DatabaseConfig.zone, ")")
 		reset_keypad()
 
